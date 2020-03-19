@@ -7,12 +7,12 @@ from .IncrementalSearch import IncrementalSearch as ISearch
 from matplotlib.backends.backend_gtk3agg import (
     FigureCanvasGTK3Agg as FigureCanvas)
 from matplotlib.figure import Figure
-
 from matplotlib import pyplot
+import pandas as pd
 import numpy as np
 import math
 
-class function_user_interface(Gtk.Grid):
+class incremental_search_ui(Gtk.Grid):
 
     def __init__(self):
 
@@ -20,11 +20,12 @@ class function_user_interface(Gtk.Grid):
         self.grid = Gtk.Grid()
         self.grid = self.create_ui()
 
+
+
     def create_ui(self):
         #Function Label and Entry at the bottom, with Evaluate Button
         grid = Gtk.Grid()
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-
 
         self.function = Gtk.Entry()
         label_function = Gtk.Label("Function")
@@ -61,7 +62,6 @@ class function_user_interface(Gtk.Grid):
 
         grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.RIGHT, 1, 5)
 
-
         #Box that contains all Buttons
         vbox5 = Gtk.Box(spacing=8)
 
@@ -79,7 +79,6 @@ class function_user_interface(Gtk.Grid):
 
         grid.attach_next_to(vbox5, vbox2, Gtk.PositionType.BOTTOM, 3, 5)
 
-
         #Result Entry
         vbox6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
 
@@ -90,14 +89,31 @@ class function_user_interface(Gtk.Grid):
 
         grid.attach_next_to(vbox6, vbox5, Gtk.PositionType.BOTTOM, 3, 5)
 
-        self.vbox7 = Gtk.Box(spacing=8)
-
+        #Graph
+        vbox7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        label_graph = Gtk.Label("Function's Graph")
         self.figure = Figure(figsize=(3,4), dpi = 100)
         self.canvas = FigureCanvas(self.figure)
         self.canvas.set_size_request(400,300)
-        self.vbox7.pack_start(self.canvas, True, True, 0)
+        vbox7.pack_start(label_graph, True, True, 0)
+        vbox7.pack_start(self.canvas, True, True, 0)
 
-        grid.attach_next_to(self.vbox7, vbox6, Gtk.PositionType.BOTTOM, 3, 5)
+        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.BOTTOM, 3, 5)
+
+        #Table
+        vbox8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        label_table = Gtk.Label("Function's Table")
+        vbox8.pack_start(label_table, True, True, 0)
+
+        vbox9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
+        scrollTree.set_policy(Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS)
+        self.table_tree = Gtk.TreeView()
+        scrollTree.add(self.table_tree)
+        vbox9.pack_start(scrollTree, True, True, 0)
+
+        grid.attach_next_to(vbox8, vbox, Gtk.PositionType.RIGHT, 1, 5)
+        grid.attach_next_to(vbox9, vbox8, Gtk.PositionType.BOTTOM, 1, 25)
 
         grid.set_column_homogeneous(True)
         grid.set_column_spacing(8)
@@ -106,16 +122,18 @@ class function_user_interface(Gtk.Grid):
         return grid
 
 
+
     def evaluate_function(self, widget):
-        print("Hola: ",self.x0.get_text())
         initial_value = float(self.x0.get_text())
         increment = float(self.increment.get_text())
         iterations = float(self.iterations.get_text())
         func = Function(self.function.get_text())
 
-        incremental_Search = ISearch()
-        range_of_root = incremental_Search.evaluate(initial_value, increment, iterations, func)
+        self.incremental_Search = ISearch()
+        range_of_root = self.incremental_Search.evaluate(initial_value, increment, iterations, func)
         self.result.set_text(str(range_of_root))
+
+
 
     def graph_function(self, widget):
         initial_value = float(self.x0.get_text())
@@ -130,8 +148,30 @@ class function_user_interface(Gtk.Grid):
 
         self.canvas.draw()
 
-    def show_table(self, widget):
-        pass
 
-    def refresh_values(self):
-        self.grid = self.create_ui()
+
+    def show_table(self, widget):
+
+        if(self.table_tree.get_model() != None):
+            self.table_tree.set_model(self.table_tree.get_model().clear())
+            self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
+
+        df = pd.DataFrame(self.incremental_Search.values, columns=['x value', 'y value'])
+        self.store = Gtk.ListStore(float, float)
+
+        for i,j in df.iterrows():
+            # i es el index del DataFrame
+            # J es la tupla donde esta el valor de x & y
+            # los dos son un row del DataFrame
+            tuple_of_row = j
+            self.store.append(list(tuple_of_row))
+
+        self.table_tree.set_model(self.store)
+
+        for i, col in enumerate(['x value', 'y value']):
+            renderer = Gtk.CellRendererText()
+
+            column = Gtk.TreeViewColumn(col, renderer, text=i)
+
+            self.table_tree.append_column(column)

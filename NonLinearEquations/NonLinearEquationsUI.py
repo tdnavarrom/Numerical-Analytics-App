@@ -1,7 +1,7 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-from .functions.functionsUI import function_user_interface as fui
+from .functions.Incremental_Search_UI import incremental_search_ui as isui
 
 class NonLinealMenu(Gtk.Notebook):
 
@@ -14,7 +14,7 @@ class NonLinealMenu(Gtk.Notebook):
         notebook = Gtk.Notebook()
         page1 = Gtk.Box()
         page1.set_border_width(10)
-        page1.add(fui().grid)
+        page1.add(isui().grid)
         notebook.append_page(page1, Gtk.Label('Incremental Search'))
 
         page2 = Gtk.Box()
