@@ -4,6 +4,14 @@ from gi.repository import Gtk
 from .Function import Function
 from .IncrementalSearch import IncrementalSearch as ISearch
 
+from matplotlib.backends.backend_gtk3agg import (
+    FigureCanvasGTK3Agg as FigureCanvas)
+from matplotlib.figure import Figure
+
+from matplotlib import pyplot
+import numpy as np
+import math
+
 class function_user_interface(Gtk.Grid):
 
     def __init__(self):
@@ -66,7 +74,7 @@ class function_user_interface(Gtk.Grid):
         vbox5.pack_start(button2, True, True, 0)
 
         button3 = Gtk.Button(label="Table")
-        button3.connect('clicked', self.graph_function)
+        button3.connect('clicked', self.show_table)
         vbox5.pack_start(button3, True, True, 0)
 
         grid.attach_next_to(vbox5, vbox2, Gtk.PositionType.BOTTOM, 3, 5)
@@ -81,6 +89,15 @@ class function_user_interface(Gtk.Grid):
         vbox6.pack_start(self.result, True, True, 0)
 
         grid.attach_next_to(vbox6, vbox5, Gtk.PositionType.BOTTOM, 3, 5)
+
+        self.vbox7 = Gtk.Box(spacing=8)
+
+        self.figure = Figure(figsize=(3,4), dpi = 100)
+        self.canvas = FigureCanvas(self.figure)
+        self.canvas.set_size_request(400,300)
+        self.vbox7.pack_start(self.canvas, True, True, 0)
+
+        grid.attach_next_to(self.vbox7, vbox6, Gtk.PositionType.BOTTOM, 3, 5)
 
         grid.set_column_homogeneous(True)
         grid.set_column_spacing(8)
@@ -101,7 +118,17 @@ class function_user_interface(Gtk.Grid):
         self.result.set_text(str(range_of_root))
 
     def graph_function(self, widget):
-        print(self.function.get_text())
+        initial_value = float(self.x0.get_text())
+        increment = float(self.increment.get_text())
+        iterations = float(self.iterations.get_text())
+        final_value = math.fabs(initial_value+math.fabs(increment*iterations))
+        func = Function(self.function.get_text())
+
+        a = self.figure.add_subplot(111)
+        x = np.arange(initial_value, final_value, increment)
+        a.plot(x, [func.evaluate(i) for i in x])
+
+        self.canvas.draw()
 
     def show_table(self, widget):
         pass
