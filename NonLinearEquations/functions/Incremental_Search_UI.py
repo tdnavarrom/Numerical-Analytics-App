@@ -98,14 +98,13 @@ class incremental_search_ui(Gtk.Grid):
 
         return grid, vbox4
 
-    def button_box(self, grid, vbox2, vbox4):
+    def button_box(self, grid, vbox2):
         '''
         Box that contains all Buttons.
 
         Parameters:
             grid
             vbox2
-            vbox4
         Returns:
             grid
             vbox5
@@ -198,7 +197,7 @@ class incremental_search_ui(Gtk.Grid):
         grid, vbox2 = self.initial_value_and_entry(grid, vbox)
         grid, vbox3 = self.increment_value_entry(grid, vbox2)
         grid, vbox4 = self.iteration_value_entry(grid, vbox3)
-        grid, vbox5 = self.button_box(grid, vbox2, vbox4)
+        grid, vbox5 = self.button_box(grid, vbox2)
         grid, vbox6 = self.result_entry(grid, vbox5)
         grid, vbox7 = self.graph(grid, vbox6)
         grid = self.table(grid, vbox)
