@@ -6,6 +6,7 @@ class FalseRule:
         self.xs =xs
         self.tolerancia = tolerancia
         self.iter = iter
+        self.valores = []
     
 
     def operacion(self,xi,xs,tolerancia,iter,funcion):
@@ -21,9 +22,10 @@ class FalseRule:
             contador = 1
             error = tolerancia + 1
 
-            print("++ XI ++ XS ++ XM ++ FXM ++")
-            print("--------------------")
-            print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
+            # print("++ XI ++ XS ++ XM ++ FXM ++")
+            # print("--------------------")
+            # print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
+            self.valores.append([xm,fxm])
 
             while error > tolerancia and fxm != 0 and contador < iter:
                 if fxm * fxi < 0:
@@ -37,8 +39,8 @@ class FalseRule:
                 fxm = funcion.evaluate(xm)
                 error = abs(xm-xaux)
                 contador+=1
-
-                print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
+                # print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
+                self.valores.append([xm,fxm])
             
             if fxm == 0:
                 print(f"{xm} es raiz")

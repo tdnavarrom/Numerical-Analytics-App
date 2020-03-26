@@ -6,6 +6,7 @@ class Bisseccion:
         self.xs = float(xs)
         self.tolerancia = tolerancia
         self.iter = iter
+        self.valores = []
     
 
     def operacion(self,xi,xs,tolerancia,iter,funcion):
@@ -18,12 +19,13 @@ class Bisseccion:
         elif fxi *fxs < 0:
             xm =float((xi+xs)/2)
             fxm = funcion.evaluate(xm)
-           
             contador = 1
             error = tolerancia + 1
             # print("++ XI ++ XS ++ XM ++ FXM ++")
             # print("--------------------")
             # print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
+            
+
             while error > tolerancia and fxm != 0 and contador < iter:
                 if fxm * fxi < 0:
                     xs = xm
@@ -36,8 +38,10 @@ class Bisseccion:
                 fxm = funcion.evaluate(xm)
                 error = abs(xm-xaux)
                 contador+=1
+                self.valores.append([xm,fxm])
                 # print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
-            
+
+            # print(self.valores)
             if fxm == 0:
                 print(f"{xm} es raiz")
             elif (error < tolerancia):
