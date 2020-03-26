@@ -20,6 +20,8 @@ class Bisection:
             # print("++ XI ++ XS ++ XM ++ FXM ++")
             # print("--------------------")
             # print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
+            
+
             while error > tolerancia and fxm != 0 and contador < iter:
                 if fxm * fxi < 0:
                     xs = xm
@@ -37,7 +39,6 @@ class Bisection:
                 self.values.append([xm, fxm, error])
 
                 contador+=1
-                # print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
 
             if fxm == 0:
                 return f"{xm} es raiz"
