@@ -1,5 +1,6 @@
 import math
 
+
 class FixedPoint:
 
     def __init__(self):
@@ -17,23 +18,23 @@ class FixedPoint:
             return "Error en la tolerancia, debe ser mayor o igual a 0"
 
         contador = 0
-        error = tolerancia + 1
+        xn = gx.evaluate(xi)
+        error = tolerancia + 0.1
+        self.values.append([contador, xn, fx, error])
         while fx != 0 and error > tolerancia and contador < iter:
             xn = gx.evaluate(xi)
             fx = fun.evaluate(xn)
-            error = abs(xn-xi)/xn
+            error = abs((xn-xi)/xn)
             xi = xn
-            self.values.append([xn, fx, error])
+            self.values.append([contador, xn, fx, error])
             contador = contador + 1
-
 
         if fx == 0:
             return f"{xi} es raiz"
-        elif error<tolerancia:
+        elif error < tolerancia:
             return f"{xi} es una aprox. con una tolerancia = {tolerancia}"
         else:
             return f"El método fracasó en {iter} iteraciones"
-
 
     def tabla_values(self):
         return self.values

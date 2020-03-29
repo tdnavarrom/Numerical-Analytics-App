@@ -19,7 +19,6 @@ class fixedPoint_search_ui(Gtk.Grid):
         self.grid = Gtk.Grid()
         self.grid = self.create_ui()
 
-
     def function_entry(self):
         """
         Function Label and Entry at the bottom, with Evaluate Button.
@@ -37,7 +36,6 @@ class fixedPoint_search_ui(Gtk.Grid):
         grid.attach(vbox, 0, 0, 4, 5)
 
         return grid, vbox
-
 
     def g_function_entry(self, grid, vbox):
         """
@@ -58,7 +56,6 @@ class fixedPoint_search_ui(Gtk.Grid):
         grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 4, 5)
 
         return grid, vbox2
-
 
     def tolerancia_value_entry(self, grid, vbox2):
         """
@@ -81,7 +78,6 @@ class fixedPoint_search_ui(Gtk.Grid):
 
         return grid, vbox3
 
-
     def initial_value_and_entry(self, grid, vbox3):
         """
         Initial Value Label and Entry at the bottom.
@@ -101,7 +97,6 @@ class fixedPoint_search_ui(Gtk.Grid):
         grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.BOTTOM, 2, 5)
 
         return grid, vbox4
-
 
     def iteration_value_entry(self, grid, vbox4):
         '''
@@ -262,23 +257,23 @@ class fixedPoint_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
 
         df = pd.DataFrame(self.fixed_point_Search.values,
-                          columns=['x Value', 'F(x) Value', 'Error'])
+                          columns=['iter', 'x Value', 'F(x) Value', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(float, float, float)
+        self.store = Gtk.ListStore(int, float, float, float)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
             # J es la tupla donde esta el valor de x & y
             # los dos son un row del DataFrame
             tuple_of_row = j
-            print(tuple_of_row)
             self.store.append(list(tuple_of_row))
 
         self.table_tree.set_model(self.store)
 
-        for i, col in enumerate(['X value', 'F(x) value', 'Error']):
+        for i, col in enumerate(['Iter', 'X value', 'F(x) value', 'Error']):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)
