@@ -37,6 +37,7 @@ class falseRule_search_ui(Gtk.Grid):
 
         return grid, vbox
 
+
     def tolerancia_value_entry(self, grid, vbox):
         """
         Increment Value Label and Entry at the bottom.
@@ -57,6 +58,7 @@ class falseRule_search_ui(Gtk.Grid):
         grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 3, 5)
 
         return grid, vbox2
+
 
     def inferior_value_and_entry(self, grid, vbox2):
         """
@@ -234,7 +236,7 @@ class falseRule_search_ui(Gtk.Grid):
 
         self.false_rule_Search = FSearch()
         range_of_root = self.false_rule_Search.evaluate(
-            inferior_value, superior_value, tolerance, iterations, func, type_error=1)
+            inferior_value, superior_value, tolerance, iterations, func, type_error = 1)
         self.result.set_text(str(range_of_root))
 
     def graph_function(self, widget):
@@ -257,14 +259,11 @@ class falseRule_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
-            self.table_tree.remove_column(self.table_tree.get_column(0))
-            self.table_tree.remove_column(self.table_tree.get_column(0))
-            self.table_tree.remove_column(self.table_tree.get_column(0))
 
         df = pd.DataFrame(self.false_rule_Search.values,
-                          columns=['n', 'Xinf', 'Xsup', 'Xv', 'F(x) Value', 'Error'])
+                          columns=['x Value', 'F(x) Value', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(int, float, float, float, float, float)
+        self.store = Gtk.ListStore(float, float, float)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
@@ -276,7 +275,7 @@ class falseRule_search_ui(Gtk.Grid):
 
         self.table_tree.set_model(self.store)
 
-        for i, col in enumerate(['n', 'Xinf', 'Xsup', 'Xv', 'F(x) value', 'Error']):
+        for i, col in enumerate(['X value', 'F(x) value', 'Error']):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)
