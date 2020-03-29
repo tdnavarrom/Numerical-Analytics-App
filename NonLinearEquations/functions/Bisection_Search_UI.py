@@ -44,10 +44,10 @@ class bisection_search_ui(Gtk.Grid):
 
         Parameters:
             grid
-            vbox2
+            vbox
         Returns:
             grid
-            vbox3
+            vbox2
 
         """
         vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
@@ -66,10 +66,10 @@ class bisection_search_ui(Gtk.Grid):
 
         Parameters:
             grid
-            vbox
+            vbox2
         Returns:
             grid
-            vbox2
+            vbox3
         """
         vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.x0 = Gtk.Entry()
@@ -86,10 +86,10 @@ class bisection_search_ui(Gtk.Grid):
 
         Parameters:
             grid
-            vbox
+            vbox3
         Returns:
             grid
-            vbox2
+            vbox4
         """
         vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.xs = Gtk.Entry()
@@ -106,10 +106,10 @@ class bisection_search_ui(Gtk.Grid):
 
         Parameters:
             grid
-            vbox3
+            vbox4
         Returns:
             grid
-            vbox4
+            vbox5
         '''
         vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.iterations = Gtk.Entry()
@@ -126,10 +126,10 @@ class bisection_search_ui(Gtk.Grid):
 
         Parameters:
             grid
-            vbox2
+            vbox3
         Returns:
             grid
-            vbox5
+            vbox6
         '''
         vbox6 = Gtk.Box(spacing=8)
         button = Gtk.Button(label="Evaluate")
@@ -151,10 +151,10 @@ class bisection_search_ui(Gtk.Grid):
 
         Parameters:
             grid
-            vbox5
+            vbox6
         Returns:
             grid
-            vbox6
+            vbox7
         '''
         vbox7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         label_result = Gtk.Label("Result")
@@ -171,10 +171,10 @@ class bisection_search_ui(Gtk.Grid):
 
         Parameters:
             grid
-            vbox6
+            vbox7
         Returns:
             grid
-            vbox7
+            vbox8
         '''
         vbox8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         label_graph = Gtk.Label("Function's Graph")
@@ -185,7 +185,7 @@ class bisection_search_ui(Gtk.Grid):
         vbox8.pack_start(self.canvas, True, True, 0)
         grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 3, 5)
 
-        return grid, vbox7
+        return grid, vbox8
 
     def table(self, grid, vbox):
         '''

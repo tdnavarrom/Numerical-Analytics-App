@@ -5,8 +5,15 @@ class Bisection:
         self.values = []
 
     def evaluate(self,xi,xs,tolerancia,iter,funcion, type_error = 1):
+
         fxi = funcion.evaluate(xi)
         fxs = funcion.evaluate(xs)
+
+        if iter < 1:
+            return "El valor del iterador es incorrecto"
+        if tolerancia < 0:
+            return "Error en la tolerancia, debe ser mayor o igual a 0"
+            
         if fxi == 0:
             return f"{xi} es una raiz"
         elif fxs == 0:
@@ -20,7 +27,7 @@ class Bisection:
             # print("++ XI ++ XS ++ XM ++ FXM ++")
             # print("--------------------")
             # print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
-            
+
 
             while error > tolerancia and fxm != 0 and contador < iter:
                 if fxm * fxi < 0:

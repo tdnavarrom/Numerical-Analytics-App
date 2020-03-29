@@ -4,7 +4,7 @@ from gi.repository import Gtk
 from .functions.Incremental_Search_UI import incremental_search_ui as isui
 from .functions.Bisection_Search_UI import bisection_search_ui as bsui
 from .functions.FalseRule_Search_UI import falseRule_search_ui as fsui
-from .functions.FixedPoint_UI import fixedPoint_search_ui as fpsui
+from .functions.FixedPoint_Search_UI import fixedPoint_search_ui as fpsui
 
 class NonLinealMenu(Gtk.Notebook):
 

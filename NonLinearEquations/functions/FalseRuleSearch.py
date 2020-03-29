@@ -1,7 +1,7 @@
 import math
 
 class FalseRule:
-  
+
     def __init__(self):
         self.values=[]
 
@@ -10,6 +10,12 @@ class FalseRule:
 
         fxi = funcion.evaluate(xi)
         fxs = funcion.evaluate(xs)
+
+        if iter < 1:
+            return "El valor del iterador es incorrecto"
+        if tolerancia < 0:
+            return "Error en la tolerancia, debe ser mayor o igual a 0"
+
         if fxi == 0:
             return f"{xi} es una raiz"
         elif fxs == 0:
@@ -19,7 +25,7 @@ class FalseRule:
             fxm = funcion.evaluate(xm)
             contador = 1
             error = tolerancia + 1
-            
+
             self.values.append([xm, fxm, error])
 
             while error > tolerancia and fxm != 0 and contador < iter:
