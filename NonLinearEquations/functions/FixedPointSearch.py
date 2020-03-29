@@ -8,7 +8,7 @@ class FixedPoint:
 
     def evaluate(self, xi, tolerancia, iter, fun, gx):
 
-        fx = fun.evaluate(xi)
+        fx = fun.evaluate2(xi)
 
         if fx == 0:
             return f"{xi} es raiz"
@@ -18,15 +18,15 @@ class FixedPoint:
             return "Error en la tolerancia, debe ser mayor o igual a 0"
 
         contador = 0
-        xn = gx.evaluate(xi)
+        xn = gx.evaluate2(xi)
         error = tolerancia + 0.1
         self.values.append([contador, xn, fx, error])
         while fx != 0 and error > tolerancia and contador < iter:
-            xn = gx.evaluate(xi)
-            fx = fun.evaluate(xn)
+            xn = gx.evaluate2(xi)
+            fi = fun.evaluate2(xn)
             error = abs((xn-xi)/xn)
             xi = xn
-            self.values.append([contador, xn, fx, error])
+            self.values.append([contador, xn, fi, error])
             contador = contador + 1
 
         if fx == 0:
