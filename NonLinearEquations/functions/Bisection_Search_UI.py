@@ -30,13 +30,11 @@ class bisection_search_ui(Gtk.Grid):
         grid = Gtk.Grid()
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.function = Gtk.Entry()
-        label_function = Gtk.Label("Function")
-        vbox.pack_start(label_function, True, True, 0)
+        self.function.set_placeholder_text("Function")
         vbox.pack_start(self.function, True, True, 0)
-        grid.attach(vbox, 0, 0, 3, 5)
+        grid.attach(vbox, 0, 0, 2, 2)
 
         return grid, vbox
-
 
     def tolerancia_value_entry(self, grid, vbox):
         """
@@ -52,13 +50,11 @@ class bisection_search_ui(Gtk.Grid):
         """
         vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.tolerance = Gtk.Entry()
-        label_tolerance = Gtk.Label("Tolerance")
-        vbox2.pack_start(label_tolerance, True, True, 0)
+        self.tolerance.set_placeholder_text("Tolerance")
         vbox2.pack_start(self.tolerance, True, True, 0)
-        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 3, 5)
+        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 1, 2)
 
         return grid, vbox2
-
 
     def inferior_value_and_entry(self, grid, vbox2):
         """
@@ -73,14 +69,13 @@ class bisection_search_ui(Gtk.Grid):
         """
         vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.x0 = Gtk.Entry()
-        label_x0 = Gtk.Label("Inferior Value")
-        vbox3.pack_start(label_x0, True, True, 0)
+        self.x0.set_placeholder_text("Inferior value")
         vbox3.pack_start(self.x0, True, True, 0)
-        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 1, 5)
+        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.RIGHT, 1, 2)
 
         return grid, vbox3
 
-    def superior_value_entry(self, grid, vbox3):
+    def superior_value_entry(self, grid, vbox2):
         """
         Initial Value Label and Entry at the bottom.
 
@@ -93,10 +88,9 @@ class bisection_search_ui(Gtk.Grid):
         """
         vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.xs = Gtk.Entry()
-        label_xs = Gtk.Label("Superior Value")
-        vbox4.pack_start(label_xs, True, True, 0)
+        self.xs.set_placeholder_text("Superior value")
         vbox4.pack_start(self.xs, True, True, 0)
-        grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.RIGHT, 1, 5)
+        grid.attach_next_to(vbox4, vbox2, Gtk.PositionType.BOTTOM, 1, 2)
 
         return grid, vbox4
 
@@ -113,14 +107,13 @@ class bisection_search_ui(Gtk.Grid):
         '''
         vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.iterations = Gtk.Entry()
-        label_iterations = Gtk.Label("Iterations")
-        vbox5.pack_start(label_iterations, True, True, 0)
+        self.iterations.set_placeholder_text("Iterations")
         vbox5.pack_start(self.iterations, True, True, 0)
-        grid.attach_next_to(vbox5, vbox4, Gtk.PositionType.RIGHT, 1, 5)
+        grid.attach_next_to(vbox5, vbox4, Gtk.PositionType.RIGHT, 1, 2)
 
         return grid, vbox5
 
-    def button_box(self, grid, vbox3):
+    def button_box(self, grid, vbox4):
         '''
         Box that contains all Buttons.
 
@@ -141,7 +134,7 @@ class bisection_search_ui(Gtk.Grid):
         button3 = Gtk.Button(label="Table")
         button3.connect('clicked', self.show_table)
         vbox6.pack_start(button3, True, True, 0)
-        grid.attach_next_to(vbox6, vbox3, Gtk.PositionType.BOTTOM, 3, 5)
+        grid.attach_next_to(vbox6, vbox4, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox6
 
@@ -157,11 +150,10 @@ class bisection_search_ui(Gtk.Grid):
             vbox7
         '''
         vbox7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        label_result = Gtk.Label("Result")
         self.result = Gtk.Entry()
-        vbox7.pack_start(label_result, True, True, 0)
+        self.result.set_placeholder_text("Result")
         vbox7.pack_start(self.result, True, True, 0)
-        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.BOTTOM, 3, 5)
+        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox7
 
@@ -183,7 +175,7 @@ class bisection_search_ui(Gtk.Grid):
         self.canvas.set_size_request(400, 300)
         vbox8.pack_start(label_graph, True, True, 0)
         vbox8.pack_start(self.canvas, True, True, 0)
-        grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 3, 5)
+        grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 2, 5)
 
         return grid, vbox8
 
@@ -198,19 +190,15 @@ class bisection_search_ui(Gtk.Grid):
             grid
         '''
         vbox9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        label_table = Gtk.Label("Function's Table")
-        vbox9.pack_start(label_table, True, True, 0)
-        vbox10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
         scrollTree.set_policy(Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS)
         self.table_tree = Gtk.TreeView()
         scrollTree.add(self.table_tree)
-        vbox10.pack_start(scrollTree, True, True, 0)
-        grid.attach_next_to(vbox9, vbox, Gtk.PositionType.RIGHT, 1, 5)
-        grid.attach_next_to(vbox10, vbox9, Gtk.PositionType.BOTTOM, 1, 25)
+        vbox9.pack_start(scrollTree, True, True, 0)
+        grid.attach_next_to(vbox9, vbox, Gtk.PositionType.RIGHT, 3, 25)
         grid.set_column_homogeneous(True)
-        grid.set_column_spacing(8)
-        grid.set_row_spacing(8)
+        grid.set_column_spacing(25)
+        grid.set_row_spacing(25)
 
         return grid
 
@@ -218,9 +206,9 @@ class bisection_search_ui(Gtk.Grid):
         grid, vbox = self.function_entry()
         grid, vbox2 = self.tolerancia_value_entry(grid, vbox)
         grid, vbox3 = self.inferior_value_and_entry(grid, vbox2)
-        grid, vbox4 = self.superior_value_entry(grid, vbox3)
+        grid, vbox4 = self.superior_value_entry(grid, vbox2)
         grid, vbox5 = self.iteration_value_entry(grid, vbox4)
-        grid, vbox6 = self.button_box(grid, vbox3)
+        grid, vbox6 = self.button_box(grid, vbox4)
         grid, vbox7 = self.result_entry(grid, vbox6)
         grid, vbox8 = self.graph(grid, vbox7)
         grid = self.table(grid, vbox)
@@ -236,7 +224,7 @@ class bisection_search_ui(Gtk.Grid):
 
         self.bisection_Search = BSearch()
         range_of_root = self.bisection_Search.evaluate(
-            inferior_value, superior_value, tolerance, iterations, func, type_error = 1)
+            inferior_value, superior_value, tolerance, iterations, func, type_error=1)
         self.result.set_text(str(range_of_root))
 
     def graph_function(self, widget):
