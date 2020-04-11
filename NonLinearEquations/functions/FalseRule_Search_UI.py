@@ -141,7 +141,11 @@ class falseRule_search_ui(Gtk.Grid):
         button3 = Gtk.Button(label="Table")
         button3.connect('clicked', self.show_table)
         vbox6.pack_start(button3, True, True, 0)
+        button4 = Gtk.Button(label="Help")
+        button4.connect('clicked',self.on_help_clicked)
+        vbox6.pack_start(button4, True, True, 0)
         grid.attach_next_to(vbox6, vbox3, Gtk.PositionType.BOTTOM, 3, 5)
+        
 
         return grid, vbox6
 
@@ -281,3 +285,11 @@ class falseRule_search_ui(Gtk.Grid):
             column = Gtk.TreeViewColumn(col, renderer, text=i)
 
             self.table_tree.append_column(column)
+
+    def on_help_clicked(self, widget):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "False Rule Search Help")
+        dialog.format_secondary_text("Dado un intervalo inicial [xi,xu], se encuentra el punto de interseccion del eje x con la recta secante que une los puntos (xi,f(xi) y (xu,f(xu) y se evalúa en la función f(x).\nLa función f debe estar definida en el intervalo [xi,xu], f debe de ser continua en el intervalo [xi,xu] y  f(xi)∗f(xu)<0.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()

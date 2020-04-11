@@ -115,6 +115,9 @@ class incremental_search_ui(Gtk.Grid):
         button3 = Gtk.Button(label="Table")
         button3.connect('clicked', self.show_table)
         vbox5.pack_start(button3, True, True, 0)
+        button4 = Gtk.Button(label="Help")
+        button4.connect('clicked',self.on_help_clicked)
+        vbox5.pack_start(button4, True, True, 0)
         grid.attach_next_to(vbox5, vbox2, Gtk.PositionType.BOTTOM, 2, 1)
 
         return grid, vbox5
@@ -246,3 +249,10 @@ class incremental_search_ui(Gtk.Grid):
             column = Gtk.TreeViewColumn(col, renderer, text=i)
 
             self.table_tree.append_column(column)
+    def on_help_clicked(self, widget):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Incremental Search Help")
+        dialog.format_secondary_text("El metodo de la busqueda incremental funciona ingresando una funcion, un valor inferior y superior que conformaran un conjunto.\nDentro de este conjunto,utilizando el incremento ingresado se evalua la funcion en un valor hasta encontrar un cambio de signo o que f(x)=0.\n\n En el caso de un cambio de signo, la raiz esta dentro del intervalo, o en el caso de encontrar f(x)=0, la raiz es x. ")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()

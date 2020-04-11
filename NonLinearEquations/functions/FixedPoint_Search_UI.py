@@ -139,6 +139,9 @@ class fixedPoint_search_ui(Gtk.Grid):
         button3 = Gtk.Button(label="Table")
         button3.connect('clicked', self.show_table)
         vbox6.pack_start(button3, True, True, 0)
+        button4 = Gtk.Button(label="Help")
+        button4.connect('clicked',self.on_help_clicked)
+        vbox6.pack_start(button4, True, True, 0)
         grid.attach_next_to(vbox6, vbox4, Gtk.PositionType.BOTTOM, 4, 5)
 
         return grid, vbox6
@@ -279,3 +282,11 @@ class fixedPoint_search_ui(Gtk.Grid):
             column = Gtk.TreeViewColumn(col, renderer, text=i)
 
             self.table_tree.append_column(column)
+
+    def on_help_clicked(self, widget):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Fixed Point Search Help")
+        dialog.format_secondary_text("El método de punto fijo reformula la ecuación f(x)=0 y genera una ecuación de la forma x=g(x) que permite encontrar un valor de x que al reemplazarlo en g su resultado sea el mismo, es decir que x sea invariable para g, y adicionalmente que la f(x) converja a cero.\n\nSe dispone de un intervalo [a,b] para el cual la función g es continua y se cumple que para todo valor de x en el intervalo, g(x) también pertenece al mismo intervalo. Además para garantizar la unicidad de dicho punto se debe cumplir que la derivada g′(x)<1 en el intervalo.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()

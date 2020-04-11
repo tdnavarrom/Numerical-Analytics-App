@@ -134,6 +134,10 @@ class bisection_search_ui(Gtk.Grid):
         button3 = Gtk.Button(label="Table")
         button3.connect('clicked', self.show_table)
         vbox6.pack_start(button3, True, True, 0)
+        button4 = Gtk.Button(label="Help")
+        button4.connect('clicked',self.on_help_clicked)
+        vbox6.pack_start(button4, True, True, 0)
+
         grid.attach_next_to(vbox6, vbox4, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox6
@@ -269,3 +273,11 @@ class bisection_search_ui(Gtk.Grid):
             column = Gtk.TreeViewColumn(col, renderer, text=i)
 
             self.table_tree.append_column(column)
+
+    def on_help_clicked(self, widget):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Bisection Search Help")
+        dialog.format_secondary_text("El metodo de Biseccion es un metodo para encontrar raices de una funcion.\n\nFunciona mediante ingresando un intervalo dentro del cual evaluar, con un numero de iteraciones y cierta tolerancia a la precision del resultado.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
