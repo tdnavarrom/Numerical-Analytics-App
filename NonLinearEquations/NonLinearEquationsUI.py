@@ -5,6 +5,8 @@ from .functions.Incremental_Search_UI import incremental_search_ui as isui
 from .functions.Bisection_Search_UI import bisection_search_ui as bsui
 from .functions.FalseRule_Search_UI import falseRule_search_ui as fsui
 from .functions.FixedPoint_Search_UI import fixedPoint_search_ui as fpsui
+from .functions.NewtonSearch_UI import newton_search_ui as nsui
+from .functions.SecantSearch_UI import secant_search_ui as ssui
 
 class NonLinealMenu(Gtk.Notebook):
 
@@ -36,16 +38,26 @@ class NonLinealMenu(Gtk.Notebook):
         page4.add(fpsui().grid)
         notebook.append_page(page4, Gtk.Label('Fixed-Point Search'))
 
-
         page5 = Gtk.Box()
         page5.set_border_width(10)
-        page5.add(Gtk.Label('The other one'))
-        notebook.append_page(page5, Gtk.Label('Plain Title'))
-
+        page5.add(nsui().grid)
+        notebook.append_page(page5, Gtk.Label('Newton Search'))
 
         page6 = Gtk.Box()
         page6.set_border_width(10)
-        page6.add(Gtk.Label('The last one'))
-        notebook.append_page(page6, Gtk.Label('Plain Title'))
+        page6.add(ssui().grid)
+        notebook.append_page(page6, Gtk.Label('Secant Search'))
+
+
+        page7 = Gtk.Box()
+        page7.set_border_width(10)
+        page7.add(Gtk.Label('The other one'))
+        notebook.append_page(page7, Gtk.Label('Plain Title'))
+
+
+        page8 = Gtk.Box()
+        page8.set_border_width(10)
+        page8.add(Gtk.Label('The last one'))
+        notebook.append_page(page8, Gtk.Label('Plain Title'))
 
         return notebook
