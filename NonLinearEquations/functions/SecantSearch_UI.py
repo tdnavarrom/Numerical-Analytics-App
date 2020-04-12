@@ -223,8 +223,8 @@ class secant_search_ui(Gtk.Grid):
         iterations = float(self.iterations.get_text())
         func = Function(self.function.get_text())
 
-        self.false_rule_Search = FSearch()
-        range_of_root = self.false_rule_Search.evaluate(tolerance,
+        self.secant_Search = SSearch()
+        range_of_root = self.secant_Search.evaluate(tolerance,
             inferior_value, superior_value, func, iterations,)
         self.result.set_text(str(range_of_root))
 
@@ -249,13 +249,11 @@ class secant_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
-            self.table_tree.remove_column(self.table_tree.get_column(0))
-            self.table_tree.remove_column(self.table_tree.get_column(0))
 
-        df = pd.DataFrame(self.false_rule_Search.values,
-                          columns=['Iter', 'Xi', 'Xu','Xm', 'F(x) Value', 'Error'])
+        df = pd.DataFrame(self.secant_Search.values,
+                          columns=['Iter', 'Xi', 'F(x) Value', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(int, float, float, float, float, float)
+        self.store = Gtk.ListStore(int, float, float, float)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
@@ -266,7 +264,7 @@ class secant_search_ui(Gtk.Grid):
 
         self.table_tree.set_model(self.store)
 
-        for i, col in enumerate(['Iter', 'Xi', 'Xu', 'Xm', 'F(x) value', 'Error']):
+        for i, col in enumerate(['Iter', 'Xi', 'F(x) value', 'Error']):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)

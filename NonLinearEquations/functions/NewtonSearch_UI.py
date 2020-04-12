@@ -223,8 +223,8 @@ class newton_search_ui(Gtk.Grid):
         func = Function(self.function.get_text())
         d_func = Function(self.derivate_function.get_text())
 
-        self.fixed_point_Search = FPSearch()
-        range_of_root = self.fixed_point_Search.evaluate(
+        self.newton_Search = NSearch()
+        range_of_root = self.newton_Search.evaluate(
         tolerance, initial_value, iterations, func, d_func)
         self.result.set_text(str(range_of_root))
 
@@ -250,7 +250,7 @@ class newton_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
 
-        df = pd.DataFrame(self.fixed_point_Search.values,
+        df = pd.DataFrame(self.newton_Search.values,
                           columns=['iter', 'x Value', 'F(x) Value', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
         self.store = Gtk.ListStore(int, float, float, float)

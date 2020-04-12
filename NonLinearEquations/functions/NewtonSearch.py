@@ -1,7 +1,7 @@
 import math
 
 class Newton:
-    def _init_(self):
+    def __init__(self):
         self.values = []
 
     def evaluate(self, tol, xi, niter, fun, dfun):
@@ -15,7 +15,7 @@ class Newton:
             xn = xi - (fx/dfx)
             fi = fun.evaluate(xn)
             dfi = dfun.evaluate(xn)
-            error = abs(xn - xi)
+            error = abs((xn - xi)/xn)
             xi = xn
             self.values.append([contador, xn, fi, dfi, error])
             contador = contador + 1
@@ -25,9 +25,8 @@ class Newton:
             return f"{xn} es una aprox. a una raiz con una tolerancia = {tol}"
         elif dfx == 0:
             return f"{xn} es una posible raiz multiple"
-        else: 
+        else:
             return f"El método fracasó en {niter} iteraciones"
 
     def tabla_values(self):
         return self.values
-            
