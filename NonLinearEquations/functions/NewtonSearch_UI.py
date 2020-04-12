@@ -30,14 +30,13 @@ class newton_search_ui(Gtk.Grid):
         grid = Gtk.Grid()
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.function = Gtk.Entry()
-        label_function = Gtk.Label("Function")
-        vbox.pack_start(label_function, True, True, 0)
+        self.function.set_placeholder_text("Function")
         vbox.pack_start(self.function, True, True, 0)
-        grid.attach(vbox, 0, 0, 4, 5)
+        grid.attach(vbox, 0, 0, 2, 2)
 
         return grid, vbox
 
-    def g_function_entry(self, grid, vbox):
+    def derivate_function_entry(self, grid, vbox):
         """
         Initial Value Label and Entry at the bottom.
 
@@ -49,11 +48,10 @@ class newton_search_ui(Gtk.Grid):
             vbox2
         """
         vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.g_function = Gtk.Entry()
-        label_g_function = Gtk.Label("G Function")
-        vbox2.pack_start(label_g_function, True, True, 0)
-        vbox2.pack_start(self.g_function, True, True, 0)
-        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 4, 5)
+        self.derivate_function = Gtk.Entry()
+        self.derivate_function.set_placeholder_text("Derivate Function")
+        vbox2.pack_start(self.derivate_function, True, True, 0)
+        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox2
 
@@ -71,10 +69,9 @@ class newton_search_ui(Gtk.Grid):
         """
         vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.tolerance = Gtk.Entry()
-        label_tolerance = Gtk.Label("Tolerance")
-        vbox3.pack_start(label_tolerance, True, True, 0)
+        self.tolerance.set_placeholder_text("Tolerance")
         vbox3.pack_start(self.tolerance, True, True, 0)
-        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 4, 5)
+        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 1, 2)
 
         return grid, vbox3
 
@@ -91,14 +88,13 @@ class newton_search_ui(Gtk.Grid):
         """
         vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.x0 = Gtk.Entry()
-        label_x0 = Gtk.Label("Initial Value")
-        vbox4.pack_start(label_x0, True, True, 0)
+        self.x0.set_placeholder_text("Initial Value")
         vbox4.pack_start(self.x0, True, True, 0)
-        grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.BOTTOM, 2, 5)
+        grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.RIGHT, 1, 2)
 
         return grid, vbox4
 
-    def iteration_value_entry(self, grid, vbox4):
+    def iteration_value_entry(self, grid, vbox3):
         '''
         Iterations Value Label and Entry at the bottom.
 
@@ -111,14 +107,13 @@ class newton_search_ui(Gtk.Grid):
         '''
         vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.iterations = Gtk.Entry()
-        label_iterations = Gtk.Label("Iterations")
-        vbox5.pack_start(label_iterations, True, True, 0)
+        self.iterations.set_placeholder_text("Iterations")
         vbox5.pack_start(self.iterations, True, True, 0)
-        grid.attach_next_to(vbox5, vbox4, Gtk.PositionType.RIGHT, 2, 5)
+        grid.attach_next_to(vbox5, vbox3, Gtk.PositionType.BOTTOM, 1, 2)
 
         return grid, vbox5
 
-    def button_box(self, grid, vbox4):
+    def button_box(self, grid, vbox5):
         '''
         Box that contains all Buttons.
 
@@ -139,7 +134,10 @@ class newton_search_ui(Gtk.Grid):
         button3 = Gtk.Button(label="Table")
         button3.connect('clicked', self.show_table)
         vbox6.pack_start(button3, True, True, 0)
-        grid.attach_next_to(vbox6, vbox4, Gtk.PositionType.BOTTOM, 4, 5)
+        button4 = Gtk.Button(label="Help")
+        button4.connect('clicked', self.on_help_clicked)
+        vbox6.pack_start(button4, True, True, 0)
+        grid.attach_next_to(vbox6, vbox5, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox6
 
@@ -155,11 +153,10 @@ class newton_search_ui(Gtk.Grid):
             vbox7
         '''
         vbox7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        label_result = Gtk.Label("Result")
         self.result = Gtk.Entry()
-        vbox7.pack_start(label_result, True, True, 0)
+        self.result.set_placeholder_text("Result")
         vbox7.pack_start(self.result, True, True, 0)
-        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.BOTTOM, 4, 5)
+        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox7
 
@@ -175,13 +172,11 @@ class newton_search_ui(Gtk.Grid):
             vbox8
         '''
         vbox8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        label_graph = Gtk.Label("Function's Graph")
         self.figure = Figure(figsize=(3, 4), dpi=100)
         self.canvas = FigureCanvas(self.figure)
-        self.canvas.set_size_request(400, 300)
-        vbox8.pack_start(label_graph, True, True, 0)
+        self.canvas.set_size_request(350, 250)
         vbox8.pack_start(self.canvas, True, True, 0)
-        grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 4, 5)
+        grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 2, 1)
 
         return grid, vbox8
 
@@ -196,29 +191,25 @@ class newton_search_ui(Gtk.Grid):
             grid
         '''
         vbox9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        label_table = Gtk.Label("Function's Table")
-        vbox9.pack_start(label_table, True, True, 0)
-        vbox10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
         scrollTree.set_policy(Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS)
         self.table_tree = Gtk.TreeView()
         scrollTree.add(self.table_tree)
-        vbox10.pack_start(scrollTree, True, True, 0)
-        grid.attach_next_to(vbox9, vbox, Gtk.PositionType.RIGHT, 1, 5)
-        grid.attach_next_to(vbox10, vbox9, Gtk.PositionType.BOTTOM, 1, 25)
+        vbox9.pack_start(scrollTree, True, True, 0)
+        grid.attach_next_to(vbox9, vbox, Gtk.PositionType.RIGHT, 3, 25)
         grid.set_column_homogeneous(True)
-        grid.set_column_spacing(8)
-        grid.set_row_spacing(8)
+        grid.set_column_spacing(25)
+        grid.set_row_spacing(25)
 
         return grid
 
     def create_ui(self):
         grid, vbox = self.function_entry()
-        grid, vbox2 = self.g_function_entry(grid, vbox)
+        grid, vbox2 = self.derivate_function_entry(grid, vbox)
         grid, vbox3 = self.tolerancia_value_entry(grid, vbox2)
         grid, vbox4 = self.initial_value_and_entry(grid, vbox3)
-        grid, vbox5 = self.iteration_value_entry(grid, vbox4)
-        grid, vbox6 = self.button_box(grid, vbox4)
+        grid, vbox5 = self.iteration_value_entry(grid, vbox3)
+        grid, vbox6 = self.button_box(grid, vbox5)
         grid, vbox7 = self.result_entry(grid, vbox6)
         grid, vbox8 = self.graph(grid, vbox7)
         grid = self.table(grid, vbox)
@@ -230,11 +221,11 @@ class newton_search_ui(Gtk.Grid):
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
         func = Function(self.function.get_text())
-        g_func = Function(self.g_function.get_text())
+        d_func = Function(self.derivate_function.get_text())
 
-        self.newton_Search = NSearch()
-        range_of_root = self.newton_Search.evaluate(
-            initial_value, tolerance, iterations, func, g_func)
+        self.fixed_point_Search = FPSearch()
+        range_of_root = self.fixed_point_Search.evaluate(
+        tolerance, initial_value, iterations, func, d_func)
         self.result.set_text(str(range_of_root))
 
     def graph_function(self, widget):
@@ -259,7 +250,7 @@ class newton_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
 
-        df = pd.DataFrame(self.newton_Search.values,
+        df = pd.DataFrame(self.fixed_point_Search.values,
                           columns=['iter', 'x Value', 'F(x) Value', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
         self.store = Gtk.ListStore(int, float, float, float)
@@ -273,9 +264,19 @@ class newton_search_ui(Gtk.Grid):
 
         self.table_tree.set_model(self.store)
 
-        for i, col in enumerate(['Iter', 'X value', 'F(x) value', 'Error']):
+        for i, col in enumerate(['Iter', 'g(Xn)', 'f(Xn)', 'Error']):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)
 
             self.table_tree.append_column(column)
+
+    def on_help_clicked(self, widget):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Newton Search Help")
+        dialog.format_secondary_text(
+            "El método de punto fijo reformula la ecuación f(x)=0 y genera una ecuación de la forma x=g(x) que permite encontrar un valor de x que al reemplazarlo en g su resultado sea el mismo, es decir que x sea invariable para g, y adicionalmente que la f(x) converja a cero.\n\nSe dispone de un intervalo [a,b] para el cual la función g es continua y se cumple que para todo valor de x en el intervalo, g(x) también pertenece al mismo intervalo. Además para garantizar la unicidad de dicho punto se debe cumplir que la derivada g′(x)<1 en el intervalo.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
