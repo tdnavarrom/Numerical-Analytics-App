@@ -122,26 +122,7 @@ class incremental_search_ui(Gtk.Grid):
 
         return grid, vbox5
 
-    def result_entry(self, grid, vbox5):
-        '''
-        Result Entry.
-
-        Parameters:
-            grid
-            vbox5
-        Returns:
-            grid
-            vbox6
-        '''
-        vbox6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.result = Gtk.Entry()
-        self.result.set_placeholder_text("Result")
-        vbox6.pack_start(self.result, True, True, 0)
-        grid.attach_next_to(vbox6, vbox5, Gtk.PositionType.BOTTOM, 2, 1)
-
-        return grid, vbox6
-
-    def graph(self, grid, vbox6):
+    def graph(self, grid, vbox5):
         '''
         Graphic of the function.
 
@@ -159,7 +140,7 @@ class incremental_search_ui(Gtk.Grid):
         self.canvas.set_size_request(400, 300)
         vbox7.pack_start(label_graph, True, True, 0)
         vbox7.pack_start(self.canvas, True, True, 0)
-        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.BOTTOM, 2, 5)
+        grid.attach_next_to(vbox7, vbox5, Gtk.PositionType.BOTTOM, 2, 5)
 
         return grid, vbox7
 
@@ -192,8 +173,7 @@ class incremental_search_ui(Gtk.Grid):
         grid, vbox3 = self.increment_value_entry(grid, vbox)
         grid, vbox4 = self.iteration_value_entry(grid, vbox3)
         grid, vbox5 = self.button_box(grid, vbox3)
-        grid, vbox6 = self.result_entry(grid, vbox5)
-        grid, vbox7 = self.graph(grid, vbox6)
+        grid, vbox7 = self.graph(grid, vbox5)
         grid = self.table(grid, vbox2)
 
         return grid
@@ -239,6 +219,7 @@ class incremental_search_ui(Gtk.Grid):
             # J es la tupla donde esta el valor de x & y
             # los dos son un row del DataFrame
             tuple_of_row = j
+            print(tuple_of_row)
             self.store.append(list(tuple_of_row))
 
         self.table_tree.set_model(self.store)

@@ -249,11 +249,12 @@ class newton_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
 
         df = pd.DataFrame(self.newton_Search.values,
-                          columns=['iter', 'x Value', 'F(x) Value', 'Error'])
+                          columns=['Iter', 'Xn', 'f(Xn)','f\'(Xn)', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(int, float, float, float)
+        self.store = Gtk.ListStore(int, float, str, float, str)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
@@ -264,7 +265,7 @@ class newton_search_ui(Gtk.Grid):
 
         self.table_tree.set_model(self.store)
 
-        for i, col in enumerate(['Iter', 'g(Xn)', 'f(Xn)', 'Error']):
+        for i, col in enumerate(['Iter', 'Xn', 'f(Xn)','f\'(Xn)', 'Error']):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)

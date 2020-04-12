@@ -251,23 +251,25 @@ class bisection_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
 
         df = pd.DataFrame(self.bisection_Search.values,
-                          columns=['x Value', 'F(x) Value', 'Error'])
+                          columns=['Iter','Xi','Xu','Xm','F(Xm)', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(float, float, float)
+        self.store = Gtk.ListStore(int,float, float, float, str, str)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
             # J es la tupla donde esta el valor de x & y
             # los dos son un row del DataFrame
             tuple_of_row = j
-            print(tuple_of_row)
             self.store.append(list(tuple_of_row))
 
         self.table_tree.set_model(self.store)
 
-        for i, col in enumerate(['X value', 'F(x) value', 'Error']):
+        for i, col in enumerate(['Iter','Xi','Xu','Xm','F(Xm)', 'Error']):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)

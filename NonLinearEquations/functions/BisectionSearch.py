@@ -1,10 +1,11 @@
 import math
 
+
 class Bisection:
     def __init__(self):
         self.values = []
 
-    def evaluate(self,xi,xs,tolerancia,iter,funcion, type_error = 1):
+    def evaluate(self, xi, xs, tolerancia, iter, funcion, type_error=1):
 
         fxi = funcion.evaluate(xi)
         fxs = funcion.evaluate(xs)
@@ -13,21 +14,18 @@ class Bisection:
             return "El valor del iterador es incorrecto"
         if tolerancia < 0:
             return "Error en la tolerancia, debe ser mayor o igual a 0"
-            
+
         if fxi == 0:
             return f"{xi} es una raiz"
         elif fxs == 0:
             return f"{xs} es una raiz"
-        elif fxi *fxs < 0:
-            xm =float((xi+xs)/2)
+        elif fxi * fxs < 0:
+            xm = float((xi+xs)/2)
             fxm = funcion.evaluate(xm)
             contador = 1
             error = tolerancia + 1
-            self.values.append([xm, fxm, error])
-            # print("++ XI ++ XS ++ XM ++ FXM ++")
-            # print("--------------------")
-            # print(f"++ {xi} ++ {xs} ++ {xm} ++ {fxm} ++")
-
+            self.values.append(
+                [contador, xi, xs, xm, "{:.2e}".format(fxm), "{:.2e}".format(error)])
 
             while error > tolerancia and fxm != 0 and contador < iter:
                 if fxm * fxi < 0:
@@ -40,12 +38,14 @@ class Bisection:
                 xm = (xi+xs)/2
                 fxm = funcion.evaluate(xm)
 
-                if type_error == 0: error = abs(xm-xaux)
-                else: error = abs((xm-xaux)/xm)
+                if type_error == 0:
+                    error = abs(xm-xaux)
+                else:
+                    error = abs((xm-xaux)/xm)
 
-                self.values.append([xm, fxm, error])
-
-                contador+=1
+                contador += 1
+                self.values.append(
+                    [contador, xi, xs, xm, "{:.2e}".format(fxm), "{:.2e}".format(error)])
 
             if fxm == 0:
                 return f"{xm} es raiz"
@@ -55,7 +55,6 @@ class Bisection:
                 return f"fracaso en {iter} iteraciones"
         else:
             return "el intervalo es inadecuado"
-
 
     def tabla_values(self):
         return self.values

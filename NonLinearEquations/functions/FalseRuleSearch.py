@@ -26,7 +26,7 @@ class FalseRule:
             contador = 1
             error = tolerancia + 1
 
-            self.values.append([contador, xi, xs, xm, fxm, error])
+            self.values.append([contador, xi, xs, xm, "{:.2e}".format(fxm), None])
 
             while error > tolerancia and fxm != 0 and contador < iter:
                 if fxm * fxi < 0:
@@ -45,7 +45,7 @@ class FalseRule:
                     error = abs((xm-xaux)/xm)
 
                 contador += 1
-                self.values.append([contador, xi, xs, xm, fxm, error])
+                self.values.append([contador, xi, xs, xm, "{:.2e}".format(fxm), "{:.2e}".format(error)])
 
             if fxm == 0:
                 return f"{xm} es raiz"

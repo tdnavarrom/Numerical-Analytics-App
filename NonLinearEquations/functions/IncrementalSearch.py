@@ -15,15 +15,12 @@ class IncrementalSearch:
         elif iterations < 1:
             return "El valor del iterador es incorrecto"
         else:
-            cont = 0
+            cont = 1
             new_value = initial_value+increment
             while (cont < iterations):
                 self.values.append(
                     [cont, new_value, Function.evaluate(new_value)])
                 valor_evaluado_nuevo = Function.evaluate(new_value)
-                if(self.values[cont][1]*valor_evaluado_nuevo <= 0):
-                    break
-
                 new_value += increment
                 cont += 1
 

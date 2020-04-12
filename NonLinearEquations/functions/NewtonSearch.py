@@ -1,24 +1,28 @@
 import math
 
+
 class Newton:
     def __init__(self):
         self.values = []
 
     def evaluate(self, tol, xi, niter, fun, dfun):
 
-        fx = fun.evaluate(xi)
-        dfx = dfun.evaluate(xi)
+        fx = fun.evaluate2(xi)
+        dfx = dfun.evaluate2(xi)
         contador = 0
         error = tol + 1
-        self.values.append([contador, xi, fx, dfx, error])
+        self.values.append([contador, xi, "{:.2e}".format(fx), dfx, None])
+        
         while error > tol and fx != 0 and dfx != 0 and contador < niter:
             xn = xi - (fx/dfx)
-            fi = fun.evaluate(xn)
-            dfi = dfun.evaluate(xn)
+            fx = fun.evaluate2(xn)
+            dfx = dfun.evaluate2(xn)
             error = abs((xn - xi)/xn)
             xi = xn
-            self.values.append([contador, xn, fi, dfi, error])
+
             contador = contador + 1
+            self.values.append([contador, xn, "{:.2e}".format(fx), dfx, "{:.2e}".format(error)])
+
         if fx == 0:
             return f"{xi} es raiz"
         elif error < tol:

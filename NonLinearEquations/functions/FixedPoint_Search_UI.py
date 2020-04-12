@@ -253,7 +253,7 @@ class fixedPoint_search_ui(Gtk.Grid):
         df = pd.DataFrame(self.fixed_point_Search.values,
                           columns=['iter', 'x Value', 'F(x) Value', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(int, float, float, float)
+        self.store = Gtk.ListStore(int, float, str, str)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame

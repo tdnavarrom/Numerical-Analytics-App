@@ -253,9 +253,9 @@ class falseRule_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
 
         df = pd.DataFrame(self.false_rule_Search.values,
-                          columns=['Iter', 'Xi', 'Xu','Xm', 'F(x) Value', 'Error'])
+                          columns=['Iter', 'Xi', 'Xu','Xm', 'F(Xm)', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(int, float, float, float, float, float)
+        self.store = Gtk.ListStore(int, float, float, float, str, str)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
@@ -266,7 +266,7 @@ class falseRule_search_ui(Gtk.Grid):
 
         self.table_tree.set_model(self.store)
 
-        for i, col in enumerate(['Iter', 'Xi', 'Xu', 'Xm', 'F(x) value', 'Error']):
+        for i, col in enumerate(['Iter', 'Xi', 'Xu', 'Xm', 'F(Xm)', 'Error']):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)
