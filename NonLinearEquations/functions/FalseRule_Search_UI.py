@@ -30,13 +30,11 @@ class falseRule_search_ui(Gtk.Grid):
         grid = Gtk.Grid()
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.function = Gtk.Entry()
-        label_function = Gtk.Label("Function")
-        vbox.pack_start(label_function, True, True, 0)
+        self.function.set_placeholder_text("Function")
         vbox.pack_start(self.function, True, True, 0)
-        grid.attach(vbox, 0, 0, 3, 5)
+        grid.attach(vbox, 0, 0, 2, 2)
 
         return grid, vbox
-
 
     def tolerancia_value_entry(self, grid, vbox):
         """
@@ -52,13 +50,11 @@ class falseRule_search_ui(Gtk.Grid):
         """
         vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.tolerance = Gtk.Entry()
-        label_tolerance = Gtk.Label("Tolerance")
-        vbox2.pack_start(label_tolerance, True, True, 0)
+        self.tolerance.set_placeholder_text("Tolerance")
         vbox2.pack_start(self.tolerance, True, True, 0)
-        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 3, 5)
+        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 1, 2)
 
         return grid, vbox2
-
 
     def inferior_value_and_entry(self, grid, vbox2):
         """
@@ -73,10 +69,9 @@ class falseRule_search_ui(Gtk.Grid):
         """
         vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.x0 = Gtk.Entry()
-        label_x0 = Gtk.Label("Inferior Value")
-        vbox3.pack_start(label_x0, True, True, 0)
+        self.x0.set_placeholder_text("Inferior Value")
         vbox3.pack_start(self.x0, True, True, 0)
-        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 1, 5)
+        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 1, 2)
 
         return grid, vbox3
 
@@ -93,14 +88,13 @@ class falseRule_search_ui(Gtk.Grid):
         """
         vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.xs = Gtk.Entry()
-        label_xs = Gtk.Label("Superior Value")
-        vbox4.pack_start(label_xs, True, True, 0)
+        self.xs.set_placeholder_text("Superior Value")
         vbox4.pack_start(self.xs, True, True, 0)
-        grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.RIGHT, 1, 5)
+        grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.RIGHT, 1, 2)
 
         return grid, vbox4
 
-    def iteration_value_entry(self, grid, vbox4):
+    def iteration_value_entry(self, grid, vbox2):
         '''
         Iterations Value Label and Entry at the bottom.
 
@@ -113,10 +107,9 @@ class falseRule_search_ui(Gtk.Grid):
         '''
         vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.iterations = Gtk.Entry()
-        label_iterations = Gtk.Label("Iterations")
-        vbox5.pack_start(label_iterations, True, True, 0)
+        self.iterations.set_placeholder_text("Iterations")
         vbox5.pack_start(self.iterations, True, True, 0)
-        grid.attach_next_to(vbox5, vbox4, Gtk.PositionType.RIGHT, 1, 5)
+        grid.attach_next_to(vbox5, vbox2, Gtk.PositionType.RIGHT, 1, 2)
 
         return grid, vbox5
 
@@ -142,10 +135,9 @@ class falseRule_search_ui(Gtk.Grid):
         button3.connect('clicked', self.show_table)
         vbox6.pack_start(button3, True, True, 0)
         button4 = Gtk.Button(label="Help")
-        button4.connect('clicked',self.on_help_clicked)
+        button4.connect('clicked', self.on_help_clicked)
         vbox6.pack_start(button4, True, True, 0)
-        grid.attach_next_to(vbox6, vbox3, Gtk.PositionType.BOTTOM, 3, 5)
-        
+        grid.attach_next_to(vbox6, vbox3, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox6
 
@@ -161,11 +153,10 @@ class falseRule_search_ui(Gtk.Grid):
             vbox7
         '''
         vbox7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        label_result = Gtk.Label("Result")
         self.result = Gtk.Entry()
-        vbox7.pack_start(label_result, True, True, 0)
+        self.result.set_placeholder_text("Result")
         vbox7.pack_start(self.result, True, True, 0)
-        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.BOTTOM, 3, 5)
+        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox7
 
@@ -181,13 +172,11 @@ class falseRule_search_ui(Gtk.Grid):
             vbox8
         '''
         vbox8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        label_graph = Gtk.Label("Function's Graph")
         self.figure = Figure(figsize=(3, 4), dpi=100)
         self.canvas = FigureCanvas(self.figure)
         self.canvas.set_size_request(400, 300)
-        vbox8.pack_start(label_graph, True, True, 0)
         vbox8.pack_start(self.canvas, True, True, 0)
-        grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 3, 5)
+        grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 2, 5)
 
         return grid, vbox8
 
@@ -202,19 +191,15 @@ class falseRule_search_ui(Gtk.Grid):
             grid
         '''
         vbox9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        label_table = Gtk.Label("Function's Table")
-        vbox9.pack_start(label_table, True, True, 0)
-        vbox10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
         scrollTree.set_policy(Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS)
         self.table_tree = Gtk.TreeView()
         scrollTree.add(self.table_tree)
-        vbox10.pack_start(scrollTree, True, True, 0)
-        grid.attach_next_to(vbox9, vbox, Gtk.PositionType.RIGHT, 1, 5)
-        grid.attach_next_to(vbox10, vbox9, Gtk.PositionType.BOTTOM, 1, 25)
+        vbox9.pack_start(scrollTree, True, True, 0)
+        grid.attach_next_to(vbox9, vbox, Gtk.PositionType.RIGHT, 3, 25)
         grid.set_column_homogeneous(True)
-        grid.set_column_spacing(8)
-        grid.set_row_spacing(8)
+        grid.set_column_spacing(25)
+        grid.set_row_spacing(25)
 
         return grid
 
@@ -223,7 +208,7 @@ class falseRule_search_ui(Gtk.Grid):
         grid, vbox2 = self.tolerancia_value_entry(grid, vbox)
         grid, vbox3 = self.inferior_value_and_entry(grid, vbox2)
         grid, vbox4 = self.superior_value_entry(grid, vbox3)
-        grid, vbox5 = self.iteration_value_entry(grid, vbox4)
+        grid, vbox5 = self.iteration_value_entry(grid, vbox2)
         grid, vbox6 = self.button_box(grid, vbox3)
         grid, vbox7 = self.result_entry(grid, vbox6)
         grid, vbox8 = self.graph(grid, vbox7)
@@ -240,7 +225,7 @@ class falseRule_search_ui(Gtk.Grid):
 
         self.false_rule_Search = FSearch()
         range_of_root = self.false_rule_Search.evaluate(
-            inferior_value, superior_value, tolerance, iterations, func, type_error = 1)
+            inferior_value, superior_value, tolerance, iterations, func, type_error=1)
         self.result.set_text(str(range_of_root))
 
     def graph_function(self, widget):
@@ -263,23 +248,25 @@ class falseRule_search_ui(Gtk.Grid):
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
             self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
+            self.table_tree.remove_column(self.table_tree.get_column(0))
 
         df = pd.DataFrame(self.false_rule_Search.values,
-                          columns=['x Value', 'F(x) Value', 'Error'])
+                          columns=['Iter', 'Xi', 'Xu','Xm', 'F(x) Value', 'Error'])
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(float, float, float)
+        self.store = Gtk.ListStore(int, float, float, float, float, float)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
             # J es la tupla donde esta el valor de x & y
             # los dos son un row del DataFrame
             tuple_of_row = j
-            print(tuple_of_row)
             self.store.append(list(tuple_of_row))
 
         self.table_tree.set_model(self.store)
 
-        for i, col in enumerate(['X value', 'F(x) value', 'Error']):
+        for i, col in enumerate(['Iter', 'Xi', 'Xu', 'Xm', 'F(x) value', 'Error']):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)
@@ -287,8 +274,10 @@ class falseRule_search_ui(Gtk.Grid):
             self.table_tree.append_column(column)
 
     def on_help_clicked(self, widget):
-        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "False Rule Search Help")
-        dialog.format_secondary_text("Dado un intervalo inicial [xi,xu], se encuentra el punto de interseccion del eje x con la recta secante que une los puntos (xi,f(xi) y (xu,f(xu) y se evalúa en la función f(x).\nLa función f debe estar definida en el intervalo [xi,xu], f debe de ser continua en el intervalo [xi,xu] y  f(xi)∗f(xu)<0.")
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "False Rule Search Help")
+        dialog.format_secondary_text(
+            "Dado un intervalo inicial [xi,xu], se encuentra el punto de interseccion del eje x con la recta secante que une los puntos (xi,f(xi) y (xu,f(xu) y se evalúa en la función f(x).\nLa función f debe estar definida en el intervalo [xi,xu], f debe de ser continua en el intervalo [xi,xu] y  f(xi)∗f(xu)<0.")
         dialog.run()
         print("INFO dialog closed")
 
