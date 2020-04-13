@@ -9,7 +9,6 @@ class MyWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Change Analytics")
         self.set_border_width(5)
-        self.set_default_size(1366, 768)
 
         self.notebook = Gtk.Notebook()
         self.notebook.set_show_border(True)

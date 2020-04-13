@@ -23,7 +23,7 @@ class Bisection:
             xm = float((xi+xs)/2)
             fxm = funcion.evaluate(xm)
             contador = 1
-            error = tolerancia + 1
+            error = tolerancia + 0.1
             self.values.append(
                 [contador, xi, xs, xm, "{:.2e}".format(fxm), "{:.2e}".format(error)])
 
