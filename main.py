@@ -1,4 +1,5 @@
 from NonLinearEquations.NonLinearEquationsUI import NonLinealMenu as nleMenu
+from NonLinearEquations.NonLinearEquationsUI2 import NonLinealMenu2 as nleMenu2
 from Welcome import Welcome
 from Guide import Guide
 
@@ -34,7 +35,7 @@ class MyWindow(Gtk.Window):
 
         self.page3 = Gtk.Box()
         self.page3.set_border_width(10)
-        self.page3.add(nleNotebook)
+        self.page3.add(nleMenu2().grid)
         self.notebook.append_page(self.page3, Gtk.Label('Equations\' System'))
 
         self.page4 = Gtk.Box()
