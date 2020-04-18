@@ -1,7 +1,14 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-from .functions import *
+from .functions.Function import Function
+from .functions.IncrementalSearch import IncrementalSearch as ISearch
+from .functions.BisectionSearch import Bisection as BSearch
+from .functions.FalseRuleSearch import FalseRule as FSearch
+from .functions.FixedPointSearch import FixedPoint as FPSearch
+from .functions.NewtonSearch import Newton as NSearch
+from .functions.SecantSearch import Secant as SSearch
+
 
 class NonLinealMenu2(Gtk.Notebook):
 
@@ -140,7 +147,7 @@ class NonLinealMenu2(Gtk.Notebook):
         button = Gtk.Button(label="Incremental Search")
         button.connect('clicked', self.incremental_Search_button)
         vbox7.pack_start(button, True, True, 0)
-        button2 = Gtk.Button(label="Bisection Method")
+        button2 = Gtk.Button(label="Bisection")
         button2.connect('clicked', self.bisection_button)
         vbox7.pack_start(button2, True, True, 0)
         button3 = Gtk.Button(label="False Rule")
