@@ -29,7 +29,7 @@ class MyWindow(Gtk.Window):
 
         self.page2 = Gtk.Box()
         self.page2.set_border_width(10)
-        self.page2.add(nleNotebook)
+        self.page2.add(Guide().grid)
         self.notebook.append_page(self.page2, Gtk.Label('Non-Linear Equations'))
 
 

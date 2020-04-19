@@ -11,6 +11,7 @@ from .functions.FalseRuleSearch import FalseRule as FSearch
 from .functions.FixedPointSearch import FixedPoint as FPSearch
 from .functions.NewtonSearch import Newton as NSearch
 from .functions.SecantSearch import Secant as SSearch
+from .table import *
 
 
 
@@ -192,10 +193,31 @@ class NonLinealMenu2(Gtk.Notebook):
         self.result = Gtk.Entry()
         self.result.set_placeholder_text("Result")
         vbox8.pack_start(self.result, True, True, 0)
+
         grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox8
 
+    def graphic_f_button(self, grid, vbox):
+        vbox10 = Gtk.Box(spacing=8)
+        button = Gtk.Button(label="Graphic")
+        button.connect('clicked', self.graphic_f)
+        vbox10.pack_start(button, True, True, 0)
+        
+        grid.attach_next_to(vbox10, vbox, Gtk.PositionType.RIGHT, 2, 2)
+        
+        return grid
+
+    def graphic_g_button(self, grid, vbox2):
+        vbox11 = Gtk.Box(spacing=8)
+        button = Gtk.Button(label="Graphic")
+        button.connect('clicked', self.graphic_g)
+        vbox11.pack_start(button, True, True, 0)
+        
+        grid.attach_next_to(vbox11, vbox2, Gtk.PositionType.RIGHT, 2, 2)
+        
+        return grid
+        
 
     def create_ui(self):
         grid, vbox = self.function_entry()
@@ -206,6 +228,8 @@ class NonLinealMenu2(Gtk.Notebook):
         grid, vbox6 = self.superior_value_entry(grid, vbox5)
         grid, vbox7 = self.button_box(grid, vbox5)
         grid, vbox8 = self.result_entry(grid, vbox7)
+        grid = self.graphic_f_button(grid ,vbox)
+        grid = self.graphic_g_button(grid ,vbox2)
 
         return grid
 
@@ -220,18 +244,28 @@ class NonLinealMenu2(Gtk.Notebook):
             initial_value, increment, iterations, func)
         self.result.set_text(str(range_of_root))
 
+        tree = TreeView(table, ['Iter', 'x Value', 'F(x) value'],'Incremental_search')
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
+
     def bisection_button(self, widget):
         inferior_value = float(self.x0.get_text())
         superior_value = float(self.xs.get_text())
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
+
         func = Function(self.function.get_text())
-        graphic(func, inferior_value, iterations)
         self.bisection_Search = BSearch()
         range_of_root = self.bisection_Search.evaluate(
             inferior_value, superior_value, tolerance, iterations, func, type_error=1)
         self.result.set_text(str(range_of_root))
-        table(self.bisection_Search.values)
+
+        table = self.bisection_Search.values
+        tree = TreeView(table, ['Iter', 'Xi', 'Xu', 'Xm', 'F(Xm)', 'Error'],'Bisection')
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
         
 
 
@@ -298,6 +332,15 @@ class NonLinealMenu2(Gtk.Notebook):
 
         dialog.destroy()
 
+    def graphic_f(self, widget):
+        func = Function(self.function.get_text())
+        graphic(func, 1 ,1)
+
+    def graphic_g(self, widget):
+        func = Function(self.g_function.get_text())
+        graphic(func, 1 ,1)
+
+
 def graphic(function,initial_value,iterations):
     import gi
     gi.require_version('Gtk', '3.0')
@@ -332,46 +375,3 @@ def graphic(function,initial_value,iterations):
     win.show_all()
     Gtk.main()
         
-def table(table):
-
-    win = Gtk.Window()
-    win.connect("destroy", lambda x: Gtk.main_quit())
-    win.set_default_size(640,480)
-
-    vbox9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-    scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
-        
-    scrollTree.set_policy(Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS)
-    table_tree = Gtk.TreeView()
-    scrollTree.add(table_tree)
-    vbox9.pack_start(scrollTree, True, True, 0) 
-
-    if(table_tree.get_model() != None):
-        table_tree.set_model(table_tree.get_model().clear())
-        table_tree.remove_column(table_tree.get_column(0))
-        table_tree.remove_column(table_tree.get_column(0))
-        table_tree.remove_column(table_tree.get_column(0))
-        table_tree.remove_column(table_tree.get_column(0))
-        table_tree.remove_column(table_tree.get_column(0))
-        table_tree.remove_column(table_tree.get_column(0))
-    
-    df = pd.DataFrame(table, columns=['Iter','Xi','Xu','Xm','F(Xm)', 'Error'])
-        # los foat dicen de cuantas columnas va a ser la tabla
-    store = Gtk.ListStore(int,float, float, float, str, str)
-
-    for i, j in df.iterrows():
-        # i es el index del DataFrame
-        # J es la tupla donde esta el valor de x & y
-        # los dos son un row del DataFrame
-        tuple_of_row = j
-        store.append(list(tuple_of_row))
-
-    table_tree.set_model(store)
-
-    for i, col in enumerate(['Iter','Xi','Xu','Xm','F(Xm)', 'Error']):
-        renderer = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn(col, renderer, text=i)
-        table_tree.append_column(column)    
-
-    win.show_all()
-    Gtk.main()
