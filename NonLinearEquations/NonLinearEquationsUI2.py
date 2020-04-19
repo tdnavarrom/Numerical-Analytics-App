@@ -1,4 +1,7 @@
 import gi
+import math
+import numpy as np
+import pandas as pd
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from .functions.Function import Function
@@ -8,6 +11,7 @@ from .functions.FalseRuleSearch import FalseRule as FSearch
 from .functions.FixedPointSearch import FixedPoint as FPSearch
 from .functions.NewtonSearch import Newton as NSearch
 from .functions.SecantSearch import Secant as SSearch
+
 
 
 class NonLinealMenu2(Gtk.Notebook):
@@ -222,11 +226,13 @@ class NonLinealMenu2(Gtk.Notebook):
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
         func = Function(self.function.get_text())
-
+        graphic(func, inferior_value, iterations)
         self.bisection_Search = BSearch()
         range_of_root = self.bisection_Search.evaluate(
             inferior_value, superior_value, tolerance, iterations, func, type_error=1)
         self.result.set_text(str(range_of_root))
+        table(self.bisection_Search.values)
+        
 
 
     def false_rule_button(self, widget):
@@ -291,3 +297,81 @@ class NonLinealMenu2(Gtk.Notebook):
         print("INFO dialog closed")
 
         dialog.destroy()
+
+def graphic(function,initial_value,iterations):
+    import gi
+    gi.require_version('Gtk', '3.0')
+    from gi.repository import Gtk
+
+    from matplotlib.figure import Figure
+    from matplotlib.backends.backend_gtk3agg import FigureCanvas
+    from matplotlib.backends.backend_gtk3 import (
+        NavigationToolbar2GTK3 as NavigationToolbar)
+
+    win = Gtk.Window()
+    win.connect("destroy", lambda x: Gtk.main_quit())
+    win.set_default_size(640,480)
+    win.set_title("Embedding in GTK")
+
+    vbox = Gtk.VBox()
+    win.add(vbox)
+
+    #increment = 0.1
+    #final_value = math.fabs(initial_value+math.fabs(increment*iterations))
+
+    fig = Figure(figsize=(5,4), dpi=100)
+    ax = fig.add_subplot(111)
+    x = np.arange(-100, 100, 1)
+    ax.plot(x, [function.evaluate(i) for i in x])
+
+    canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
+    vbox.pack_start(canvas, True, True, 0)
+    toolbar = NavigationToolbar(canvas, win)
+    vbox.pack_start(toolbar, False, False, 0)
+
+    win.show_all()
+    Gtk.main()
+        
+def table(table):
+
+    win = Gtk.Window()
+    win.connect("destroy", lambda x: Gtk.main_quit())
+    win.set_default_size(640,480)
+
+    vbox9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+    scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
+        
+    scrollTree.set_policy(Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS)
+    table_tree = Gtk.TreeView()
+    scrollTree.add(table_tree)
+    vbox9.pack_start(scrollTree, True, True, 0) 
+
+    if(table_tree.get_model() != None):
+        table_tree.set_model(table_tree.get_model().clear())
+        table_tree.remove_column(table_tree.get_column(0))
+        table_tree.remove_column(table_tree.get_column(0))
+        table_tree.remove_column(table_tree.get_column(0))
+        table_tree.remove_column(table_tree.get_column(0))
+        table_tree.remove_column(table_tree.get_column(0))
+        table_tree.remove_column(table_tree.get_column(0))
+    
+    df = pd.DataFrame(table, columns=['Iter','Xi','Xu','Xm','F(Xm)', 'Error'])
+        # los foat dicen de cuantas columnas va a ser la tabla
+    store = Gtk.ListStore(int,float, float, float, str, str)
+
+    for i, j in df.iterrows():
+        # i es el index del DataFrame
+        # J es la tupla donde esta el valor de x & y
+        # los dos son un row del DataFrame
+        tuple_of_row = j
+        store.append(list(tuple_of_row))
+
+    table_tree.set_model(store)
+
+    for i, col in enumerate(['Iter','Xi','Xu','Xm','F(Xm)', 'Error']):
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn(col, renderer, text=i)
+        table_tree.append_column(column)    
+
+    win.show_all()
+    Gtk.main()
