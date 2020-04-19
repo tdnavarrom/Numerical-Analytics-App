@@ -35,7 +35,7 @@ class NonLinealMenu2(Gtk.Notebook):
         self.function = Gtk.Entry()
         self.function.set_placeholder_text("Function")
         vbox.pack_start(self.function, True, True, 0)
-        grid.attach(vbox, 0, 0, 2, 2)
+        grid.attach(vbox, 0, 0, 6, 2)
 
         return grid, vbox
 
@@ -54,7 +54,7 @@ class NonLinealMenu2(Gtk.Notebook):
         self.g_function = Gtk.Entry()
         self.g_function.set_placeholder_text("G Function")
         vbox2.pack_start(self.g_function, True, True, 0)
-        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 2, 2)
+        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 6, 2)
 
         return grid, vbox2
 
@@ -74,7 +74,7 @@ class NonLinealMenu2(Gtk.Notebook):
         self.tolerance = Gtk.Entry()
         self.tolerance.set_placeholder_text("Tolerance")
         vbox3.pack_start(self.tolerance, True, True, 0)
-        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 1, 2)
+        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 3, 2)
 
         return grid, vbox3
 
@@ -93,7 +93,7 @@ class NonLinealMenu2(Gtk.Notebook):
         self.iterations = Gtk.Entry()
         self.iterations.set_placeholder_text("Iterations")
         vbox4.pack_start(self.iterations, True, True, 0)
-        grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.RIGHT, 1, 2)
+        grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.RIGHT, 3, 2)
 
         return grid, vbox4
 
@@ -112,7 +112,7 @@ class NonLinealMenu2(Gtk.Notebook):
         self.x0 = Gtk.Entry()
         self.x0.set_placeholder_text("Initial Value")
         vbox5.pack_start(self.x0, True, True, 0)
-        grid.attach_next_to(vbox5, vbox3, Gtk.PositionType.BOTTOM, 1, 2)
+        grid.attach_next_to(vbox5, vbox3, Gtk.PositionType.BOTTOM, 2, 2)
 
         return grid, vbox5
 
@@ -132,9 +132,28 @@ class NonLinealMenu2(Gtk.Notebook):
         self.xs = Gtk.Entry()
         self.xs.set_placeholder_text("Superior Value")
         vbox6.pack_start(self.xs, True, True, 0)
-        grid.attach_next_to(vbox6, vbox5, Gtk.PositionType.RIGHT, 1, 2)
+        grid.attach_next_to(vbox6, vbox5, Gtk.PositionType.RIGHT, 2, 2)
 
         return grid, vbox6
+
+    def increment_value_entry(self, grid, vbox6):
+        """
+        Initial Value Label and Entry at the bottom.
+
+        Parameters:
+            grid
+            vbox4
+        Returns:
+            grid
+            vbox5
+        """
+        vbox7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        self.increment = Gtk.Entry()
+        self.increment.set_placeholder_text("Increment Value")
+        vbox7.pack_start(self.increment, True, True, 0)
+        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.RIGHT, 2, 2)
+
+        return grid, vbox7
 
 
     def button_box(self, grid, vbox5):
@@ -148,37 +167,37 @@ class NonLinealMenu2(Gtk.Notebook):
             grid
             vbox7
         '''
-        vbox7 = Gtk.Box(spacing=8)
+        vbox8 = Gtk.Box(spacing=8)
         button = Gtk.Button(label="Incremental Search")
         button.connect('clicked', self.incremental_Search_button)
-        vbox7.pack_start(button, True, True, 0)
+        vbox8.pack_start(button, True, True, 0)
         button2 = Gtk.Button(label="Bisection")
         button2.connect('clicked', self.bisection_button)
-        vbox7.pack_start(button2, True, True, 0)
+        vbox8.pack_start(button2, True, True, 0)
         button3 = Gtk.Button(label="False Rule")
         button3.connect('clicked', self.false_rule_button)
-        vbox7.pack_start(button3, True, True, 0)
+        vbox8.pack_start(button3, True, True, 0)
         button4 = Gtk.Button(label="Fixed Point")
         button4.connect('clicked', self.fixed_point_button)
-        vbox7.pack_start(button4, True, True, 0)
+        vbox8.pack_start(button4, True, True, 0)
         button5 = Gtk.Button(label="Newton")
         button5.connect('clicked', self.newton_button)
-        vbox7.pack_start(button5, True, True, 0)
+        vbox8.pack_start(button5, True, True, 0)
         button6 = Gtk.Button(label="Secant")
         button6.connect('clicked', self.secant_button)
-        vbox7.pack_start(button6, True, True, 0)
+        vbox8.pack_start(button6, True, True, 0)
         button7 = Gtk.Button(label="Multiple Roots")
         button7.connect('clicked', self.false_rule_button)
-        vbox7.pack_start(button7, True, True, 0)
+        vbox8.pack_start(button7, True, True, 0)
         button8 = Gtk.Button(label="Help")
         button8.connect('clicked', self.on_help_clicked)
-        vbox7.pack_start(button8, True, True, 0)
+        vbox8.pack_start(button8, True, True, 0)
 
-        grid.attach_next_to(vbox7, vbox5, Gtk.PositionType.BOTTOM, 2, 2)
+        grid.attach_next_to(vbox8, vbox5, Gtk.PositionType.BOTTOM, 6, 2)
 
-        return grid, vbox7
+        return grid, vbox8
 
-    def result_entry(self, grid, vbox7):
+    def result_entry(self, grid, vbox8):
         '''
         Result Entry.
 
@@ -189,23 +208,23 @@ class NonLinealMenu2(Gtk.Notebook):
             grid
             vbox8
         '''
-        vbox8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        vbox9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.result = Gtk.Entry()
         self.result.set_placeholder_text("Result")
-        vbox8.pack_start(self.result, True, True, 0)
+        vbox9.pack_start(self.result, True, True, 0)
 
-        grid.attach_next_to(vbox8, vbox7, Gtk.PositionType.BOTTOM, 2, 2)
+        grid.attach_next_to(vbox9, vbox8, Gtk.PositionType.BOTTOM, 6, 2)
 
-        return grid, vbox8
+        return grid, vbox9
 
     def graphic_f_button(self, grid, vbox):
         vbox10 = Gtk.Box(spacing=8)
         button = Gtk.Button(label="Graphic")
         button.connect('clicked', self.graphic_f)
         vbox10.pack_start(button, True, True, 0)
-        
+
         grid.attach_next_to(vbox10, vbox, Gtk.PositionType.RIGHT, 2, 2)
-        
+
         return grid
 
     def graphic_g_button(self, grid, vbox2):
@@ -213,11 +232,11 @@ class NonLinealMenu2(Gtk.Notebook):
         button = Gtk.Button(label="Graphic")
         button.connect('clicked', self.graphic_g)
         vbox11.pack_start(button, True, True, 0)
-        
+
         grid.attach_next_to(vbox11, vbox2, Gtk.PositionType.RIGHT, 2, 2)
-        
+
         return grid
-        
+
 
     def create_ui(self):
         grid, vbox = self.function_entry()
@@ -226,8 +245,9 @@ class NonLinealMenu2(Gtk.Notebook):
         grid, vbox4 = self.iteration_value_entry(grid, vbox3)
         grid, vbox5 = self.initial_value_and_entry(grid, vbox3)
         grid, vbox6 = self.superior_value_entry(grid, vbox5)
-        grid, vbox7 = self.button_box(grid, vbox5)
-        grid, vbox8 = self.result_entry(grid, vbox7)
+        grid, vbox7 = self.increment_value_entry(grid, vbox6)
+        grid, vbox8 = self.button_box(grid, vbox5)
+        grid, vbox9 = self.result_entry(grid, vbox8)
         grid = self.graphic_f_button(grid ,vbox)
         grid = self.graphic_g_button(grid ,vbox2)
 
@@ -251,6 +271,7 @@ class NonLinealMenu2(Gtk.Notebook):
 
     def bisection_button(self, widget):
         inferior_value = float(self.x0.get_text())
+        print(self.xs.get_text())
         superior_value = float(self.xs.get_text())
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
@@ -266,7 +287,7 @@ class NonLinealMenu2(Gtk.Notebook):
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
         Gtk.main()
-        
+
 
 
     def false_rule_button(self, widget):
@@ -374,4 +395,3 @@ def graphic(function,initial_value,iterations):
 
     win.show_all()
     Gtk.main()
-        

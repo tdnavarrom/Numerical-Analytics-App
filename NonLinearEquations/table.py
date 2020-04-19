@@ -47,8 +47,7 @@ class TreeView(Gtk.Window):
             renderer = Gtk.CellRendererText()
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)
-
+            column.set_resizable(True)
             self.table_tree.append_column(column)
 
         self.grid.attach(scrollTree, 0, 0, 8, 10)
-
