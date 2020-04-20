@@ -1,4 +1,5 @@
 import math
+from .Function import Function
 
 
 class Secant:
@@ -6,6 +7,8 @@ class Secant:
         self.values = []
 
     def evaluate(self, tol, x0, x1, fun, niter):
+
+        fun = Function(fun)
 
         fx0 = fun.evaluate(x0)
 

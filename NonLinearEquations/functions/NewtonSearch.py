@@ -1,4 +1,5 @@
 import math
+from .Function import Function
 
 
 class Newton:
@@ -6,6 +7,10 @@ class Newton:
         self.values = []
 
     def evaluate(self, tol, xi, niter, fun, dfun):
+
+        fun = Function(fun)
+        dfun = Function(dfun)
+
         fx = fun.evaluate2(xi)
         dfx = dfun.evaluate2(xi)
         contador = 0

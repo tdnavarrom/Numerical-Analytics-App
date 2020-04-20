@@ -1,12 +1,15 @@
 import math
-
+from .Function import Function
 
 class FixedPoint:
 
     def __init__(self):
         self.values = []
 
-    def evaluate(self, xi, tolerancia, iter, fun, gx):
+    def evaluate(self, xi, tolerancia, iter, function, g_function):
+
+        fun = Function(function)
+        gx = Function(g_function)
 
         fx = fun.evaluate2(xi)
 

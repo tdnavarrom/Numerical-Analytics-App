@@ -258,12 +258,13 @@ class NonLinealMenu2(Gtk.Notebook):
         initial_value = float(self.x0.get_text())
         increment = float(self.increment.get_text())
         iterations = float(self.iterations.get_text())
-        func = Function(self.function.get_text())
+        func = self.function.get_text()
+
         self.incremental_Search = ISearch()
         range_of_root = self.incremental_Search.evaluate(
             initial_value, increment, iterations, func)
         self.result.set_text(str(range_of_root))
-        
+
         table = self.incremental_Search.values
         tree = TreeView(table, ['Iter', 'x Value', 'F(x) value'],'Incremental_search')
         tree.connect("destroy", Gtk.main_quit)
@@ -272,12 +273,11 @@ class NonLinealMenu2(Gtk.Notebook):
 
     def bisection_button(self, widget):
         inferior_value = float(self.x0.get_text())
-        print(self.xs.get_text())
         superior_value = float(self.xs.get_text())
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
 
-        func = Function(self.function.get_text())
+        func = self.function.get_text()
         self.bisection_Search = BSearch()
         range_of_root = self.bisection_Search.evaluate(
             inferior_value, superior_value, tolerance, iterations, func, type_error=1)
@@ -295,7 +295,7 @@ class NonLinealMenu2(Gtk.Notebook):
         superior_value = float(self.xs.get_text())
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
-        func = Function(self.function.get_text())
+        func = self.function.get_text()
 
         self.false_rule_Search = FSearch()
         range_of_root = self.false_rule_Search.evaluate(
@@ -312,8 +312,8 @@ class NonLinealMenu2(Gtk.Notebook):
         initial_value = float(self.x0.get_text())
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
-        func = Function(self.function.get_text())
-        g_func = Function(self.g_function.get_text())
+        func = self.function.get_text()
+        g_func = self.g_function.get_text()
 
         self.fixed_point_Search = FPSearch()
         range_of_root = self.fixed_point_Search.evaluate(
@@ -331,13 +331,9 @@ class NonLinealMenu2(Gtk.Notebook):
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
 
-        function = self.function.get_text()
-        
-        func = Function(function)
+        func = self.function.get_text()
+        d_func = derivate_function(self.function.get_text())
 
-        der = derivate_function(function)
-        d_func = Function(der)
-    
 
         self.newton_Search = NSearch()
         range_of_root = self.newton_Search.evaluate(
@@ -356,7 +352,7 @@ class NonLinealMenu2(Gtk.Notebook):
         superior_value = float(self.xs.get_text())
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
-        func = Function(self.function.get_text())
+        func = self.function.get_text()
 
         self.secant_Search = SSearch()
         range_of_root = self.secant_Search.evaluate(tolerance,

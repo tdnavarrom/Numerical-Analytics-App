@@ -1,12 +1,14 @@
 import math
-
+from .Function import Function
 
 class FalseRule:
 
     def __init__(self):
         self.values = []
 
-    def evaluate(self, xi, xs, tolerancia, iter, funcion, type_error=1):
+    def evaluate(self, xi, xs, tolerancia, iter, function, type_error=1):
+
+        funcion = Function(function)
 
         fxi = funcion.evaluate(xi)
         fxs = funcion.evaluate(xs)

@@ -1,12 +1,15 @@
 import math
-
+from .Function import Function
 
 class IncrementalSearch:
     def __init__(self):
         self.values = []
 
-    def evaluate(self, initial_value, increment, iterations, Function):
-        fx = Function.evaluate(initial_value)
+    def evaluate(self, initial_value, increment, iterations, function):
+
+        function = Function(function)
+
+        fx = function.evaluate(initial_value)
         self.values.append([0, str(initial_value), str(fx)])
         if fx == 0:
             return str(initial_value) + " es una raiz."
@@ -17,7 +20,7 @@ class IncrementalSearch:
         else:
             x1 = initial_value + increment
             contador = 1
-            fx1 = Function.evaluate(x1)
+            fx1 = function.evaluate(x1)
             self.values.append([contador, str(x1), str(fx1)])
             while fx * fx1 > 0 and contador < iterations:
                 initial_value = x1
