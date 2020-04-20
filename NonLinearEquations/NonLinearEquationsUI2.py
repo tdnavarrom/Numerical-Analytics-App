@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-from .functions.Function import Function
 from .functions.IncrementalSearch import IncrementalSearch as ISearch
 from .functions.BisectionSearch import Bisection as BSearch
 from .functions.FalseRuleSearch import FalseRule as FSearch
@@ -377,23 +376,27 @@ class NonLinealMenu2(Gtk.Notebook):
         dialog.destroy()
 
     def graphic_f(self, widget):
-        func = Function(self.function.get_text())
+        func = self.function.get_text()
         graphic(func, 1 ,1)
 
     def graphic_g(self, widget):
-        func = Function(self.g_function.get_text())
+        func = self.g_function.get_text()
         graphic(func, 1 ,1)
 
 
-def graphic(function,initial_value,iterations):
+def graphic(funcion,initial_value,iterations):
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk
+
+    from .functions.Function import Function
 
     from matplotlib.figure import Figure
     from matplotlib.backends.backend_gtk3agg import FigureCanvas
     from matplotlib.backends.backend_gtk3 import (
         NavigationToolbar2GTK3 as NavigationToolbar)
+
+    function = Function(funcion)
 
     win = Gtk.Window()
     win.connect("destroy", lambda x: Gtk.main_quit())

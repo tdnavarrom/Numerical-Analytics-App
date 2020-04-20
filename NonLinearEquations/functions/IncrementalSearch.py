@@ -23,17 +23,17 @@ class IncrementalSearch:
             fx1 = function.evaluate(x1)
             self.values.append([contador, str(x1), str(fx1)])
             while fx * fx1 > 0 and contador < iterations:
-                initial_value = x1
+                x = x1
                 fx = fx1
-                x1 = initial_value + increment
-                fx1 = Function.evaluate(x1)
+                x1 = x + increment
+                fx1 = function.evaluate(x1)
                 contador += 1
                 self.values.append([contador, str(x1), str(fx1)])
 
             if fx1 == 0:
                 return str(x1) + " es una Raiz."
             elif fx * fx1 < 0:
-                return "Los valores "+ str(x) + " y " + x1 +" definen un intervalo"
+                return "Los valores "+ str(x) + " y " + str(x1) +" definen un intervalo"
             else:
                 return "No se encontro un intervalo que contenga al menos una raiz."
 
