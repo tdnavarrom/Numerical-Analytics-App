@@ -1,9 +1,9 @@
 import math
 
+
 class Secant:
     def __init__(self):
         self.values = []
-
 
     def evaluate(self, tol, x0, x1, fun, niter):
 
@@ -14,22 +14,24 @@ class Secant:
         else:
             fx1 = fun.evaluate(x1)
             cont = 0
-            self.values.append([-1, x0, "{:.2e}".format(fx0), None])
-            self.values.append([cont, x1, "{:.2e}".format(fx1), None])
+            self.values.append([-1, str(x0), str("{:.2e}".format(fx0)), None])
+            self.values.append(
+                [cont, str(x1), str("{:.2e}".format(fx1)), None])
             error = tol + 1
             den = fx1 - fx0
 
             while error > tol and fx1 != 0 and den != 0 and cont < niter:
                 x2 = x1 - (fx1*(x1 - x0)/den)
-                error  = abs((x2-x1)/x2)
+                error = abs((x2-x1)/x2)
                 x0 = x1
                 fx0 = fx1
                 x1 = x2
                 fx1 = fun.evaluate(x2)
                 den = fx1 - fx0
-    
+
                 cont = cont + 1
-                self.values.append([cont, x2, "{:.2e}".format(fx1), "{:.2e}".format(error)])
+                self.values.append(
+                    [cont, str(x2), str("{:.2e}".format(fx1)), str("{:.2e}".format(error))])
 
         if fx1 == 0:
             return f"{x1} es raíz"

@@ -6,7 +6,6 @@ class Newton:
         self.values = []
 
     def evaluate(self, tol, xi, niter, fun, dfun):
-
         fx = fun.evaluate2(xi)
         dfx = dfun.evaluate2(xi)
         contador = 0

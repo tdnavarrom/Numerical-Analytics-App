@@ -12,7 +12,7 @@ from .functions.FixedPointSearch import FixedPoint as FPSearch
 from .functions.NewtonSearch import Newton as NSearch
 from .functions.SecantSearch import Secant as SSearch
 from .table import *
-from sympy import *
+from .derivate import *
 
 
 
@@ -334,9 +334,9 @@ class NonLinealMenu2(Gtk.Notebook):
         function = self.function.get_text()
         
         func = Function(function)
-        x = symbols('x')
-        derivate = str(diff(function , x))
-        d_func = Function(derivate)
+
+        der = derivate_function(function)
+        d_func = Function(der)
     
 
         self.newton_Search = NSearch()
@@ -351,7 +351,6 @@ class NonLinealMenu2(Gtk.Notebook):
         tree.show_all()
         Gtk.main()
 
-
     def secant_button(self, widget):
         inferior_value = float(self.x0.get_text())
         superior_value = float(self.xs.get_text())
@@ -361,8 +360,13 @@ class NonLinealMenu2(Gtk.Notebook):
 
         self.secant_Search = SSearch()
         range_of_root = self.secant_Search.evaluate(tolerance,
-            inferior_value, superior_value, func, iterations,)
+                                                    inferior_value, superior_value, func, iterations,)
         self.result.set_text(str(range_of_root))
+        table = self.secant_Search.values
+        tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)', 'Error'], 'Secant')
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
 
 
 
