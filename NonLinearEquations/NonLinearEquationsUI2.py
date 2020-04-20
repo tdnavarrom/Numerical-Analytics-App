@@ -10,9 +10,9 @@ from .functions.FalseRuleSearch import FalseRule as FSearch
 from .functions.FixedPointSearch import FixedPoint as FPSearch
 from .functions.NewtonSearch import Newton as NSearch
 from .functions.SecantSearch import Secant as SSearch
+from .functions.MultipleRoots import MultipleRoots as MRoots
 from .table import *
 from .derivate import *
-
 
 
 class NonLinealMenu2(Gtk.Notebook):
@@ -116,7 +116,6 @@ class NonLinealMenu2(Gtk.Notebook):
 
         return grid, vbox5
 
-
     def superior_value_entry(self, grid, vbox5):
         """
         Initial Value Label and Entry at the bottom.
@@ -155,7 +154,6 @@ class NonLinealMenu2(Gtk.Notebook):
 
         return grid, vbox7
 
-
     def button_box(self, grid, vbox5):
         '''
         Box that contains all Buttons.
@@ -187,7 +185,7 @@ class NonLinealMenu2(Gtk.Notebook):
         button6.connect('clicked', self.secant_button)
         vbox8.pack_start(button6, True, True, 0)
         button7 = Gtk.Button(label="Multiple Roots")
-        button7.connect('clicked', self.false_rule_button)
+        button7.connect('clicked', self.multiple_roots)
         vbox8.pack_start(button7, True, True, 0)
         button8 = Gtk.Button(label="Help")
         button8.connect('clicked', self.on_help_clicked)
@@ -237,7 +235,6 @@ class NonLinealMenu2(Gtk.Notebook):
 
         return grid
 
-
     def create_ui(self):
         grid, vbox = self.function_entry()
         grid, vbox2 = self.g_function_entry(grid, vbox)
@@ -248,8 +245,8 @@ class NonLinealMenu2(Gtk.Notebook):
         grid, vbox7 = self.increment_value_entry(grid, vbox6)
         grid, vbox8 = self.button_box(grid, vbox5)
         grid, vbox9 = self.result_entry(grid, vbox8)
-        grid = self.graphic_f_button(grid ,vbox)
-        grid = self.graphic_g_button(grid ,vbox2)
+        grid = self.graphic_f_button(grid, vbox)
+        grid = self.graphic_g_button(grid, vbox2)
 
         return grid
 
@@ -265,7 +262,8 @@ class NonLinealMenu2(Gtk.Notebook):
         self.result.set_text(str(range_of_root))
 
         table = self.incremental_Search.values
-        tree = TreeView(table, ['Iter', 'x Value', 'F(x) value'],'Incremental_search')
+        tree = TreeView(table, ['Iter', 'x Value',
+                                'F(x) value'], 'Incremental_search')
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
         Gtk.main()
@@ -283,11 +281,11 @@ class NonLinealMenu2(Gtk.Notebook):
         self.result.set_text(str(range_of_root))
 
         table = self.bisection_Search.values
-        tree = TreeView(table, ['Iter', 'Xi', 'Xu', 'Xm', 'F(Xm)', 'Error'],'Bisection')
+        tree = TreeView(table, ['Iter', 'Xi', 'Xu',
+                                'Xm', 'F(Xm)', 'Error'], 'Bisection')
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
         Gtk.main()
-
 
     def false_rule_button(self, widget):
         inferior_value = float(self.x0.get_text())
@@ -333,7 +331,6 @@ class NonLinealMenu2(Gtk.Notebook):
         func = self.function.get_text()
         d_func = derivate_function(self.function.get_text())
 
-
         self.newton_Search = NSearch()
         range_of_root = self.newton_Search.evaluate(
             tolerance, initial_value, iterations, func, d_func)
@@ -363,6 +360,22 @@ class NonLinealMenu2(Gtk.Notebook):
         tree.show_all()
         Gtk.main()
 
+    def multiple_roots(self, widget):
+        initial_value = float(self.x0.get_text())
+        tolerance = float(self.tolerance.get_text())
+        iterations = float(self.iterations.get_text())
+
+        func = self.function.get_text()
+        d_func = derivate_function(self.function.get_text())
+        dd_func = derivate_function(d_func)
+        self.multiple_roots = MRoots()
+        range_of_root = self.multiple_roots.evaluate(
+            tolerance, initial_value, iterations, func, d_func, dd_func)
+        table = self.multiple_roots.values
+        tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)','f\'(Xn)','f\'\'(Xn)', 'Error'], 'MRoots')
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
 
 
     def on_help_clicked(self, widget):
@@ -377,14 +390,14 @@ class NonLinealMenu2(Gtk.Notebook):
 
     def graphic_f(self, widget):
         func = self.function.get_text()
-        graphic(func, 1 ,1)
+        graphic(func, 1, 1)
 
     def graphic_g(self, widget):
         func = self.g_function.get_text()
-        graphic(func, 1 ,1)
+        graphic(func, 1, 1)
 
 
-def graphic(funcion,initial_value,iterations):
+def graphic(funcion, initial_value, iterations):
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk
@@ -400,7 +413,7 @@ def graphic(funcion,initial_value,iterations):
 
     win = Gtk.Window()
     win.connect("destroy", lambda x: Gtk.main_quit())
-    win.set_default_size(640,480)
+    win.set_default_size(640, 480)
     win.set_title("Embedding in GTK")
 
     vbox = Gtk.VBox()
@@ -409,7 +422,7 @@ def graphic(funcion,initial_value,iterations):
     #increment = 0.1
     #final_value = math.fabs(initial_value+math.fabs(increment*iterations))
 
-    fig = Figure(figsize=(5,4), dpi=100)
+    fig = Figure(figsize=(5, 4), dpi=100)
     ax = fig.add_subplot(111)
     x = np.arange(-100, 100, 1)
     ax.plot(x, [function.evaluate(i) for i in x])

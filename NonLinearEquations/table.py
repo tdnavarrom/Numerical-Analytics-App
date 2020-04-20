@@ -41,6 +41,8 @@ class TreeView(Gtk.Window):
             self.store = Gtk.ListStore(int, str, str, str, str)
         elif tip == "Secant":
             self.store = Gtk.ListStore(int, str, str, str)
+        elif tip == "MRoots":
+            self.store = Gtk.ListStore(int, str, str, str, str, str)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
