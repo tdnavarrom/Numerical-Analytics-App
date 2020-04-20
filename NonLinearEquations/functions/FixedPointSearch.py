@@ -17,7 +17,7 @@ class FixedPoint:
         if tolerancia < 0:
             return "Error en la tolerancia, debe ser mayor o igual a 0"
 
-        self.values.append([0, xi, "{:.2e}".format(fx), None])
+        self.values.append([0, str(xi), str("{:.2e}".format(fx)), None])
         contador = 0
         error = tolerancia + 0.1
         while fx != 0 and error > tolerancia and contador < iter:
@@ -25,9 +25,10 @@ class FixedPoint:
             fi = fun.evaluate2(xn)
             error = abs((xn-xi)/xn)
             xi = xn
-    
+
             contador = contador + 1
-            self.values.append([contador, xn, "{:.2e}".format(fi), "{:.2e}".format(error)])
+            self.values.append([contador, str(xn), str(
+                "{:.2e}".format(fi)), str("{:.2e}".format(error))])
 
         if fx == 0:
             return f"{xi} es raiz"

@@ -12,6 +12,7 @@ from .functions.FixedPointSearch import FixedPoint as FPSearch
 from .functions.NewtonSearch import Newton as NSearch
 from .functions.SecantSearch import Secant as SSearch
 from .table import *
+from sympy import *
 
 
 
@@ -258,12 +259,12 @@ class NonLinealMenu2(Gtk.Notebook):
         increment = float(self.increment.get_text())
         iterations = float(self.iterations.get_text())
         func = Function(self.function.get_text())
-
         self.incremental_Search = ISearch()
         range_of_root = self.incremental_Search.evaluate(
             initial_value, increment, iterations, func)
         self.result.set_text(str(range_of_root))
-
+        
+        table = self.incremental_Search.values
         tree = TreeView(table, ['Iter', 'x Value', 'F(x) value'],'Incremental_search')
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
@@ -289,7 +290,6 @@ class NonLinealMenu2(Gtk.Notebook):
         Gtk.main()
 
 
-
     def false_rule_button(self, widget):
         inferior_value = float(self.x0.get_text())
         superior_value = float(self.xs.get_text())
@@ -301,7 +301,12 @@ class NonLinealMenu2(Gtk.Notebook):
         range_of_root = self.false_rule_Search.evaluate(
             inferior_value, superior_value, tolerance, iterations, func, type_error=1)
         self.result.set_text(str(range_of_root))
-
+        table = self.false_rule_Search.values
+        tree = TreeView(table, ['Iter', 'Xi', 'Xu', 'Xm',
+                                'F(Xm)', 'Error'], 'False_rule')
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
 
     def fixed_point_button(self, widget):
         initial_value = float(self.x0.get_text())
@@ -314,19 +319,37 @@ class NonLinealMenu2(Gtk.Notebook):
         range_of_root = self.fixed_point_Search.evaluate(
             initial_value, tolerance, iterations, func, g_func)
         self.result.set_text(str(range_of_root))
-
+        table = self.fixed_point_Search.values
+        tree = TreeView(table, ['iter', 'x Value',
+                                'F(x) Value', 'Error'], 'Fixed_point')
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
 
     def newton_button(self, widget):
         initial_value = float(self.x0.get_text())
         tolerance = float(self.tolerance.get_text())
         iterations = float(self.iterations.get_text())
-        func = Function(self.function.get_text())
-        d_func = Function(self.derivate_function.get_text())
+
+        function = self.function.get_text()
+        
+        func = Function(function)
+        x = symbols('x')
+        derivate = str(diff(function , x))
+        d_func = Function(derivate)
+    
 
         self.newton_Search = NSearch()
         range_of_root = self.newton_Search.evaluate(
-        tolerance, initial_value, iterations, func, d_func)
+            tolerance, initial_value, iterations, func, d_func)
         self.result.set_text(str(range_of_root))
+
+        table = self.newton_Search.values
+        tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)',
+                                'f\'(Xn)', 'Error'], 'Newton')
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
 
 
     def secant_button(self, widget):

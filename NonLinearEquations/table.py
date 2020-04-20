@@ -8,7 +8,7 @@ gi.require_version("Gtk", "3.0")
 
 class TreeView(Gtk.Window):
     def __init__(self, table, column, tip):
-        Gtk.Window.__init__(self, title="Treeview Filter Demo")
+        Gtk.Window.__init__(self, title=tip)
         self.set_border_width(10)
         self.set_default_size(500, 600)
 
@@ -30,9 +30,15 @@ class TreeView(Gtk.Window):
                           columns=column)
         # los foat dicen de cuantas columnas va a ser la tabla
         if tip == "Bisection":
-            self.store = Gtk.ListStore(int, float, float, float, str, str)
+            self.store = Gtk.ListStore(int, str, str, str, str, str)
         elif tip == "Incremental_search":
-            self.store = Gtk.ListStore(int, float, float)
+            self.store = Gtk.ListStore(int, str, str)
+        elif tip == "False_rule":
+            self.store = Gtk.ListStore(int, str, str, str, str, str)
+        elif tip == "Fixed_point":
+            self.store = Gtk.ListStore(int, str, str, str)
+        elif tip == "Newton":
+            self.store = Gtk.ListStore(int, str, str, str, str)
 
         for i, j in df.iterrows():
             # i es el index del DataFrame
@@ -48,6 +54,7 @@ class TreeView(Gtk.Window):
 
             column = Gtk.TreeViewColumn(col, renderer, text=i)
             column.set_resizable(True)
+            column.set_expand(True)
             self.table_tree.append_column(column)
 
         self.grid.attach(scrollTree, 0, 0, 8, 10)

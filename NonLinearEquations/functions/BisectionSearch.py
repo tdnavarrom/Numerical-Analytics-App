@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 
 class Bisection:
@@ -25,7 +26,7 @@ class Bisection:
             contador = 1
             error = tolerancia + 0.1
             self.values.append(
-                [contador, xi, xs, xm, "{:.2e}".format(fxm), "{:.2e}".format(error)])
+                [contador, str(xi), str(xs), str(xm), str("{:.2e}".format(fxm)), str("{:.2e}".format(error))])
 
             while error > tolerancia and fxm != 0 and contador < iter:
                 if fxm * fxi < 0:
@@ -45,7 +46,7 @@ class Bisection:
 
                 contador += 1
                 self.values.append(
-                    [contador, xi, xs, xm, "{:.2e}".format(fxm), "{:.2e}".format(error)])
+                    [contador, str(xi), str(xs), str(xm), str("{:.2e}".format(fxm)), str("{:.2e}".format(error))])
 
             if fxm == 0:
                 return f"{xm} es raiz"

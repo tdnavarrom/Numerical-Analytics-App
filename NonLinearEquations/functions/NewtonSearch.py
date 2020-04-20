@@ -11,8 +11,9 @@ class Newton:
         dfx = dfun.evaluate2(xi)
         contador = 0
         error = tol + 1
-        self.values.append([contador, xi, "{:.2e}".format(fx), dfx, None])
-        
+        self.values.append([contador, str(xi), str(
+            "{:.2e}".format(fx)), str(dfx), None])
+
         while error > tol and fx != 0 and dfx != 0 and contador < niter:
             xn = xi - (fx/dfx)
             fx = fun.evaluate2(xn)
@@ -21,7 +22,8 @@ class Newton:
             xi = xn
 
             contador = contador + 1
-            self.values.append([contador, xn, "{:.2e}".format(fx), dfx, "{:.2e}".format(error)])
+            self.values.append([contador, str(xn), str(
+                "{:.2e}".format(fx)), str(dfx), str("{:.2e}".format(error))])
 
         if fx == 0:
             return f"{xi} es raiz"
