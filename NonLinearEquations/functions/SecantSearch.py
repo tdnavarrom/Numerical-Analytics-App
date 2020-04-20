@@ -6,7 +6,7 @@ class Secant:
     def __init__(self):
         self.values = []
 
-    def evaluate(self, tol, x0, x1, fun, niter):
+    def evaluate(self, tol, x0, x1, fun, niter, type_error=1):
 
         fun = Function(fun)
 
@@ -25,7 +25,12 @@ class Secant:
 
             while error > tol and fx1 != 0 and den != 0 and cont < niter:
                 x2 = x1 - (fx1*(x1 - x0)/den)
-                error = abs((x2-x1)/x2)
+
+                if type_error == 0:
+                    error = abs(x2-x1)
+                else:
+                    error = abs((x2-x1)/x2)
+
                 x0 = x1
                 fx0 = fx1
                 x1 = x2

@@ -6,7 +6,7 @@ class Newton:
     def __init__(self):
         self.values = []
 
-    def evaluate(self, tol, xi, niter, fun, dfun):
+    def evaluate(self, tol, xi, niter, fun, dfun, type_error=1):
 
         fun = Function(fun)
         dfun = Function(dfun)
@@ -18,7 +18,7 @@ class Newton:
             return str(fx) + " es una raiz."
         if dfun == 0:
             return "La derivada no puede ser 0"
-            
+
         contador = 0
         error = tol + 1
 
@@ -29,7 +29,12 @@ class Newton:
             xn = xi - (fx/dfx)
             fx = fun.evaluate2(xn)
             dfx = dfun.evaluate2(xn)
-            error = abs((xn - xi)/xn)
+
+            if type_error == 0:
+                error = abs(xn-xi)
+            else:
+                error = abs((xn-xi)/xn)
+
             xi = xn
 
             contador = contador + 1

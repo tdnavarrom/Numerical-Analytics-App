@@ -6,7 +6,7 @@ class MultipleRoots:
     def __init__(self):
         self.values = []
 
-    def evaluate(self, tol, xi, iter, function, d1, dd2):
+    def evaluate(self, tol, xi, iter, function, d1, dd2, type_error=1):
         fun = Function(function)
         der1 = Function(d1)
         der2 = Function(dd2)
@@ -27,12 +27,15 @@ class MultipleRoots:
             dfx = der1.evaluate2(xi)
             ddfx = der2.evaluate2(xi)
 
-            error = abs((xi-x)/(xi))
+            if type_error == 0:
+                error = abs(xi-x)
+            else:
+                error = abs((xi-x)/xi)
 
             contador += 1
             self.values.append([contador, str(xi), str("{:.2e}".format(
                 fx)), str("{:.2e}".format(dfx)), str(ddfx), str("{:.2e}".format(error))])
-        
+
         if fx == 0:
             return f"{xi} es raiz"
         elif error < tol:
@@ -42,4 +45,3 @@ class MultipleRoots:
 
     def tabla_values(self):
         return self.values
-

@@ -6,7 +6,7 @@ class FixedPoint:
     def __init__(self):
         self.values = []
 
-    def evaluate(self, xi, tolerancia, iter, function, g_function):
+    def evaluate(self, xi, tolerancia, iter, function, g_function, type_error=1):
 
         fun = Function(function)
         gx = Function(g_function)
@@ -26,7 +26,12 @@ class FixedPoint:
         while fx != 0 and error > tolerancia and contador < iter:
             xn = gx.evaluate2(xi)
             fi = fun.evaluate2(xn)
-            error = abs((xn-xi)/xn)
+
+            if type_error == 0:
+                error = abs(xm-xaux)
+            else:
+                error = abs((xm-xaux)/xm)
+
             xi = xn
 
             contador = contador + 1
