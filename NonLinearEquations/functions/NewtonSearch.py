@@ -13,8 +13,15 @@ class Newton:
 
         fx = fun.evaluate2(xi)
         dfx = dfun.evaluate2(xi)
+
+        if fx == 0:
+            return str(fx) + " es una raiz."
+        if dfun == 0:
+            return "La derivada no puede ser 0"
+            
         contador = 0
         error = tol + 1
+
         self.values.append([contador, str(xi), str(
             "{:.2e}".format(fx)), str(dfx), None])
 
