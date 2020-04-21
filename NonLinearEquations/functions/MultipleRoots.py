@@ -41,7 +41,7 @@ class MultipleRoots:
         elif error < tol:
             return f"{xi} es una aprox. a una raiz con una tolerancia = {tol}"
         else:
-            return f"El método fracasó en {niter} iteraciones"
+            return f"El método fracasó en {iter} iteraciones"
 
     def tabla_values(self):
         return self.values

@@ -28,9 +28,9 @@ class FixedPoint:
             fi = fun.evaluate2(xn)
 
             if type_error == 0:
-                error = abs(xm-xaux)
+                error = abs(xn-xi)
             else:
-                error = abs((xm-xaux)/xm)
+                error = abs((xn-xi)/xn)
 
             xi = xn
 
