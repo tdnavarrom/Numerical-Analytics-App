@@ -394,6 +394,7 @@ class NonLinealMenu2(Gtk.Notebook):
         self.multiple_roots = MRoots()
         range_of_root = self.multiple_roots.evaluate(
             tolerance, initial_value, iterations, func, d_func, dd_func, self.type_error)
+        self.result.set_text(str(range_of_root))
         table = self.multiple_roots.values
         tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)','f\'(Xn)','f\'\'(Xn)', 'Error'], 'MRoots')
         tree.connect("destroy", Gtk.main_quit)
