@@ -9,6 +9,7 @@ class IncrementalSearch:
 
         function = Function(function)
 
+        x = initial_value
         fx = function.evaluate(initial_value)
         self.values.append([0, str(initial_value), str(fx)])
         if fx == 0:

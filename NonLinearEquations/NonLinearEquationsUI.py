@@ -448,8 +448,10 @@ def graphic(funcion, initial_value, iterations):
 
     fig = Figure(figsize=(5, 4), dpi=100)
     ax = fig.add_subplot(111)
-    x = np.arange(-100, 100, 1)
-    ax.plot(x, [function.evaluate(i) for i in x])
+    x = np.arange(-50, 3, 0.01)
+    y = [function.evaluate2(i) for i in x]
+    print(y)
+    ax.plot(x,y)
 
     canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
     vbox.pack_start(canvas, True, True, 0)
