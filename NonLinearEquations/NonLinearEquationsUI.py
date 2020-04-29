@@ -414,11 +414,11 @@ class NonLinealMenu(Gtk.Notebook):
 
     def graphic_f(self, widget):
         func = self.function.get_text()
-        graphic(func, 1, 1)
+        graphic(func, float(self.initial_value.get_text()) -100, float(self.iterations.get_text()))
 
     def graphic_g(self, widget):
         func = self.g_function.get_text()
-        graphic(func, 1, 1)
+        graphic(func, float(self.initial_value.get_text()) -100, float(self.iterations.get_text()))
 
 
 def graphic(funcion, initial_value, iterations):
@@ -443,8 +443,8 @@ def graphic(funcion, initial_value, iterations):
     vbox = Gtk.VBox()
     win.add(vbox)
 
-    #increment = 0.1
-    #final_value = math.fabs(initial_value+math.fabs(increment*iterations))
+    increment = 0.01
+    final_value = math.fabs(initial_value+math.fabs(increment*100))
 
     fig = Figure(figsize=(5, 4), dpi=100)
     ax = fig.add_subplot(111)
