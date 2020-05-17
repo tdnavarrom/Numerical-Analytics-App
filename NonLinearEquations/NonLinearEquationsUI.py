@@ -3,16 +3,16 @@ import math
 import numpy as np
 import pandas as pd
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
-from .functions.IncrementalSearch import IncrementalSearch as ISearch
-from .functions.BisectionSearch import Bisection as BSearch
-from .functions.FalseRuleSearch import FalseRule as FSearch
-from .functions.FixedPointSearch import FixedPoint as FPSearch
-from .functions.NewtonSearch import Newton as NSearch
-from .functions.SecantSearch import Secant as SSearch
-from .functions.MultipleRoots import MultipleRoots as MRoots
-from .table import *
 from .derivate import *
+from .table import *
+from .functions.MultipleRoots import MultipleRoots as MRoots
+from .functions.SecantSearch import Secant as SSearch
+from .functions.NewtonSearch import Newton as NSearch
+from .functions.FixedPointSearch import FixedPoint as FPSearch
+from .functions.FalseRuleSearch import FalseRule as FSearch
+from .functions.BisectionSearch import Bisection as BSearch
+from .functions.IncrementalSearch import IncrementalSearch as ISearch
+from gi.repository import Gtk, Gdk
 
 
 class NonLinealMenu(Gtk.Notebook):
@@ -22,6 +22,14 @@ class NonLinealMenu(Gtk.Notebook):
         self.grid = Gtk.Grid()
         self.grid = self.create_ui()
         self.type_error = 1
+
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_path(
+            'NonLinearEquations/NonLinearEquations.css')
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            css_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def function_entry(self):
         """
@@ -77,29 +85,32 @@ class NonLinealMenu(Gtk.Notebook):
         vbox3.pack_start(self.tolerance, True, True, 0)
 
         self.relative_button = Gtk.ToggleButton("Relative Error")
-        self.relative_button.connect("toggled", self.on_button_toggled, "relative_error")
+        self.relative_button.connect(
+            "toggled", self.on_button_toggled, "relative_error")
         vbox3.pack_start(self.relative_button, True, True, 0)
 
-        self.absolute_button = Gtk.ToggleButton("Absolute Error", use_underline=True)
-        self.absolute_button.connect("toggled", self.on_button_toggled, "absolute_error")
+        self.absolute_button = Gtk.ToggleButton(
+            "Absolute Error", use_underline=True)
+        self.absolute_button.connect(
+            "toggled", self.on_button_toggled, "absolute_error")
         vbox3.pack_start(self.absolute_button, True, True, 0)
 
         grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 3, 2)
 
         return grid, vbox3
 
-
     def on_button_toggled(self, button, name):
 
         if button.get_active():
             if name == "relative_error":
-                if self.absolute_button.get_active(): self.absolute_button.set_active(False)
+                if self.absolute_button.get_active():
+                    self.absolute_button.set_active(False)
                 self.type_error = 1
 
             elif name == "absolute_error":
-                if self.relative_button.get_active(): self.relative_button.set_active(False)
+                if self.relative_button.get_active():
+                    self.relative_button.set_active(False)
                 self.type_error = 0
-
 
     def iteration_value_entry(self, grid, vbox3):
         '''
@@ -375,7 +386,7 @@ class NonLinealMenu(Gtk.Notebook):
 
         self.secant_Search = SSearch()
         range_of_root = self.secant_Search.evaluate(tolerance,
-            inferior_value, superior_value, func, iterations, self.type_error)
+                                                    inferior_value, superior_value, func, iterations, self.type_error)
         self.result.set_text(str(range_of_root))
         table = self.secant_Search.values
         tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)', 'Error'], 'Secant')
@@ -396,11 +407,11 @@ class NonLinealMenu(Gtk.Notebook):
             tolerance, initial_value, iterations, func, d_func, dd_func, self.type_error)
         self.result.set_text(str(range_of_root))
         table = self.multiple_roots.values
-        tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)','f\'(Xn)','f\'\'(Xn)', 'Error'], 'MRoots')
+        tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)',
+                                'f\'(Xn)', 'f\'\'(Xn)', 'Error'], 'MRoots')
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
         Gtk.main()
-
 
     def on_help_clicked(self, widget):
         dialog = Gtk.MessageDialog(
@@ -414,11 +425,13 @@ class NonLinealMenu(Gtk.Notebook):
 
     def graphic_f(self, widget):
         func = self.function.get_text()
-        graphic(func, float(self.initial_value.get_text()) -100, float(self.iterations.get_text()))
+        graphic(func, float(self.initial_value.get_text()) -
+                100, float(self.iterations.get_text()))
 
     def graphic_g(self, widget):
         func = self.g_function.get_text()
-        graphic(func, float(self.initial_value.get_text()) -100, float(self.iterations.get_text()))
+        graphic(func, float(self.initial_value.get_text()) -
+                100, float(self.iterations.get_text()))
 
 
 def graphic(funcion, initial_value, iterations):
@@ -451,7 +464,7 @@ def graphic(funcion, initial_value, iterations):
     x = np.arange(-50, 3, 0.01)
     y = [function.evaluate2(i) for i in x]
     print(y)
-    ax.plot(x,y)
+    ax.plot(x, y)
 
     canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
     vbox.pack_start(canvas, True, True, 0)

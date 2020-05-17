@@ -1,7 +1,6 @@
 import math
 from .Function import Function
 
-
 class Secant:
     def __init__(self):
         self.values = []

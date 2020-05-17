@@ -2,7 +2,7 @@ from NonLinearEquations.NonLinearEquationsUI import NonLinealMenu as nleMenu
 from Welcome import Welcome
 from Guide import Guide
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 import gi
 gi.require_version('Gtk', '3.0')
 
@@ -12,6 +12,13 @@ class MyWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Change Analytics")
         self.set_border_width(5)
+
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_path('main.css')
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            css_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self.notebook = Gtk.Notebook()
         self.notebook.set_show_border(True)
@@ -29,8 +36,8 @@ class MyWindow(Gtk.Window):
         self.page2 = Gtk.Box()
         self.page2.set_border_width(10)
         self.page2.add(nleNotebook)
-        self.notebook.append_page(self.page2, Gtk.Label('Non-Linear Equations'))
-
+        self.notebook.append_page(
+            self.page2, Gtk.Label('Non-Linear Equations'))
 
         self.page3 = Gtk.Box()
         self.page3.set_border_width(10)
@@ -45,7 +52,8 @@ class MyWindow(Gtk.Window):
         self.page5 = Gtk.Box()
         self.page5.set_border_width(10)
         self.page5.add(Gtk.Label('Otro Menu'))
-        self.notebook.append_page(self.page5, Gtk.Label('Differentiation And Numeric Integration'))
+        self.notebook.append_page(self.page5, Gtk.Label(
+            'Differentiation And Numeric Integration'))
 
         self.page6 = Gtk.Box()
         self.page6.set_border_width(10)
