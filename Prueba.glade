@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.2 -->
+<!-- Generated with glade 3.36.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <signal name="destroy" handler="onDestroy" swapped="no"/>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
     <child>
       <object class="GtkNotebook" id="nb">
         <property name="visible">True</property>
@@ -32,6 +29,7 @@
                   <item id="4" translatable="yes">Fixed Point</item>
                   <item id="5" translatable="yes">Newton</item>
                   <item id="6" translatable="yes">Secant</item>
+                  <item id="7" translatable="yes">Multiple Roots</item>
                 </items>
               </object>
               <packing>
@@ -234,6 +232,9 @@
           </packing>
         </child>
       </object>
+    </child>
+    <child type="titlebar">
+      <placeholder/>
     </child>
   </object>
 </interface>
