@@ -1,18 +1,20 @@
+from gi.repository import Gtk, Gdk
+from .functions.IncrementalSearch import IncrementalSearch as ISearch
+from .functions.BisectionSearch import Bisection as BSearch
+from .functions.FalseRuleSearch import FalseRule as FSearch
+from .functions.FixedPointSearch import FixedPoint as FPSearch
+from .functions.NewtonSearch import Newton as NSearch
+from .functions.SecantSearch import Secant as SSearch
+from .functions.MultipleRoots import MultipleRoots as MRoots
+from .graph import *
+from .table import *
+from .derivate import *
 import gi
 import math
 import numpy as np
 import pandas as pd
 gi.require_version('Gtk', '3.0')
-from .derivate import *
-from .table import *
-from .functions.MultipleRoots import MultipleRoots as MRoots
-from .functions.SecantSearch import Secant as SSearch
-from .functions.NewtonSearch import Newton as NSearch
-from .functions.FixedPointSearch import FixedPoint as FPSearch
-from .functions.FalseRuleSearch import FalseRule as FSearch
-from .functions.BisectionSearch import Bisection as BSearch
-from .functions.IncrementalSearch import IncrementalSearch as ISearch
-from gi.repository import Gtk, Gdk
+
 
 class Handler:
     def __init__(self, parameters):
@@ -51,11 +53,12 @@ class Handler:
             self.parameters[9].set_text(str(range_of_root))
 
             self.table = self.incremental_Search.values
-            self.table_names= ["Iter", "x Value",
-                            "F(x) value"]
+            self.table_names = ["Iter", "x Value",
+                                "F(x) value"]
             self.type = "Incremental_search"
         except:
-            self.parameters[9].set_text("Seleccione el metodo acorde a trabajar o ingrese los valores")
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
 
     def bisection_method(self):
         try:
@@ -73,11 +76,11 @@ class Handler:
 
             self.parameters[9].set_text(str(range_of_root))
             self.table = self.bisection_Search.values
-            self.table_names =["Iter", "Xi", "Xu","Xm", "F(Xm)", "Error"]
+            self.table_names = ["Iter", "Xi", "Xu", "Xm", "F(Xm)", "Error"]
             self.type = "Bisection"
         except:
-            self.parameters[9].set_text("Seleccione el metodo acorde a trabajar o ingrese los valores")
-
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
 
     def false_rule_method(self):
         try:
@@ -95,10 +98,11 @@ class Handler:
                 inferior_value, superior_value, tolerance, iterations, func, error)
             self.parameters[9].set_text(str(range_of_root))
             self.table = self.false_rule_Search.values
-            self.table_names =["Iter", "Xi", "Xu","Xm", "F(Xm)", "Error"]
+            self.table_names = ["Iter", "Xi", "Xu", "Xm", "F(Xm)", "Error"]
             self.type = "False Rule"
         except:
-            self.parameters[9].set_text("Seleccione el metodo acorde a trabajar o ingrese los valores")
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
 
     def fixed_point_method(self):
         try:
@@ -115,10 +119,11 @@ class Handler:
                 initial_value, tolerance, iterations, func, g_func, error)
             self.parameters[9].set_text(str(range_of_root))
             self.table = self.fixed_point_Search.values
-            self.table_names['iter', 'x Value','F(x) Value', 'Error']
+            self.table_names['iter', 'x Value', 'F(x) Value', 'Error']
             self.type = "Fixed Point"
         except:
-            self.parameters[9].set_text("Seleccione el metodo acorde a trabajar o ingrese los valores")
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
 
     def newton_method(self):
         try:
@@ -139,7 +144,8 @@ class Handler:
             self.table_names = ['Iter', 'Xn', 'f(Xn)', 'f\'(Xn)', 'Error']
             self.type = "Newton"
         except:
-            self.parameters[9].set_text("Seleccione el metodo acorde a trabajar o ingrese los valores")
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
 
     def secant_method(self):
         try:
@@ -159,7 +165,8 @@ class Handler:
             self.table_names = ['Iter', 'Xn', 'f(Xn)', 'Error']
             self.type = "Secant"
         except:
-            self.parameters[9].set_text("Seleccione el metodo acorde a trabajar o ingrese los valores")
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
 
     def multiple_roots_method(self):
         try:
@@ -176,13 +183,108 @@ class Handler:
                 tolerance, initial_value, iterations, func, d_func, dd_func, error)
             self.parameters[9].set_text(str(range_of_root))
             self.table = self.multiple_roots.values
-            self.table_names = ['Iter', 'Xn', 'f(Xn)','f\'(Xn)', 'f\'\'(Xn)', 'Error']
+            self.table_names = ['Iter', 'Xn',
+                                'f(Xn)', 'f\'(Xn)', 'f\'\'(Xn)', 'Error']
             self.type = "Multiple Roots"
         except:
-            self.parameters[9].set_text("Seleccione el metodo acorde a trabajar o ingrese los valores")
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+
+    def help_pressed(self, button):
+        method = self.parameters[0].get_active()
+        if method == 0:
+            self.on_IncHelp_clicked()
+        elif method == 1:
+            self.on_BisectHelp_clicked()
+        elif method == 2:
+            self.on_FruleHelp_clicked()
+        elif method == 3:
+            self.on_FpointHelp_clicked()
+        elif method == 4:
+            self.on_Newtonhelp_clicked()
+        elif method == 5:
+            self.on_Sechelp_clicked()
+        elif method == 6:
+            self.on_Mroothelp_clicked()
+
+    def on_IncHelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Incremental Search Help")
+        dialog.format_secondary_text(
+            "El metodo de la busqueda incremental funciona ingresando una funcion, un valor inferior y superior que conformaran un conjunto.\nDentro de este conjunto,utilizando el incremento ingresado se evalua la funcion en un valor hasta encontrar un cambio de signo o que f(x)=0.\n\n En el caso de un cambio de signo, la raiz esta dentro del intervalo, o en el caso de encontrar f(x)=0, la raiz es x. ")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_BisectHelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Bisection Search Help")
+        dialog.format_secondary_text(
+            "El metodo de Biseccion es un metodo para encontrar raices de una funcion.\n\nFunciona mediante ingresando un intervalo dentro del cual evaluar, con un numero de iteraciones y cierta tolerancia a la precision del resultado.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_FruleHelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "False Rule Help")
+        dialog.format_secondary_text(
+            "Dado un intervalo inicial [xi,xu], se encuentra el punto de interseccion del eje x con la recta secante que une los puntos (xi,f(xi) y (xu,f(xu) y se evalúa en la función f(x).\nLa función f debe estar definida en el intervalo [xi,xu], f debe de ser continua en el intervalo [xi,xu] y  f(xi)∗f(xu)<0.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_FpointHelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Fixed Point Search Help")
+        dialog.format_secondary_text(
+            "El método de punto fijo reformula la ecuación f(x)=0 y genera una ecuación de la forma x=g(x) que permite encontrar un valor de x que al reemplazarlo en g su resultado sea el mismo, es decir que x sea invariable para g, y adicionalmente que la f(x) converja a cero.\n\nSe dispone de un intervalo [a,b] para el cual la función g es continua y se cumple que para todo valor de x en el intervalo, g(x) también pertenece al mismo intervalo. Además para garantizar la unicidad de dicho punto se debe cumplir que la derivada g′(x)<1 en el intervalo.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_Newtonhelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Newton Help")
+        dialog.format_secondary_text(
+            "Newton Help")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_Sechelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Secant Help")
+        dialog.format_secondary_text(
+            "Secant help")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_Mroothelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Multiple Roots Help")
+        dialog.format_secondary_text(
+            "Multiple Roots help")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
 
     def table_pressed(self, button):
         tree = TreeView(self.table, self.table_names, self.type)
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
         Gtk.main()
+
+    def graph_pressed(self, button):
+        func = self.parameters[3].get_text()
+        initial_value = float(self.parameters[7].get_text()) - 100
+        iterations = float(self.parameters[5].get_text())
+        graphic(func, initial_value, iterations)
