@@ -8,6 +8,7 @@ from .functions.SecantSearch import Secant as SSearch
 from .functions.MultipleRoots import MultipleRoots as MRoots
 from .graph import *
 from .table import *
+from .matrixTable import *
 from .derivate import *
 import gi
 import math
@@ -17,8 +18,9 @@ gi.require_version('Gtk', '3.0')
 
 
 class Handler:
-    def __init__(self, parameters):
+    def __init__(self, parameters, parameters2):
         self.parameters = parameters
+        self.parameters2 = parameters2
 
     def onDestroy(self, *args):
         Gtk.main_quit()
@@ -288,3 +290,13 @@ class Handler:
         initial_value = float(self.parameters[7].get_text()) - 100
         iterations = float(self.parameters[5].get_text())
         graphic(func, initial_value, iterations)
+    
+    def matrix_generate(self, button):
+        lines = int(self.parameters2[0].get_text())
+        columns = lines + 1
+        tree = TreeView(columns)
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
+        
+    

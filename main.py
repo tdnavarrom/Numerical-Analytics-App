@@ -27,7 +27,14 @@ class App:
         self.tolerance = go("Tolerance")
 
         self.parameters = self.method, self.error, self.help, self.function, self.gfunction, self.iterations, self.increment, self.initial, self.superior, self.result, self.tolerance
-        self.builder.connect_signals(Handler(self.parameters))
+
+        self.variables = go("VariablesM")
+        self.generate_button = go("generate_button")
+        self.table_matrix = go("table_matrix")
+
+        self.parameters2 = self.variables, self.generate_button, self.table_matrix
+
+        self.builder.connect_signals(Handler(self.parameters, self.parameters2))
 
         self.window.connect("destroy", Gtk.main_quit)
         gtk_style()

@@ -268,6 +268,71 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
             <property name="tab_fill">False</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkFixed">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkEntry" id="VariablesM">
+                <property name="width_request">168</property>
+                <property name="height_request">34</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="primary_icon_stock">gtk-info</property>
+                <property name="primary_icon_tooltip_text" translatable="yes">Insert the number of variables that you need.</property>
+                <property name="placeholder_text" translatable="yes">Insert variables</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkTreeView" id="table_matrix">
+                <property name="width_request">168</property>
+                <property name="height_request">206</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection"/>
+                </child>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">50</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="generate_button">
+                <property name="label" translatable="yes">Generate matrix</property>
+                <property name="width_request">141</property>
+                <property name="height_request">34</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="pressed" handler="matrix_generate" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">188</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">page 3</property>
+          </object>
+          <packing>
+            <property name="position">2</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
