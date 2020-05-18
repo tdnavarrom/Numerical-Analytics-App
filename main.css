@@ -1,28 +1,30 @@
 notebook tab label {
-    color: black;
-    background-color: #ffff99;
+  color: black;
 }
 
-notebook tab{
-    border-radius: 12px;
-    background-color: #ffff99;
+notebook tab {
+  border-radius: 12px;
+  background-color: #b8d8d8;
 }
 
-notebook header{
-    background-color:#ffff99;
+notebook header {
+  background-color: #b8d8d8;
 }
 
-notebook button{
-    border-color: Silver;
-    border-radius: 12px;
-    background-image: none;
-    background-color: Silver;
-    color: black;
+notebook button {
+  border-color: #000000;
+  border-radius: 12px;
+  background-image: none;
+  color: black;
+  font-weight: bold;
 }
 
-entry{
-    background-color: gainsboro;
-    border-radius: 8px;
-    color: gray;
+notebook stack {
+  background-color: #7a9e9f;
 }
 
+entry {
+  background-color: gainsboro;
+  border-radius: 8px;
+  color: gray;
+}
