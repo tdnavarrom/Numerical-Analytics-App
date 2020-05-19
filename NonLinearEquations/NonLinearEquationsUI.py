@@ -292,9 +292,9 @@ class Handler:
         graphic(func, initial_value, iterations)
     
     def matrix_generate(self, button):
-        lines = int(self.parameters2[0].get_text())
-        columns = lines + 1
-        tree = TreeView(columns)
+        rows = int(self.parameters2[0].get_text())
+        columns = rows + 1
+        tree = TreeView(rows ,columns)
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
         Gtk.main()
