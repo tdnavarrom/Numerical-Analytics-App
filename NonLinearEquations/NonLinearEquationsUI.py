@@ -290,13 +290,12 @@ class Handler:
         initial_value = float(self.parameters[7].get_text()) - 100
         iterations = float(self.parameters[5].get_text())
         graphic(func, initial_value, iterations)
-    
+
     def matrix_generate(self, button):
         rows = int(self.parameters2[0].get_text())
         columns = rows + 1
-        tree = TreeView(rows ,columns)
+        tree = TreeView2(rows ,columns)
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
         Gtk.main()
-        
-    
+        print(tree.returnTable())

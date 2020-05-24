@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.2 -->
+<!-- Generated with glade 3.36.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <signal name="destroy" handler="onDestroy" swapped="no"/>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
     <child>
       <object class="GtkNotebook" id="nb">
         <property name="visible">True</property>
@@ -284,21 +281,6 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">10</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkTreeView" id="table_matrix">
-                <property name="width_request">168</property>
-                <property name="height_request">206</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
-                </child>
-              </object>
-              <packing>
-                <property name="x">10</property>
                 <property name="y">50</property>
               </packing>
             </child>
@@ -314,7 +296,39 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">188</property>
-                <property name="y">10</property>
+                <property name="y">50</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="matrixMethods">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="active_id">0</property>
+                <items>
+                  <item id="0" translatable="yes">Simple Gaussian</item>
+                  <item id="1" translatable="yes">Parcial Pivot</item>
+                  <item id="2" translatable="yes">Total Pivot</item>
+                </items>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">50</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="evaluateMatrizID">
+                <property name="label" translatable="yes">Evaluate</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="x">500</property>
+                <property name="y">50</property>
               </packing>
             </child>
           </object>
@@ -334,6 +348,9 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
           </packing>
         </child>
       </object>
+    </child>
+    <child type="titlebar">
+      <placeholder/>
     </child>
   </object>
 </interface>
