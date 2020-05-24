@@ -318,7 +318,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="evaluateMatrizID">
+              <object class="GtkButton" id="evaluateMatrixID">
                 <property name="label" translatable="yes">Evaluate</property>
                 <property name="width_request">100</property>
                 <property name="height_request">0</property>
@@ -327,8 +327,38 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="receives_default">True</property>
               </object>
               <packing>
-                <property name="x">490</property>
+                <property name="x">500</property>
+                <property name="y">100</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="evalOptionsID">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="active_id">0</property>
+                <items>
+                  <item id="0" translatable="yes">Evaluate By Stages</item>
+                  <item translatable="yes">Evaluate Directly</item>
+                </items>
+              </object>
+              <packing>
+                <property name="x">500</property>
                 <property name="y">50</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="resultMatrixID">
+                <property name="width_request">480</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Result</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">100</property>
               </packing>
             </child>
           </object>

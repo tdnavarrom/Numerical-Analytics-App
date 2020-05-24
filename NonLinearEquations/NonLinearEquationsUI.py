@@ -6,6 +6,7 @@ from .functions.FixedPointSearch import FixedPoint as FPSearch
 from .functions.NewtonSearch import Newton as NSearch
 from .functions.SecantSearch import Secant as SSearch
 from .functions.MultipleRoots import MultipleRoots as MRoots
+from .MatrixMethods.Gauss import Gauss
 from .graph import *
 from .table import *
 from .matrixTable import *
@@ -298,4 +299,43 @@ class Handler:
         tree.connect("destroy", Gtk.main_quit)
         tree.show_all()
         Gtk.main()
-        print(tree.returnTable())
+        self.matrixTable = tree.returnTable()
+        print(self.matrixTable.dtypes)
+        self.matrixTable = self.matrixTable.to_numpy()
+        self.matrixTable = self.matrixTable.astype(np.float)
+        print(self.matrixTable)
+
+    def evaluateMatrix_pressed(self, button):
+        method = self.parameters2[2].get_active()
+        if method == 0:
+            self.Eval_gauss()
+
+    def Eval_gauss(self):
+        self.etapa_index = 0
+
+        print(f"Matriz\n{self.matrixTable}")
+        matrixSize = self.matrixTable.shape[0]
+        gauss = Gauss(self.matrixTable, matrixSize)
+        self.x_result, self.etapas =gauss.evaluate()
+
+        #CODIGO POPUP
+        # self.etapas_text = ""
+        # for i in range(len(x)-1):
+        #     etapas_text+= f"Etapa {i}:\n {str(self.etapas[i])}\n\n"
+
+        # etapas_popover = Gtk.Popover()
+        # etapas_label = Gtk.Label(etapas_text)
+        # etapas_popover.add(etapas_label)
+
+        # etapas_popover.set_relative_to(self.Gaussbutton)
+        # etapas_popover.show_all()
+        # etapas_popover.popup()
+
+        print(self.x_result)
+        print(self.etapas)
+
+        # self.x_text = ""
+        # for i in range(len(self.x_result)):
+        #     self.x_text+= f"X{i}: {self.x_result[i]}\n"
+        #
+        # self.resultbuffer.set_text(self.x_text)
