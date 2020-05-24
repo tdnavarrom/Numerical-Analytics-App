@@ -7,6 +7,8 @@ from .functions.NewtonSearch import Newton as NSearch
 from .functions.SecantSearch import Secant as SSearch
 from .functions.MultipleRoots import MultipleRoots as MRoots
 from .MatrixMethods.Gauss import Gauss
+from .MatrixMethods.Pivoteo import Pivoteo
+from .MatrixMethods.Pivoteo import Pivoteo
 from .graph import *
 from .table import *
 from .matrixTable import *
@@ -334,8 +336,16 @@ class Handler:
         print(self.x_result)
         print(self.etapas)
 
-        # self.x_text = ""
-        # for i in range(len(self.x_result)):
-        #     self.x_text+= f"X{i}: {self.x_result[i]}\n"
-        #
-        # self.resultbuffer.set_text(self.x_text)
+    def Eval_pivot_total(self):
+        self.etapa_index = 0
+        matrixSize = self.matrixTable.shape[0]
+
+        pivot = Pivoteo(self.matrixTable,matrixSize)
+        self.x_text,self.etapas = pivot.evaluate_total()
+
+
+    def Eval_pivot_parcial(self):
+        self.etapa_index = 0
+        matrixSize = self.matrixTable.shape[0]
+        pivot = Pivoteo(self.matrixTable,matrixSize)
+        self.x_text,self.etapas = pivot.evaluate_parcial()
