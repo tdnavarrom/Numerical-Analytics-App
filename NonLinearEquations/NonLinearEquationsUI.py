@@ -382,9 +382,6 @@ class Handler:
         matrix = self.matrixTable[:,:(matrixSize)]
         indp = self.matrixTable[:,-1]
 
-        print(matrix)
-        print(indp)
-
         crout = Crout(matrix,matrixSize,indp)
         self.x_text,self.etapas = crout.evaluate()
 
@@ -410,55 +407,29 @@ class Handler:
     def evaluate_gauss_seidel(self,widget):
         matrixSize = int(self.parameters2[0].get_text())
 
-        tol = float(self.tol.get_text())
-        itera = int(self.itera.get_text())
-        lamb = float(self.lamb.get_text())
+        tol = float(self.parameters2[6].get_text())
+        iter = int(self.parameters2[7].get_text())
+        lamb = float(self.parameters2[8].get_text())
 
-        x0 = np.empty(m)
-
-        for i in range(m):
-            x0[i] = float(self.vect_grid.get_child_at(i,0).get_text())
-
-        print("vector: "+str(x0))
-
-        print(f"tol = {tol}")
-
-
-
-        matrix = np.empty([m,m])
-        indp = np.empty(m)
-        for i in range(m):
-            indp[i] = self.indp_grid.get_child_at(0,i).get_text()
-            for j in range(m):
-                matrix[i][j] = self.entrygrid.get_child_at(j,i).get_text()
+        initialValues = self.initialValuesTable
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
 
         print(f"Indp: {indp}")
-        seidel = GaussSeidel(matrix,m,indp,x0)
-        seidel.evaluate(tol,itera,lamb)
+        seidel = GaussSeidel(matrix,m,indp,initialValues)
+        seidel.evaluate(tol,iter,lamb)
 
     def evaluate_jacobi(self,widget):
-        m = int(self.m_entry.get_text())
-        tol = float(self.tol.get_text())
-        itera = int(self.itera.get_text())
-        lamb = float(self.lamb.get_text())
+        matrixSize = int(self.parameters2[0].get_text())
 
-        x0 = np.empty(m)
+        tol = float(self.parameters2[6].get_text())
+        iter = int(self.parameters2[7].get_text())
+        lamb = float(self.parameters2[8].get_text())
 
-        for i in range(m):
-            x0[i] = float(self.vect_grid.get_child_at(i,0).get_text())
-
-        print("vector: "+str(x0))
-
-        print(f"tol = {tol}")
-
-
-        matrix = np.empty([m,m])
-        indp = np.empty(m)
-        for i in range(m):
-            indp[i] = self.indp_grid.get_child_at(0,i).get_text()
-            for j in range(m):
-                matrix[i][j] = self.entrygrid.get_child_at(j,i).get_text()
+        initialValues = self.initialValuesTable
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
 
         print(f"Indp: {indp}")
-        seidel = GaussSeidel(matrix,m,indp,x0)
-        seidel.evaluate(tol,itera,lamb)
+        seidel = GaussSeidel(matrix,m,indp,initialValues)
+        seidel.evaluate(tol,iter,lamb)

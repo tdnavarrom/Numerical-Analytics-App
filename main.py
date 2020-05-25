@@ -34,10 +34,13 @@ class App:
         self.initialValues_button = go("initialValues_button")
         self.matrixMethods = go("matrixMethods")
         self.evalOptions = go("evalOptionsID")
+        self.tolerance = go('tolerance')
+        self.iterations = go('iterations')
+        self.lambda = go('lambda')
         self.resultMatrix = go("resultMatrixID")
         self.evaluateMatrix = go("evaluateMatrixID")
 
-        self.parameters2 = self.variables, self.generate_button, self.initialValues, self.initialValues_button, self.matrixMethods, self.evalOptions, self.resultMatrix, self.evaluateMatrix
+        self.parameters2 = self.variables, self.generate_button, self.initialValues, self.initialValues_button, self.matrixMethods, self.evalOptions, self.tolerance, self.iterations, self.lambda, self.resultMatrix, self.evaluateMatrix
 
         self.builder.connect_signals(Handler(self.parameters, self.parameters2))
 

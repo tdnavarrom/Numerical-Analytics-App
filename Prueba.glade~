@@ -332,7 +332,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">520</property>
-                <property name="y">115</property>
+                <property name="y">165</property>
               </packing>
             </child>
             <child>
@@ -362,7 +362,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">115</property>
+                <property name="y">165</property>
               </packing>
             </child>
             <child>
@@ -389,7 +389,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <signal name="pressed" handler="insertValues_generate" swapped="no"/>
+                <signal name="pressed" handler="initialValues_generate" swapped="no"/>
               </object>
               <packing>
                 <property name="x">520</property>
@@ -408,6 +408,45 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               <packing>
                 <property name="x">520</property>
                 <property name="y">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="Toleranc">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Tolerance</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">115</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Iterations</property>
+              </object>
+              <packing>
+                <property name="x">190</property>
+                <property name="y">115</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Lambda</property>
+              </object>
+              <packing>
+                <property name="x">370</property>
+                <property name="y">115</property>
               </packing>
             </child>
           </object>
