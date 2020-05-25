@@ -307,14 +307,31 @@ class Handler:
         self.matrixTable = self.matrixTable.astype(np.float)
         print(self.matrixTable)
 
+    def initialValues_generate(self, button):
+        columns = int(self.parameters2[2].get_text())
+        rows = 1
+        tree = TreeView2(rows ,columns)
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
+        self.initialValuesTable = tree.returnTable()
+        print(self.initialValuesTable.dtypes)
+        self.initialValuesTable = self.initialValuesTable.to_numpy()
+        self.initialValuesTable = self.initialValuesTable.astype(np.float)
+        print(self.initialValuesTable)
+
     def evaluateMatrix_pressed(self, button):
-        method = self.parameters2[2].get_active()
+        method = self.parameters2[4].get_active()
         if method == 0:
             self.evaluate_gauss()
         elif method == 1:
             self.evaluate_pivot_parcial()
-        elif methpd == 2:
+        elif method == 2:
             self.evaluate_pivot_total()
+        elif method == 3:
+            pass
+        elif method == 4:
+            pass
 
     def evaluate_gauss(self):
         self.etapa_index = 0

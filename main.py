@@ -30,12 +30,14 @@ class App:
 
         self.variables = go("VariablesM")
         self.generate_button = go("generate_button")
+        self.initialValues = go("initialValues")
+        self.initialValues_button = go("initialValues_button")
         self.matrixMethods = go("matrixMethods")
         self.evalOptions = go("evalOptionsID")
         self.resultMatrix = go("resultMatrixID")
         self.evaluateMatrix = go("evaluateMatrixID")
 
-        self.parameters2 = self.variables, self.generate_button, self.matrixMethods, self.evalOptions, self.resultMatrix, self.evaluateMatrix
+        self.parameters2 = self.variables, self.generate_button, self.initialValues, self.initialValues_button, self.matrixMethods, self.evalOptions, self.resultMatrix, self.evaluateMatrix
 
         self.builder.connect_signals(Handler(self.parameters, self.parameters2))
 
