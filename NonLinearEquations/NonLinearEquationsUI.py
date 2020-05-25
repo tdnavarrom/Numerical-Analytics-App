@@ -9,6 +9,9 @@ from .functions.MultipleRoots import MultipleRoots as MRoots
 from .MatrixMethods.Gauss import Gauss
 from .MatrixMethods.Pivoteo import Pivoteo
 from .MatrixMethods.Pivoteo import Pivoteo
+from .MatrixMethods.Crout import Crout
+from .MatrixMethods.Doolittle import Doolittle
+from .MatrixMethods.Cholesky import Cholesky
 from .graph import *
 from .table import *
 from .matrixTable import *
@@ -329,9 +332,12 @@ class Handler:
         elif method == 2:
             self.evaluate_pivot_total()
         elif method == 3:
-            pass
-        elif method == 4:
-            pass
+            self.evaluate_crout()
+        elif method == 5:
+            self.evaluate_doolittle()
+        elif method == 6:
+            self.evaluate_cholesky()
+
 
     def evaluate_gauss(self):
         self.etapa_index = 0
@@ -370,35 +376,40 @@ class Handler:
         pivot = Pivoteo(self.matrixTable,matrixSize)
         self.x_text,self.etapas = pivot.evaluate_total()
 
-    def evaluate_crout(self,widget):
+    def evaluate_crout(self):
         self.etapa_index = 0
         matrixSize = int(self.parameters2[0].get_text())
-        indp = self.initialValuesTable
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
 
-        crout = Crout(self.matrixTable,matrixSize,indp)
+        print(matrix)
+        print(indp)
+
+        crout = Crout(matrix,matrixSize,indp)
         self.x_text,self.etapas = crout.evaluate()
 
-    def evaluate_cholesky(self,widget):
+    def evaluate_doolittle(self):
         self.etapa_index = 0
         matrixSize = int(self.parameters2[0].get_text())
-        indp = self.initialValuesTable
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
 
-        chol = Cholesky(self.matrixTable,matrixSize,indp)
-        self.L, self.U, self.Z, self.X = chol.evaluate()
-
-
-    def evaluate_doolittle(self,widget):
-        self.etapa_index = 0
-        matrixSize = int(self.parameters2[0].get_text())
-        indp = self.initialValuesTable
-
-        doo = Doolittle(self.matrixTable,matrixSize,indp)
+        doo = Doolittle(matrix,matrixSize,indp)
         self.L, self.U, self.Z, self.X = doo.evaluate()
+
+    def evaluate_cholesky(self):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
+
+        chol = Cholesky(matrix,matrixSize,indp)
+        self.L, self.U, self.Z, self.X = chol.evaluate()
 
 
     def evaluate_gauss_seidel(self,widget):
         matrixSize = int(self.parameters2[0].get_text())
-        
+
         tol = float(self.tol.get_text())
         itera = int(self.itera.get_text())
         lamb = float(self.lamb.get_text())
