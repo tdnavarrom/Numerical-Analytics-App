@@ -333,10 +333,14 @@ class Handler:
             self.evaluate_pivot_total()
         elif method == 3:
             self.evaluate_crout()
-        elif method == 5:
+        elif method == 4:
             self.evaluate_doolittle()
-        elif method == 6:
+        elif method == 5:
             self.evaluate_cholesky()
+        elif method == 6:
+            self.evaluate_jacobi()
+        elif method == 7:
+            self.evaluate_gauss_seidel()
 
 
     def evaluate_gauss(self):
@@ -403,8 +407,7 @@ class Handler:
         chol = Cholesky(matrix,matrixSize,indp)
         self.L, self.U, self.Z, self.X = chol.evaluate()
 
-
-    def evaluate_gauss_seidel(self,widget):
+    def evaluate_jacobi(self,widget):
         matrixSize = int(self.parameters2[0].get_text())
 
         tol = float(self.parameters2[6].get_text())
@@ -419,7 +422,7 @@ class Handler:
         seidel = GaussSeidel(matrix,m,indp,initialValues)
         seidel.evaluate(tol,iter,lamb)
 
-    def evaluate_jacobi(self,widget):
+    def evaluate_gauss_seidel(self,widget):
         matrixSize = int(self.parameters2[0].get_text())
 
         tol = float(self.parameters2[6].get_text())
