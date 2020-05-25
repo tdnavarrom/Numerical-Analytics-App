@@ -277,16 +277,16 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="can_focus">True</property>
                 <property name="primary_icon_stock">gtk-info</property>
                 <property name="primary_icon_tooltip_text" translatable="yes">Insert the number of variables that you need.</property>
-                <property name="placeholder_text" translatable="yes">Insert variables</property>
+                <property name="placeholder_text" translatable="yes"># of variables</property>
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">50</property>
+                <property name="y">75</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="generate_button">
-                <property name="label" translatable="yes">Generate matrix</property>
+                <property name="label" translatable="yes">Create Matrix</property>
                 <property name="width_request">141</property>
                 <property name="height_request">34</property>
                 <property name="visible">True</property>
@@ -295,8 +295,8 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <signal name="pressed" handler="matrix_generate" swapped="no"/>
               </object>
               <packing>
-                <property name="x">188</property>
-                <property name="y">50</property>
+                <property name="x">190</property>
+                <property name="y">75</property>
               </packing>
             </child>
             <child>
@@ -310,11 +310,14 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                   <item id="0" translatable="yes">Simple Gaussian</item>
                   <item id="1" translatable="yes">Parcial Pivot</item>
                   <item id="2" translatable="yes">Total Pivot</item>
+                  <item id="3" translatable="yes">Crout</item>
+                  <item id="4" translatable="yes">Doolittle</item>
+                  <item id="5" translatable="yes">Cholesky</item>
                 </items>
               </object>
               <packing>
-                <property name="x">340</property>
-                <property name="y">50</property>
+                <property name="x">10</property>
+                <property name="y">10</property>
               </packing>
             </child>
             <child>
@@ -325,10 +328,11 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="pressed" handler="evaluateMatrix_pressed" swapped="no"/>
               </object>
               <packing>
-                <property name="x">500</property>
-                <property name="y">100</property>
+                <property name="x">520</property>
+                <property name="y">115</property>
               </packing>
             </child>
             <child>
@@ -344,13 +348,13 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 </items>
               </object>
               <packing>
-                <property name="x">500</property>
-                <property name="y">50</property>
+                <property name="x">170</property>
+                <property name="y">10</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="resultMatrixID">
-                <property name="width_request">480</property>
+                <property name="width_request">500</property>
                 <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -358,7 +362,50 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">100</property>
+                <property name="y">115</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="InitialValues">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="primary_icon_stock">gtk-dialog-info</property>
+                <property name="primary_icon_tooltip_text" translatable="yes">Insert the numbers of initial values you need for the Jacobi and/or Gauss-Seidel Method</property>
+                <property name="placeholder_text" translatable="yes"># of initial values</property>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">75</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Insert Values</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="x">520</property>
+                <property name="y">75</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Help</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="x">520</property>
+                <property name="y">10</property>
               </packing>
             </child>
           </object>
@@ -370,7 +417,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">page 3</property>
+            <property name="label" translatable="yes">Equations' Systems</property>
           </object>
           <packing>
             <property name="position">2</property>

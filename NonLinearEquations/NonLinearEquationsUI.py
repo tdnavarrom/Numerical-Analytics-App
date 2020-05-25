@@ -310,9 +310,13 @@ class Handler:
     def evaluateMatrix_pressed(self, button):
         method = self.parameters2[2].get_active()
         if method == 0:
-            self.Eval_gauss()
+            self.evaluate_gauss()
+        elif method == 1:
+            self.evaluate_pivot_parcial()
+        elif methpd == 2:
+            self.evaluate_pivot_total()
 
-    def Eval_gauss(self):
+    def evaluate_gauss(self):
         self.etapa_index = 0
 
         print(f"Matriz\n{self.matrixTable}")
@@ -336,16 +340,15 @@ class Handler:
         print(self.x_result)
         print(self.etapas)
 
-    def Eval_pivot_total(self):
+    def evaluate_pivot_parcial(self):
+        self.etapa_index = 0
+        matrixSize = self.matrixTable.shape[0]
+        pivot = Pivoteo(self.matrixTable,matrixSize)
+        self.x_text,self.etapas = pivot.evaluate_parcial()
+
+    def evaluate_pivot_total(self):
         self.etapa_index = 0
         matrixSize = self.matrixTable.shape[0]
 
         pivot = Pivoteo(self.matrixTable,matrixSize)
         self.x_text,self.etapas = pivot.evaluate_total()
-
-
-    def Eval_pivot_parcial(self):
-        self.etapa_index = 0
-        matrixSize = self.matrixTable.shape[0]
-        pivot = Pivoteo(self.matrixTable,matrixSize)
-        self.x_text,self.etapas = pivot.evaluate_parcial()
