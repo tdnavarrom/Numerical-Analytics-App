@@ -359,13 +359,95 @@ class Handler:
 
     def evaluate_pivot_parcial(self):
         self.etapa_index = 0
-        matrixSize = self.matrixTable.shape[0]
+        matrixSize = int(self.parameters2[0].get_text())
         pivot = Pivoteo(self.matrixTable,matrixSize)
         self.x_text,self.etapas = pivot.evaluate_parcial()
 
     def evaluate_pivot_total(self):
         self.etapa_index = 0
-        matrixSize = self.matrixTable.shape[0]
+        matrixSize = int(self.parameters2[0].get_text())
 
         pivot = Pivoteo(self.matrixTable,matrixSize)
         self.x_text,self.etapas = pivot.evaluate_total()
+
+    def evaluate_crout(self,widget):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
+        indp = self.initialValuesTable
+
+        crout = Crout(self.matrixTable,matrixSize,indp)
+        self.x_text,self.etapas = crout.evaluate()
+
+    def evaluate_cholesky(self,widget):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
+        indp = self.initialValuesTable
+
+        chol = Cholesky(self.matrixTable,matrixSize,indp)
+        self.L, self.U, self.Z, self.X = chol.evaluate()
+
+
+    def evaluate_doolittle(self,widget):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
+        indp = self.initialValuesTable
+
+        doo = Doolittle(self.matrixTable,matrixSize,indp)
+        self.L, self.U, self.Z, self.X = doo.evaluate()
+
+
+    def evaluate_gauss_seidel(self,widget):
+        matrixSize = int(self.parameters2[0].get_text())
+        
+        tol = float(self.tol.get_text())
+        itera = int(self.itera.get_text())
+        lamb = float(self.lamb.get_text())
+
+        x0 = np.empty(m)
+
+        for i in range(m):
+            x0[i] = float(self.vect_grid.get_child_at(i,0).get_text())
+
+        print("vector: "+str(x0))
+
+        print(f"tol = {tol}")
+
+
+
+        matrix = np.empty([m,m])
+        indp = np.empty(m)
+        for i in range(m):
+            indp[i] = self.indp_grid.get_child_at(0,i).get_text()
+            for j in range(m):
+                matrix[i][j] = self.entrygrid.get_child_at(j,i).get_text()
+
+        print(f"Indp: {indp}")
+        seidel = GaussSeidel(matrix,m,indp,x0)
+        seidel.evaluate(tol,itera,lamb)
+
+    def evaluate_jacobi(self,widget):
+        m = int(self.m_entry.get_text())
+        tol = float(self.tol.get_text())
+        itera = int(self.itera.get_text())
+        lamb = float(self.lamb.get_text())
+
+        x0 = np.empty(m)
+
+        for i in range(m):
+            x0[i] = float(self.vect_grid.get_child_at(i,0).get_text())
+
+        print("vector: "+str(x0))
+
+        print(f"tol = {tol}")
+
+
+        matrix = np.empty([m,m])
+        indp = np.empty(m)
+        for i in range(m):
+            indp[i] = self.indp_grid.get_child_at(0,i).get_text()
+            for j in range(m):
+                matrix[i][j] = self.entrygrid.get_child_at(j,i).get_text()
+
+        print(f"Indp: {indp}")
+        seidel = GaussSeidel(matrix,m,indp,x0)
+        seidel.evaluate(tol,itera,lamb)
