@@ -1,18 +1,36 @@
-notebook tab:nth-child(1) label {
-  color: #ffffff;
+notebook tab label {
+  color: #D4D4D2;
+  background-color: #3C3C3C;
 }
-notebook tab:nth-child(2) label {
-  color: #ffffff;
+
+notebook tab{
+  background-color: #3C3C3C;
 }
-notebook tab:nth-child(3) label {
-  color: #ffffff;
+
+notebook header {
+  background-color: #3C3C3C;
 }
-notebook tab:nth-child(4) label {
-  color: #ffffff;
+
+notebook button {
+  border-radius: 6px;
+  border-color: #DFDFDF;
+  background-image: none;
+  background-color: #A39594;
+  color: #1C1C1C;
+  font-weight: bold;
 }
-notebook tab:nth-child(5) label {
-  color: #ffffff;
+
+notebook label {
+  color: #1C1C1C;
+  background-image: none;
 }
-notebook tab:nth-child(6) label {
-  color: #ffffff;
+
+notebook stack {
+  background-color: #DFDFDF;
+}
+
+entry {
+  background-color: #CEC4C2;
+  border-radius: 6px;
+  color: #1C1C1C;
 }

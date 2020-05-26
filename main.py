@@ -1,67 +1,65 @@
-from NonLinearEquations.NonLinearEquationsUI import NonLinealMenu as nleMenu
-from Welcome import Welcome
-from Guide import Guide
-
-from gi.repository import Gtk, Gdk
 import gi
-gi.require_version('Gtk', '3.0')
+
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, Gdk
+from NonLinearEquations.NonLinearEquationsUI import Handler
 
 
-class MyWindow(Gtk.Window):
-
+class App:
     def __init__(self):
-        Gtk.Window.__init__(self, title="Change Analytics")
-        self.set_border_width(5)
 
-        css_provider = Gtk.CssProvider()
-        css_provider.load_from_path('main.css')
-        Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            css_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.builder = Gtk.Builder()
+        self.builder.add_from_file("Prueba.glade")
 
-        self.notebook = Gtk.Notebook()
-        self.notebook.set_show_border(True)
-        self.notebook.set_tab_pos(Gtk.PositionType(0))
+        go = self.builder.get_object
 
-        self.add(self.notebook)
+        self.window = go("window1")
+        self.method = go("Method")
+        self.error = go("Error")
+        self.help = go("Help")
+        self.function = go("Function")
+        self.gfunction = go("GFunction")
+        self.iterations = go("Iterations")
+        self.increment = go("Increment")
+        self.initial = go("Initial")
+        self.superior = go("Superior")
+        self.result = go("Result")
+        self.tolerance = go("Tolerance")
 
-        nleNotebook = nleMenu().grid
+        self.parameters = self.method, self.error, self.help, self.function, self.gfunction, self.iterations, self.increment, self.initial, self.superior, self.result, self.tolerance
 
-        self.page1 = Gtk.Box()
-        self.page1.set_border_width(10)
-        self.page1.add(Welcome().grid)
-        self.notebook.append_page(self.page1, Gtk.Label('Welcome'))
+        self.variables = go("VariablesM")
+        self.generate_button = go("generate_button")
+        self.initialValues = go("initialValues")
+        self.initialValues_button = go("initialValues_button")
+        self.matrixMethods = go("matrixMethods")
+        self.evalOptions = go("evalOptionsID")
+        self.tolerance = go("tolerance")
+        self.iterations = go("iterations")
+        self.lambd = go("lambda")
+        self.resultMatrix = go("resultMatrixID")
+        self.evaluateMatrix = go("evaluateMatrixID")
 
-        self.page2 = Gtk.Box()
-        self.page2.set_border_width(10)
-        self.page2.add(nleNotebook)
-        self.notebook.append_page(
-            self.page2, Gtk.Label('Non-Linear Equations'))
+        self.parameters2 = self.variables, self.generate_button, self.initialValues, self.initialValues_button, self.matrixMethods, self.evalOptions, self.tolerance, self.iterations, self.lambd, self.resultMatrix, self.evaluateMatrix
 
-        self.page3 = Gtk.Box()
-        self.page3.set_border_width(10)
-        self.page3.add(Gtk.Label('Otro Menu'))
-        self.notebook.append_page(self.page3, Gtk.Label('Equations\' System'))
+        self.builder.connect_signals(Handler(self.parameters, self.parameters2))
 
-        self.page4 = Gtk.Box()
-        self.page4.set_border_width(10)
-        self.page4.add(Gtk.Label('Otro Menu'))
-        self.notebook.append_page(self.page4, Gtk.Label('Interpolation'))
-
-        self.page5 = Gtk.Box()
-        self.page5.set_border_width(10)
-        self.page5.add(Gtk.Label('Otro Menu'))
-        self.notebook.append_page(self.page5, Gtk.Label(
-            'Differentiation And Numeric Integration'))
-
-        self.page6 = Gtk.Box()
-        self.page6.set_border_width(10)
-        self.page6.add(Guide().grid)
-        self.notebook.append_page(self.page6, Gtk.Label('Guide'))
+        self.window.connect("destroy", Gtk.main_quit)
+        gtk_style()
+        self.window.show_all()
 
 
-win = MyWindow()
-win.connect("destroy", Gtk.main_quit)
-win.show_all()
-Gtk.main()
+def gtk_style():
+
+    screen = Gdk.Screen.get_default()
+    provider = Gtk.CssProvider()
+    provider.load_from_path("main.css")
+    Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+
+if __name__ == '__main__':
+    try:
+        gui = App()
+        Gtk.main()
+    except KeyboardInterrupt:
+        pass

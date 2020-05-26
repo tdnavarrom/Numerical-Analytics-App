@@ -1,419 +1,251 @@
+from gi.repository import Gtk, Gdk
+from .functions.IncrementalSearch import IncrementalSearch as ISearch
+from .functions.BisectionSearch import Bisection as BSearch
+from .functions.FalseRuleSearch import FalseRule as FSearch
+from .functions.FixedPointSearch import FixedPoint as FPSearch
+from .functions.NewtonSearch import Newton as NSearch
+from .functions.SecantSearch import Secant as SSearch
+from .functions.MultipleRoots import MultipleRoots as MRoots
+from .MatrixMethods.Gauss import Gauss
+from .MatrixMethods.Pivoteo import Pivoteo
+from .MatrixMethods.Pivoteo import Pivoteo
+from .MatrixMethods.Crout import Crout
+from .MatrixMethods.Doolittle import Doolittle
+from .MatrixMethods.Cholesky import Cholesky
+from .graph import *
+from .table import *
+from .matrixTable import *
+from .derivate import *
 import gi
 import math
 import numpy as np
 import pandas as pd
 gi.require_version('Gtk', '3.0')
-from .derivate import *
-from .table import *
-from .functions.MultipleRoots import MultipleRoots as MRoots
-from .functions.SecantSearch import Secant as SSearch
-from .functions.NewtonSearch import Newton as NSearch
-from .functions.FixedPointSearch import FixedPoint as FPSearch
-from .functions.FalseRuleSearch import FalseRule as FSearch
-from .functions.BisectionSearch import Bisection as BSearch
-from .functions.IncrementalSearch import IncrementalSearch as ISearch
-from gi.repository import Gtk, Gdk
-
-
-class NonLinealMenu(Gtk.Notebook):
-
-    def __init__(self):
-        """ Grid that contains basic UI Components for all NonLinear Functions"""
-        self.grid = Gtk.Grid()
-        self.grid = self.create_ui()
-        self.type_error = 1
-
-        css_provider = Gtk.CssProvider()
-        css_provider.load_from_path(
-            'NonLinearEquations/NonLinearEquations.css')
-        Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            css_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-    def function_entry(self):
-        """
-        Function Label and Entry at the bottom, with Evaluate Button.
-
-        Returns:
-            grid
-            vbox
-        """
-        grid = Gtk.Grid()
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.function = Gtk.Entry()
-        self.function.set_placeholder_text("Function")
-        vbox.pack_start(self.function, True, True, 0)
-        grid.attach(vbox, 0, 0, 5, 2)
-
-        return grid, vbox
-
-    def g_function_entry(self, grid, vbox):
-        """
-        Initial Value Label and Entry at the bottom.
-
-        Parameters:
-            grid
-            vbox
-        Returns:
-            grid
-            vbox2
-        """
-        vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.g_function = Gtk.Entry()
-        self.g_function.set_placeholder_text("G Function")
-        vbox2.pack_start(self.g_function, True, True, 0)
-        grid.attach_next_to(vbox2, vbox, Gtk.PositionType.BOTTOM, 5, 2)
-
-        return grid, vbox2
-
-    def tolerancia_value_entry(self, grid, vbox2):
-        """
-        Increment Value Label and Entry at the bottom.
-
-        Parameters:
-            grid
-            vbox2
-        Returns:
-            grid
-            vbox3
-
-        """
-        vbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-        self.tolerance = Gtk.Entry()
-        self.tolerance.set_placeholder_text("Tolerance")
-        vbox3.pack_start(self.tolerance, True, True, 0)
-
-        self.relative_button = Gtk.ToggleButton("Relative Error")
-        self.relative_button.connect(
-            "toggled", self.on_button_toggled, "relative_error")
-        vbox3.pack_start(self.relative_button, True, True, 0)
-
-        self.absolute_button = Gtk.ToggleButton(
-            "Absolute Error", use_underline=True)
-        self.absolute_button.connect(
-            "toggled", self.on_button_toggled, "absolute_error")
-        vbox3.pack_start(self.absolute_button, True, True, 0)
-
-        grid.attach_next_to(vbox3, vbox2, Gtk.PositionType.BOTTOM, 3, 2)
-
-        return grid, vbox3
-
-    def on_button_toggled(self, button, name):
-
-        if button.get_active():
-            if name == "relative_error":
-                if self.absolute_button.get_active():
-                    self.absolute_button.set_active(False)
-                self.type_error = 1
-
-            elif name == "absolute_error":
-                if self.relative_button.get_active():
-                    self.relative_button.set_active(False)
-                self.type_error = 0
-
-    def iteration_value_entry(self, grid, vbox3):
-        '''
-        Iterations Value Label and Entry at the bottom.
-
-        Parameters:
-            grid
-            vbox3
-        Returns:
-            grid
-            vbox6
-        '''
-        vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.iterations = Gtk.Entry()
-        self.iterations.set_placeholder_text("Iterations")
-        vbox4.pack_start(self.iterations, True, True, 0)
-        grid.attach_next_to(vbox4, vbox3, Gtk.PositionType.RIGHT, 3, 2)
-
-        return grid, vbox4
-
-    def initial_value_and_entry(self, grid, vbox3):
-        """
-        Initial Value Label and Entry at the bottom.
-
-        Parameters:
-            grid
-            vbox3
-        Returns:
-            grid
-            vbox4
-        """
-        vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.x0 = Gtk.Entry()
-        self.x0.set_placeholder_text("Initial Value")
-        vbox5.pack_start(self.x0, True, True, 0)
-        grid.attach_next_to(vbox5, vbox3, Gtk.PositionType.BOTTOM, 2, 2)
-
-        return grid, vbox5
-
-    def superior_value_entry(self, grid, vbox5):
-        """
-        Initial Value Label and Entry at the bottom.
-
-        Parameters:
-            grid
-            vbox4
-        Returns:
-            grid
-            vbox5
-        """
-        vbox6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.xs = Gtk.Entry()
-        self.xs.set_placeholder_text("Superior Value")
-        vbox6.pack_start(self.xs, True, True, 0)
-        grid.attach_next_to(vbox6, vbox5, Gtk.PositionType.RIGHT, 2, 2)
-
-        return grid, vbox6
-
-    def increment_value_entry(self, grid, vbox6):
-        """
-        Initial Value Label and Entry at the bottom.
-
-        Parameters:
-            grid
-            vbox4
-        Returns:
-            grid
-            vbox5
-        """
-        vbox7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.increment = Gtk.Entry()
-        self.increment.set_placeholder_text("Increment Value")
-        vbox7.pack_start(self.increment, True, True, 0)
-        grid.attach_next_to(vbox7, vbox6, Gtk.PositionType.RIGHT, 2, 2)
-
-        return grid, vbox7
-
-    def button_box(self, grid, vbox5):
-        '''
-        Box that contains all Buttons.
-
-        Parameters:
-            grid
-            vbox4
-        Returns:
-            grid
-            vbox7
-        '''
-        vbox8 = Gtk.Box(spacing=8)
-        button = Gtk.Button(label="Incremental Search")
-        button.connect('clicked', self.incremental_Search_button)
-        vbox8.pack_start(button, True, True, 0)
-        button2 = Gtk.Button(label="Bisection")
-        button2.connect('clicked', self.bisection_button)
-        vbox8.pack_start(button2, True, True, 0)
-        button3 = Gtk.Button(label="False Rule")
-        button3.connect('clicked', self.false_rule_button)
-        vbox8.pack_start(button3, True, True, 0)
-        button4 = Gtk.Button(label="Fixed Point")
-        button4.connect('clicked', self.fixed_point_button)
-        vbox8.pack_start(button4, True, True, 0)
-        button5 = Gtk.Button(label="Newton")
-        button5.connect('clicked', self.newton_button)
-        vbox8.pack_start(button5, True, True, 0)
-        button6 = Gtk.Button(label="Secant")
-        button6.connect('clicked', self.secant_button)
-        vbox8.pack_start(button6, True, True, 0)
-        button7 = Gtk.Button(label="Multiple Roots")
-        button7.connect('clicked', self.multiple_roots)
-        vbox8.pack_start(button7, True, True, 0)
-        button8 = Gtk.Button(label="Help")
-        button8.connect('clicked', self.on_help_clicked)
-        vbox8.pack_start(button8, True, True, 0)
-
-        grid.attach_next_to(vbox8, vbox5, Gtk.PositionType.BOTTOM, 6, 2)
-
-        return grid, vbox8
-
-    def result_entry(self, grid, vbox8):
-        '''
-        Result Entry.
-
-        Parameters:
-            grid
-            vbox6
-        Returns:
-            grid
-            vbox8
-        '''
-        vbox9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.result = Gtk.Entry()
-        self.result.set_placeholder_text("Result")
-        vbox9.pack_start(self.result, True, True, 0)
-
-        grid.attach_next_to(vbox9, vbox8, Gtk.PositionType.BOTTOM, 6, 2)
-
-        return grid, vbox9
-
-    def graphic_f_button(self, grid, vbox):
-        vbox10 = Gtk.Box(spacing=8)
-        button = Gtk.Button(label="Graphic")
-        button.connect('clicked', self.graphic_f)
-        vbox10.pack_start(button, True, True, 0)
-
-        grid.attach_next_to(vbox10, vbox, Gtk.PositionType.RIGHT, 1, 2)
-
-        return grid
-
-    def graphic_g_button(self, grid, vbox2):
-        vbox11 = Gtk.Box(spacing=8)
-        button = Gtk.Button(label="Graphic")
-        button.connect('clicked', self.graphic_g)
-        vbox11.pack_start(button, True, True, 0)
-
-        grid.attach_next_to(vbox11, vbox2, Gtk.PositionType.RIGHT, 1, 2)
-
-        return grid
-
-    def create_ui(self):
-        grid, vbox = self.function_entry()
-        grid, vbox2 = self.g_function_entry(grid, vbox)
-        grid, vbox3 = self.tolerancia_value_entry(grid, vbox2)
-        grid, vbox4 = self.iteration_value_entry(grid, vbox3)
-        grid, vbox5 = self.initial_value_and_entry(grid, vbox3)
-        grid, vbox6 = self.superior_value_entry(grid, vbox5)
-        grid, vbox7 = self.increment_value_entry(grid, vbox6)
-        grid, vbox8 = self.button_box(grid, vbox5)
-        grid, vbox9 = self.result_entry(grid, vbox8)
-        grid = self.graphic_f_button(grid, vbox)
-        grid = self.graphic_g_button(grid, vbox2)
-
-        return grid
-
-    def incremental_Search_button(self, widget):
-        initial_value = float(self.x0.get_text())
-        increment = float(self.increment.get_text())
-        iterations = float(self.iterations.get_text())
-        func = self.function.get_text()
-
-        self.incremental_Search = ISearch()
-        range_of_root = self.incremental_Search.evaluate(
-            initial_value, increment, iterations, func)
-        self.result.set_text(str(range_of_root))
-
-        table = self.incremental_Search.values
-        tree = TreeView(table, ['Iter', 'x Value',
-                                'F(x) value'], 'Incremental_search')
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-
-    def bisection_button(self, widget):
-        inferior_value = float(self.x0.get_text())
-        superior_value = float(self.xs.get_text())
-        tolerance = float(self.tolerance.get_text())
-        iterations = float(self.iterations.get_text())
-
-        func = self.function.get_text()
-        self.bisection_Search = BSearch()
-        range_of_root = self.bisection_Search.evaluate(
-            inferior_value, superior_value, tolerance, iterations, func, self.type_error)
-        self.result.set_text(str(range_of_root))
-
-        table = self.bisection_Search.values
-        tree = TreeView(table, ['Iter', 'Xi', 'Xu',
-                                'Xm', 'F(Xm)', 'Error'], 'Bisection')
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-
-    def false_rule_button(self, widget):
-        inferior_value = float(self.x0.get_text())
-        superior_value = float(self.xs.get_text())
-        tolerance = float(self.tolerance.get_text())
-        iterations = float(self.iterations.get_text())
-        func = self.function.get_text()
-
-        self.false_rule_Search = FSearch()
-        range_of_root = self.false_rule_Search.evaluate(
-            inferior_value, superior_value, tolerance, iterations, func, self.type_error)
-        self.result.set_text(str(range_of_root))
-        table = self.false_rule_Search.values
-        tree = TreeView(table, ['Iter', 'Xi', 'Xu', 'Xm',
-                                'F(Xm)', 'Error'], 'False_rule')
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-
-    def fixed_point_button(self, widget):
-        initial_value = float(self.x0.get_text())
-        tolerance = float(self.tolerance.get_text())
-        iterations = float(self.iterations.get_text())
-        func = self.function.get_text()
-        g_func = self.g_function.get_text()
-
-        self.fixed_point_Search = FPSearch()
-        range_of_root = self.fixed_point_Search.evaluate(
-            initial_value, tolerance, iterations, func, g_func, self.type_error)
-        self.result.set_text(str(range_of_root))
-        table = self.fixed_point_Search.values
-        tree = TreeView(table, ['iter', 'x Value',
-                                'F(x) Value', 'Error'], 'Fixed_point')
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-
-    def newton_button(self, widget):
-        initial_value = float(self.x0.get_text())
-        tolerance = float(self.tolerance.get_text())
-        iterations = float(self.iterations.get_text())
-
-        func = self.function.get_text()
-        d_func = derivate_function(self.function.get_text())
-
-        self.newton_Search = NSearch()
-        range_of_root = self.newton_Search.evaluate(
-            tolerance, initial_value, iterations, func, d_func, self.type_error)
-        self.result.set_text(str(range_of_root))
-
-        table = self.newton_Search.values
-        tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)',
-                                'f\'(Xn)', 'Error'], 'Newton')
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-
-    def secant_button(self, widget):
-        inferior_value = float(self.x0.get_text())
-        superior_value = float(self.xs.get_text())
-        tolerance = float(self.tolerance.get_text())
-        iterations = float(self.iterations.get_text())
-        func = self.function.get_text()
-
-        self.secant_Search = SSearch()
-        range_of_root = self.secant_Search.evaluate(tolerance,
-                                                    inferior_value, superior_value, func, iterations, self.type_error)
-        self.result.set_text(str(range_of_root))
-        table = self.secant_Search.values
-        tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)', 'Error'], 'Secant')
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-
-    def multiple_roots(self, widget):
-        initial_value = float(self.x0.get_text())
-        tolerance = float(self.tolerance.get_text())
-        iterations = float(self.iterations.get_text())
-
-        func = self.function.get_text()
-        d_func = derivate_function(self.function.get_text())
-        dd_func = derivate_function(d_func)
-        self.multiple_roots = MRoots()
-        range_of_root = self.multiple_roots.evaluate(
-            tolerance, initial_value, iterations, func, d_func, dd_func, self.type_error)
-        self.result.set_text(str(range_of_root))
-        table = self.multiple_roots.values
-        tree = TreeView(table, ['Iter', 'Xn', 'f(Xn)',
-                                'f\'(Xn)', 'f\'\'(Xn)', 'Error'], 'MRoots')
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-
-    def on_help_clicked(self, widget):
+
+
+class Handler:
+    def __init__(self, parameters, parameters2):
+        self.parameters = parameters
+        self.parameters2 = parameters2
+
+    def onDestroy(self, *args):
+        Gtk.main_quit()
+
+    def eval_method(self, button):
+        method = self.parameters[0].get_active()
+        if method == 0:
+            self.incremental_search_method()
+        elif method == 1:
+            self.bisection_method()
+        elif method == 2:
+            self.false_rule_method()
+        elif method == 3:
+            self.fixed_point_method()
+        elif method == 4:
+            self.newton_method()
+        elif method == 5:
+            self.secant_method()
+        elif method == 6:
+            self.multiple_roots_method()
+
+    def incremental_search_method(self):
+        try:
+            initial_value = float(self.parameters[7].get_text())
+            increment = float(self.parameters[6].get_text())
+            iterations = float(self.parameters[5].get_text())
+            func = self.parameters[3].get_text()
+
+            self.incremental_Search = ISearch()
+            range_of_root = self.incremental_Search.evaluate(
+                initial_value, increment, iterations, func)
+            self.parameters[9].set_text(str(range_of_root))
+
+            self.table = self.incremental_Search.values
+            self.table_names = ["Iter", "x Value",
+                                "F(x) value"]
+            self.type = "Incremental_search"
+        except:
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+
+    def bisection_method(self):
+        try:
+            error = self.parameters[1].get_active()
+
+            inferior_value = float(self.parameters[7].get_text())
+            superior_value = float(self.parameters[8].get_text())
+            tolerance = float(self.parameters[10].get_text())
+            iterations = float(self.parameters[5].get_text())
+            func = self.parameters[3].get_text()
+
+            self.bisection_Search = BSearch()
+            range_of_root = self.bisection_Search.evaluate(
+                inferior_value, superior_value, tolerance, iterations, func, error)
+
+            self.parameters[9].set_text(str(range_of_root))
+            self.table = self.bisection_Search.values
+            self.table_names = ["Iter", "Xi", "Xu", "Xm", "F(Xm)", "Error"]
+            self.type = "Bisection"
+        except:
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+
+    def false_rule_method(self):
+        try:
+
+            error = self.parameters[1].get_active()
+
+            inferior_value = float(self.parameters[7].get_text())
+            superior_value = float(self.parameters[8].get_text())
+            tolerance = float(self.parameters[10].get_text())
+            iterations = float(self.parameters[5].get_text())
+            func = self.parameters[3].get_text()
+
+            self.false_rule_Search = FSearch()
+            range_of_root = self.false_rule_Search.evaluate(
+                inferior_value, superior_value, tolerance, iterations, func, error)
+            self.parameters[9].set_text(str(range_of_root))
+            self.table = self.false_rule_Search.values
+            self.table_names = ["Iter", "Xi", "Xu", "Xm", "F(Xm)", "Error"]
+            self.type = "False Rule"
+        except:
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+
+    def fixed_point_method(self):
+        try:
+            error = self.parameters[1].get_active()
+
+            initial_value = float(self.parameters[7].get_text())
+            tolerance = float(self.parameters[10].get_text())
+            iterations = float(self.parameters[5].get_text())
+            func = self.parameters[3].get_text()
+            g_func = self.parameters[4].get_text()
+
+            self.fixed_point_Search = FPSearch()
+            range_of_root = self.fixed_point_Search.evaluate(
+                initial_value, tolerance, iterations, func, g_func, error)
+            self.parameters[9].set_text(str(range_of_root))
+            self.table = self.fixed_point_Search.values
+            self.table_names['iter', 'x Value', 'F(x) Value', 'Error']
+            self.type = "Fixed Point"
+        except:
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+
+    def newton_method(self):
+        try:
+            error = self.parameters[1].get_active()
+
+            initial_value = float(self.parameters[7].get_text())
+            tolerance = float(self.parameters[10].get_text())
+            iterations = float(self.parameters[5].get_text())
+            func = self.parameters[3].get_text()
+            d_func = derivate_function(self.parameters[3].get_text())
+
+            self.newton_Search = NSearch()
+            range_of_root = self.newton_Search.evaluate(
+                tolerance, initial_value, iterations, func, d_func, error)
+            self.parameters[9].set_text(str(range_of_root))
+
+            self.table = self.newton_Search.values
+            self.table_names = ['Iter', 'Xn', 'f(Xn)', 'f\'(Xn)', 'Error']
+            self.type = "Newton"
+        except:
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+
+    def secant_method(self):
+        try:
+            error = self.parameters[1].get_active()
+
+            inferior_value = float(self.parameters[7].get_text())
+            superior_value = float(self.parameters[8].get_text())
+            tolerance = float(self.parameters[10].get_text())
+            iterations = float(self.parameters[5].get_text())
+            func = self.parameters[3].get_text()
+
+            self.secant_Search = SSearch()
+            range_of_root = self.secant_Search.evaluate(tolerance,
+                                                        inferior_value, superior_value, func, iterations, error)
+            self.parameters[9].set_text(str(range_of_root))
+            self.table = self.secant_Search.values
+            self.table_names = ['Iter', 'Xn', 'f(Xn)', 'Error']
+            self.type = "Secant"
+        except:
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+
+    def multiple_roots_method(self):
+        try:
+            error = self.parameters[1].get_active()
+
+            initial_value = float(self.parameters[7].get_text())
+            tolerance = float(self.parameters[10].get_text())
+            iterations = float(self.parameters[5].get_text())
+            func = self.parameters[3].get_text()
+            d_func = derivate_function(self.parameters[3].get_text())
+            dd_func = derivate_function(d_func)
+            self.multiple_roots = MRoots()
+            range_of_root = self.multiple_roots.evaluate(
+                tolerance, initial_value, iterations, func, d_func, dd_func, error)
+            self.parameters[9].set_text(str(range_of_root))
+            self.table = self.multiple_roots.values
+            self.table_names = ['Iter', 'Xn',
+                                'f(Xn)', 'f\'(Xn)', 'f\'\'(Xn)', 'Error']
+            self.type = "Multiple Roots"
+        except:
+            self.parameters[9].set_text(
+                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+
+    def help_pressed(self, button):
+        method = self.parameters[0].get_active()
+        if method == 0:
+            self.on_IncHelp_clicked()
+        elif method == 1:
+            self.on_BisectHelp_clicked()
+        elif method == 2:
+            self.on_FruleHelp_clicked()
+        elif method == 3:
+            self.on_FpointHelp_clicked()
+        elif method == 4:
+            self.on_Newtonhelp_clicked()
+        elif method == 5:
+            self.on_Sechelp_clicked()
+        elif method == 6:
+            self.on_Mroothelp_clicked()
+
+    def on_IncHelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Incremental Search Help")
+        dialog.format_secondary_text(
+            "El metodo de la busqueda incremental funciona ingresando una funcion, un valor inferior y superior que conformaran un conjunto.\nDentro de este conjunto,utilizando el incremento ingresado se evalua la funcion en un valor hasta encontrar un cambio de signo o que f(x)=0.\n\n En el caso de un cambio de signo, la raiz esta dentro del intervalo, o en el caso de encontrar f(x)=0, la raiz es x. ")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_BisectHelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Bisection Search Help")
+        dialog.format_secondary_text(
+            "El metodo de Biseccion es un metodo para encontrar raices de una funcion.\n\nFunciona mediante ingresando un intervalo dentro del cual evaluar, con un numero de iteraciones y cierta tolerancia a la precision del resultado.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_FruleHelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "False Rule Help")
+        dialog.format_secondary_text(
+            "Dado un intervalo inicial [xi,xu], se encuentra el punto de interseccion del eje x con la recta secante que une los puntos (xi,f(xi) y (xu,f(xu) y se evalúa en la función f(x).\nLa función f debe estar definida en el intervalo [xi,xu], f debe de ser continua en el intervalo [xi,xu] y  f(xi)∗f(xu)<0.")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_FpointHelp_clicked(self):
         dialog = Gtk.MessageDialog(
             None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Fixed Point Search Help")
         dialog.format_secondary_text(
@@ -423,53 +255,184 @@ class NonLinealMenu(Gtk.Notebook):
 
         dialog.destroy()
 
-    def graphic_f(self, widget):
-        func = self.function.get_text()
-        graphic(func, float(self.initial_value.get_text()) -
-                100, float(self.iterations.get_text()))
+    def on_Newtonhelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Newton Help")
+        dialog.format_secondary_text(
+            "Newton Help")
+        dialog.run()
+        print("INFO dialog closed")
 
-    def graphic_g(self, widget):
-        func = self.g_function.get_text()
-        graphic(func, float(self.initial_value.get_text()) -
-                100, float(self.iterations.get_text()))
+        dialog.destroy()
+
+    def on_Sechelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Secant Help")
+        dialog.format_secondary_text(
+            "Secant help")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def on_Mroothelp_clicked(self):
+        dialog = Gtk.MessageDialog(
+            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Multiple Roots Help")
+        dialog.format_secondary_text(
+            "Multiple Roots help")
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def table_pressed(self, button):
+        tree = TreeView(self.table, self.table_names, self.type)
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
+
+    def graph_pressed(self, button):
+        func = self.parameters[3].get_text()
+        initial_value = float(self.parameters[7].get_text()) - 100
+        iterations = float(self.parameters[5].get_text())
+        graphic(func, initial_value, iterations)
+
+    def matrix_generate(self, button):
+        rows = int(self.parameters2[0].get_text())
+        columns = rows + 1
+        tree = TreeView2(rows ,columns)
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
+        self.matrixTable = tree.returnTable()
+        print(self.matrixTable.dtypes)
+        self.matrixTable = self.matrixTable.to_numpy()
+        self.matrixTable = self.matrixTable.astype(np.float)
+        print(self.matrixTable)
+
+    def initialValues_generate(self, button):
+        columns = int(self.parameters2[2].get_text())
+        rows = 1
+        tree = TreeView2(rows ,columns)
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
+        self.initialValuesTable = tree.returnTable()
+        print(self.initialValuesTable.dtypes)
+        self.initialValuesTable = self.initialValuesTable.to_numpy()
+        self.initialValuesTable = self.initialValuesTable.astype(np.float)
+        print(self.initialValuesTable)
+
+    def evaluateMatrix_pressed(self, button):
+        method = self.parameters2[4].get_active()
+        if method == 0:
+            self.evaluate_gauss()
+        elif method == 1:
+            self.evaluate_pivot_parcial()
+        elif method == 2:
+            self.evaluate_pivot_total()
+        elif method == 3:
+            self.evaluate_crout()
+        elif method == 4:
+            self.evaluate_doolittle()
+        elif method == 5:
+            self.evaluate_cholesky()
+        elif method == 6:
+            self.evaluate_jacobi()
+        elif method == 7:
+            self.evaluate_gauss_seidel()
 
 
-def graphic(funcion, initial_value, iterations):
-    import gi
-    gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    def evaluate_gauss(self):
+        self.etapa_index = 0
 
-    from .functions.Function import Function
+        print(f"Matriz\n{self.matrixTable}")
+        matrixSize = self.matrixTable.shape[0]
+        gauss = Gauss(self.matrixTable, matrixSize)
+        self.x_result, self.etapas =gauss.evaluate()
 
-    from matplotlib.figure import Figure
-    from matplotlib.backends.backend_gtk3agg import FigureCanvas
-    from matplotlib.backends.backend_gtk3 import (
-        NavigationToolbar2GTK3 as NavigationToolbar)
+        #CODIGO POPUP
+        # self.etapas_text = ""
+        # for i in range(len(x)-1):
+        #     etapas_text+= f"Etapa {i}:\n {str(self.etapas[i])}\n\n"
 
-    function = Function(funcion)
+        # etapas_popover = Gtk.Popover()
+        # etapas_label = Gtk.Label(etapas_text)
+        # etapas_popover.add(etapas_label)
 
-    win = Gtk.Window()
-    win.connect("destroy", lambda x: Gtk.main_quit())
-    win.set_default_size(640, 480)
-    win.set_title("Embedding in GTK")
+        # etapas_popover.set_relative_to(self.Gaussbutton)
+        # etapas_popover.show_all()
+        # etapas_popover.popup()
 
-    vbox = Gtk.VBox()
-    win.add(vbox)
+        print(self.x_result)
+        print(self.etapas)
 
-    increment = 0.01
-    final_value = math.fabs(initial_value+math.fabs(increment*100))
+    def evaluate_pivot_parcial(self):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
+        pivot = Pivoteo(self.matrixTable,matrixSize)
+        self.x_text,self.etapas = pivot.evaluate_parcial()
 
-    fig = Figure(figsize=(5, 4), dpi=100)
-    ax = fig.add_subplot(111)
-    x = np.arange(-50, 3, 0.01)
-    y = [function.evaluate2(i) for i in x]
-    print(y)
-    ax.plot(x, y)
+    def evaluate_pivot_total(self):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
 
-    canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
-    vbox.pack_start(canvas, True, True, 0)
-    toolbar = NavigationToolbar(canvas, win)
-    vbox.pack_start(toolbar, False, False, 0)
+        pivot = Pivoteo(self.matrixTable,matrixSize)
+        self.x_text,self.etapas = pivot.evaluate_total()
 
-    win.show_all()
-    Gtk.main()
+    def evaluate_crout(self):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
+
+        crout = Crout(matrix,matrixSize,indp)
+        self.x_text,self.etapas = crout.evaluate()
+
+    def evaluate_doolittle(self):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
+
+        doo = Doolittle(matrix,matrixSize,indp)
+        self.L, self.U, self.Z, self.X = doo.evaluate()
+
+    def evaluate_cholesky(self):
+        self.etapa_index = 0
+        matrixSize = int(self.parameters2[0].get_text())
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
+
+        chol = Cholesky(matrix,matrixSize,indp)
+        self.L, self.U, self.Z, self.X = chol.evaluate()
+
+    def evaluate_jacobi(self,widget):
+        matrixSize = int(self.parameters2[0].get_text())
+
+        tol = float(self.parameters2[6].get_text())
+        iter = int(self.parameters2[7].get_text())
+        lamb = float(self.parameters2[8].get_text())
+
+        initialValues = self.initialValuesTable
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
+
+        print(f"Indp: {indp}")
+        seidel = GaussSeidel(matrix,m,indp,initialValues)
+        seidel.evaluate(tol,iter,lamb)
+
+    def evaluate_gauss_seidel(self,widget):
+        matrixSize = int(self.parameters2[0].get_text())
+
+        tol = float(self.parameters2[6].get_text())
+        iter = int(self.parameters2[7].get_text())
+        lamb = float(self.parameters2[8].get_text())
+
+        initialValues = self.initialValuesTable
+        matrix = self.matrixTable[:,:(matrixSize)]
+        indp = self.matrixTable[:,-1]
+
+        print(f"Indp: {indp}")
+        seidel = GaussSeidel(matrix,m,indp,initialValues)
+        seidel.evaluate(tol,iter,lamb)
