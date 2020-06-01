@@ -17,7 +17,8 @@ from .graph import *
 from .table import *
 from .matrixTable import *
 from .derivate import *
-from .help import Help
+from .Messages.help import Help
+from .Messages.errors import Errors
 import gi
 import math
 import numpy as np
@@ -30,6 +31,7 @@ class Handler:
         self.parameters = parameters
         self.parameters2 = parameters2
         self.help = Help()
+        self.errors = Errors()
 
     def onDestroy(self, *args):
         Gtk.main_quit()
@@ -52,11 +54,14 @@ class Handler:
             self.multiple_roots_method()
 
     def incremental_search_method(self):
+        initial_value = self.parameters[7].get_text()
+        increment = self.parameters[6].get_text()
+        iterations = self.parameters[5].get_text()
+        func = self.parameters[3].get_text()
         try:
-            initial_value = float(self.parameters[7].get_text())
-            increment = float(self.parameters[6].get_text())
-            iterations = float(self.parameters[5].get_text())
-            func = self.parameters[3].get_text()
+            initial_value = float(initial_value)
+            increment = float(increment)
+            iterations = float(iterations)
 
             self.incremental_Search = ISearch()
             range_of_root = self.incremental_Search.evaluate(
@@ -67,18 +72,36 @@ class Handler:
             self.table_names = ["Iter", "x Value",
                                 "F(x) value"]
             self.type = "Incremental_search"
-        except:
-            self.parameters[9].set_text(
-                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+        except :
+            list_error = [0, 0, 0, 0, 0, 0 , 0]
+            if func == '':
+                list_error[0] = 1
+            if initial_value == '':
+                list_error[4] = 1
+            if increment == '':
+                list_error[3] = 1
+            if iterations == '':
+                list_error[2] = 1
+            
+            self.errors.non_lineal_errors(list_error)
+                
+            
+            
 
     def bisection_method(self):
+        inferior_value = self.parameters[7].get_text()
+        superior_value = self.parameters[8].get_text()
+        tolerance = self.parameters[10].get_text()
+        iterations = self.parameters[5].get_text()
+        func = self.parameters[3].get_text()
         try:
             error = self.parameters[1].get_active()
 
-            inferior_value = float(self.parameters[7].get_text())
-            superior_value = float(self.parameters[8].get_text())
-            tolerance = float(self.parameters[10].get_text())
-            iterations = float(self.parameters[5].get_text())
+            inferior_value = float(inferior_value)
+            superior_value = float(superior_value)
+            tolerance = float(tolerance)
+            iterations = float(iterations)
+
             func = self.parameters[3].get_text()
 
             self.bisection_Search = BSearch()
@@ -90,19 +113,34 @@ class Handler:
             self.table_names = ["Iter", "Xi", "Xu", "Xm", "F(Xm)", "Error"]
             self.type = "Bisection"
         except:
-            self.parameters[9].set_text(
-                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+            list_error = [0, 0, 0, 0, 0, 0 , 0]
+            if func == '':
+                list_error[0] = 1
+            if iterations == '':
+                list_error[2] = 1
+            if inferior_value == '':
+                list_error[4] = 1
+            if superior_value == '':
+                list_error[5] = 1
+            if tolerance == '':
+                list_error[6] = 1
+            
+            self.errors.non_lineal_errors(list_error)
 
     def false_rule_method(self):
-        try:
+        inferior_value = self.parameters[7].get_text()
+        superior_value = self.parameters[8].get_text()
+        tolerance = self.parameters[10].get_text()
+        iterations = self.parameters[5].get_text()
+        func = self.parameters[3].get_text()
 
+        try:
             error = self.parameters[1].get_active()
 
-            inferior_value = float(self.parameters[7].get_text())
-            superior_value = float(self.parameters[8].get_text())
-            tolerance = float(self.parameters[10].get_text())
-            iterations = float(self.parameters[5].get_text())
-            func = self.parameters[3].get_text()
+            inferior_value = float(inferior_value)
+            superior_value = float(superior_value)
+            tolerance = float(tolerance)
+            iterations = float(iterations)
 
             self.false_rule_Search = FSearch()
             range_of_root = self.false_rule_Search.evaluate(
@@ -112,18 +150,34 @@ class Handler:
             self.table_names = ["Iter", "Xi", "Xu", "Xm", "F(Xm)", "Error"]
             self.type = "False Rule"
         except:
-            self.parameters[9].set_text(
-                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+            list_error = [0, 0, 0, 0, 0, 0 , 0]
+
+            if func == '':
+                list_error[0] = 1
+            if iterations == '':
+                list_error[2] = 1
+            if inferior_value == '':
+                list_error[4] = 1
+            if superior_value == '':
+                list_error[5] = 1
+            if tolerance == '':
+                list_error[6] = 1
+            
+            self.errors.non_lineal_errors(list_error)
 
     def fixed_point_method(self):
+        initial_value = self.parameters[7].get_text()
+        tolerance = self.parameters[10].get_text()
+        iterations = self.parameters[5].get_text()
+        func = self.parameters[3].get_text()
+        g_func = self.parameters[4].get_text()
+
         try:
             error = self.parameters[1].get_active()
 
-            initial_value = float(self.parameters[7].get_text())
-            tolerance = float(self.parameters[10].get_text())
-            iterations = float(self.parameters[5].get_text())
-            func = self.parameters[3].get_text()
-            g_func = self.parameters[4].get_text()
+            initial_value = float(initial_value)
+            tolerance = float(tolerance)
+            iterations = float(iterations)
 
             self.fixed_point_Search = FPSearch()
             range_of_root = self.fixed_point_Search.evaluate(
@@ -133,17 +187,34 @@ class Handler:
             self.table_names['iter', 'x Value', 'F(x) Value', 'Error']
             self.type = "Fixed Point"
         except:
-            self.parameters[9].set_text(
-                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+            list_error = [0, 0, 0, 0, 0, 0 , 0]
+            
+            if func == '':
+                list_error[0] = 1
+            if g_func == '':
+                list_error[1] = 1
+            if iterations == '':
+                list_error[2] = 1
+            if initial_value == '':
+                list_error[4] = 1
+            if tolerance == '':
+                list_error[6] = 1
+            
+            self.errors.non_lineal_errors(list_error)
 
     def newton_method(self):
+        initial_value = self.parameters[7].get_text()
+        tolerance = self.parameters[10].get_text()
+        iterations = self.parameters[5].get_text()
+        func = self.parameters[3].get_text()
+
         try:
             error = self.parameters[1].get_active()
 
-            initial_value = float(self.parameters[7].get_text())
-            tolerance = float(self.parameters[10].get_text())
-            iterations = float(self.parameters[5].get_text())
-            func = self.parameters[3].get_text()
+            initial_value = float(initial_value)
+            tolerance = float(tolerance)
+            iterations = float(iterations)
+
             d_func = derivate_function(self.parameters[3].get_text())
 
             self.newton_Search = NSearch()
@@ -155,18 +226,32 @@ class Handler:
             self.table_names = ['Iter', 'Xn', 'f(Xn)', 'f\'(Xn)', 'Error']
             self.type = "Newton"
         except:
-            self.parameters[9].set_text(
-                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+            list_error = [0, 0, 0, 0, 0, 0 , 0]
+            
+            if func == '':
+                list_error[0] = 1
+            if iterations == '':
+                list_error[2] = 1
+            if initial_value == '':
+                list_error[4] = 1
+            if tolerance == '':
+                list_error[6] = 1
+            
+            self.errors.non_lineal_errors(list_error)
 
     def secant_method(self):
+        inferior_value = self.parameters[7].get_text()
+        superior_value = self.parameters[8].get_text()
+        tolerance = self.parameters[10].get_text()
+        iterations = self.parameters[5].get_text()
+        func = self.parameters[3].get_text()
         try:
             error = self.parameters[1].get_active()
 
-            inferior_value = float(self.parameters[7].get_text())
-            superior_value = float(self.parameters[8].get_text())
-            tolerance = float(self.parameters[10].get_text())
-            iterations = float(self.parameters[5].get_text())
-            func = self.parameters[3].get_text()
+            inferior_value = float(inferior_value)
+            superior_value = float(superior_value)
+            tolerance = float(tolerance)
+            iterations = float(iterations)
 
             self.secant_Search = SSearch()
             range_of_root = self.secant_Search.evaluate(tolerance,
@@ -176,17 +261,34 @@ class Handler:
             self.table_names = ['Iter', 'Xn', 'f(Xn)', 'Error']
             self.type = "Secant"
         except:
-            self.parameters[9].set_text(
-                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+            list_error = [0, 0, 0, 0, 0, 0 , 0]
+            
+            if func == '':
+                list_error[0] = 1
+            if iterations == '':
+                list_error[2] = 1
+            if inferior_value == '':
+                list_error[4] = 1
+            if superior_value == '':
+                list_error[5] = 1
+            if tolerance == '':
+                list_error[6] = 1
+            
+            self.errors.non_lineal_errors(list_error)
 
     def multiple_roots_method(self):
+        initial_value = self.parameters[7].get_text()
+        tolerance = self.parameters[10].get_text()
+        iterations = self.parameters[5].get_text()
+        func = self.parameters[3].get_text()
+
         try:
             error = self.parameters[1].get_active()
 
-            initial_value = float(self.parameters[7].get_text())
-            tolerance = float(self.parameters[10].get_text())
-            iterations = float(self.parameters[5].get_text())
-            func = self.parameters[3].get_text()
+            initial_value = float(initial_value)
+            tolerance = float(tolerance)
+            iterations = float(iterations)
+            
             d_func = derivate_function(self.parameters[3].get_text())
             dd_func = derivate_function(d_func)
             self.multiple_roots = MRoots()
@@ -198,8 +300,18 @@ class Handler:
                                 'f(Xn)', 'f\'(Xn)', 'f\'\'(Xn)', 'Error']
             self.type = "Multiple Roots"
         except:
-            self.parameters[9].set_text(
-                "Seleccione el metodo acorde a trabajar o ingrese los valores")
+            list_error = [0, 0, 0, 0, 0, 0 , 0]
+            
+            if func == '':
+                list_error[0] = 1
+            if iterations == '':
+                list_error[2] = 1
+            if initial_value == '':
+                list_error[4] = 1
+            if tolerance == '':
+                list_error[6] = 1
+            
+            self.errors.non_lineal_errors(list_error)
 
     def help_pressed(self, button):
         method = self.parameters[0].get_active()
@@ -381,7 +493,8 @@ class Handler:
         seidel.evaluate(tol,iter,lamb)
     
     def helpMatrix_pressed(self, button):
-        method = self.parameters[4].get_active()
+        method = self.parameters2[4].get_active()
+      
         if method == 0:
             self.help.linear_equations_help("Simple Gaussian")
         elif method == 1:
