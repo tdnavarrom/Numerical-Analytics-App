@@ -494,7 +494,10 @@ class Handler:
     
     def helpMatrix_pressed(self, button):
         method = self.parameters2[4].get_active()
+<<<<<<< HEAD
       
+=======
+>>>>>>> f54038e264eb1d4e6f29ffb2a31223977cd746a9
         if method == 0:
             self.help.linear_equations_help("Simple Gaussian")
         elif method == 1:
