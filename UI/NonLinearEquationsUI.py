@@ -381,7 +381,7 @@ class Handler:
         seidel.evaluate(tol,iter,lamb)
     
     def helpMatrix_pressed(self, button):
-        method = self.parameters[4].get_active()
+        method = self.parameters2[4].get_active()
         if method == 0:
             self.help.linear_equations_help("Simple Gaussian")
         elif method == 1:
