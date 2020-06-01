@@ -12,10 +12,12 @@ from .MatrixMethods.Pivoteo import Pivoteo
 from .MatrixMethods.Crout import Crout
 from .MatrixMethods.Doolittle import Doolittle
 from .MatrixMethods.Cholesky import Cholesky
+from .MatrixMethods.GaussSeidel import GaussSeidel
 from .graph import *
 from .table import *
 from .matrixTable import *
 from .derivate import *
+from .help import Help
 import gi
 import math
 import numpy as np
@@ -27,6 +29,7 @@ class Handler:
     def __init__(self, parameters, parameters2):
         self.parameters = parameters
         self.parameters2 = parameters2
+        self.help = Help()
 
     def onDestroy(self, *args):
         Gtk.main_quit()
@@ -201,79 +204,19 @@ class Handler:
     def help_pressed(self, button):
         method = self.parameters[0].get_active()
         if method == 0:
-            self.on_IncHelp_clicked()
+            self.help.non_linear_equation_help("Incremental")
         elif method == 1:
-            self.on_BisectHelp_clicked()
+            self.help.non_linear_equation_help("Bisection")
         elif method == 2:
-            self.on_FruleHelp_clicked()
+            self.help.non_linear_equation_help("False Rule")
         elif method == 3:
-            self.on_FpointHelp_clicked()
+            self.help.non_linear_equation_help("Fixed Point")
         elif method == 4:
-            self.on_Newtonhelp_clicked()
+            self.help.non_linear_equation_help("Newton")
         elif method == 5:
-            self.on_Sechelp_clicked()
+            self.help.non_linear_equation_help("Secant")
         elif method == 6:
-            self.on_Mroothelp_clicked()
-
-    def on_IncHelp_clicked(self):
-        dialog = Gtk.MessageDialog(
-            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Incremental Search Help")
-        dialog.format_secondary_text(
-            "El metodo de la busqueda incremental funciona ingresando una funcion, un valor inferior y superior que conformaran un conjunto.\nDentro de este conjunto,utilizando el incremento ingresado se evalua la funcion en un valor hasta encontrar un cambio de signo o que f(x)=0.\n\n En el caso de un cambio de signo, la raiz esta dentro del intervalo, o en el caso de encontrar f(x)=0, la raiz es x. ")
-        dialog.run()
-        print("INFO dialog closed")
-
-        dialog.destroy()
-
-    def on_BisectHelp_clicked(self):
-        dialog = Gtk.MessageDialog(
-            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Bisection Search Help")
-        dialog.format_secondary_text(
-            "El metodo de Biseccion es un metodo para encontrar raices de una funcion.\n\nFunciona mediante ingresando un intervalo dentro del cual evaluar, con un numero de iteraciones y cierta tolerancia a la precision del resultado.")
-        dialog.run()
-        print("INFO dialog closed")
-
-        dialog.destroy()
-
-    def on_FruleHelp_clicked(self):
-        dialog = Gtk.MessageDialog(
-            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "False Rule Help")
-        dialog.format_secondary_text(
-            "Dado un intervalo inicial [xi,xu], se encuentra el punto de interseccion del eje x con la recta secante que une los puntos (xi,f(xi) y (xu,f(xu) y se evalúa en la función f(x).\nLa función f debe estar definida en el intervalo [xi,xu], f debe de ser continua en el intervalo [xi,xu] y  f(xi)∗f(xu)<0.")
-        dialog.run()
-        print("INFO dialog closed")
-
-        dialog.destroy()
-
-    def on_FpointHelp_clicked(self):
-        dialog = Gtk.MessageDialog(
-            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Fixed Point Search Help")
-        dialog.format_secondary_text(
-            "El método de punto fijo reformula la ecuación f(x)=0 y genera una ecuación de la forma x=g(x) que permite encontrar un valor de x que al reemplazarlo en g su resultado sea el mismo, es decir que x sea invariable para g, y adicionalmente que la f(x) converja a cero.\n\nSe dispone de un intervalo [a,b] para el cual la función g es continua y se cumple que para todo valor de x en el intervalo, g(x) también pertenece al mismo intervalo. Además para garantizar la unicidad de dicho punto se debe cumplir que la derivada g′(x)<1 en el intervalo.")
-        dialog.run()
-        print("INFO dialog closed")
-
-        dialog.destroy()
-
-    def on_Newtonhelp_clicked(self):
-        dialog = Gtk.MessageDialog(
-            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Newton Help")
-        dialog.format_secondary_text(
-            "Newton Help")
-        dialog.run()
-        print("INFO dialog closed")
-
-        dialog.destroy()
-
-    def on_Sechelp_clicked(self):
-        dialog = Gtk.MessageDialog(
-            None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Secant Help")
-        dialog.format_secondary_text(
-            "Secant help")
-        dialog.run()
-        print("INFO dialog closed")
-
-        dialog.destroy()
+            self.help.non_linear_equation_help("Multiple Roots")
 
     def on_Mroothelp_clicked(self):
         dialog = Gtk.MessageDialog(
@@ -436,3 +379,22 @@ class Handler:
         print(f"Indp: {indp}")
         seidel = GaussSeidel(matrix,m,indp,initialValues)
         seidel.evaluate(tol,iter,lamb)
+    
+    def helpMatrix_pressed(self, button):
+        method = self.parameters[4].get_active()
+        if method == 0:
+            self.help.linear_equations_help("Simple Gaussian")
+        elif method == 1:
+            self.help.linear_equations_help("Parcial Pivot")
+        elif method == 2:
+            self.help.linear_equations_help("Total Pivot")
+        elif method == 3:
+            self.help.linear_equations_help("Crout")
+        elif method == 4:
+            self.help.linear_equations_help("Doolittle")
+        elif method == 5:
+            self.help.linear_equations_help("Cholesky")
+        elif method == 6:
+            self.help.linear_equations_help("Jacobi")
+        elif method == 7:
+            self.help.linear_equations_help("Gauss-Seidel")

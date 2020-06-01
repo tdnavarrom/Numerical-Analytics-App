@@ -2,7 +2,7 @@ import gi
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
-from NonLinearEquations.NonLinearEquationsUI import Handler
+from UI.NonLinearEquationsUI import Handler
 
 
 class App:
@@ -39,8 +39,9 @@ class App:
         self.lambd = go("lambda")
         self.resultMatrix = go("resultMatrixID")
         self.evaluateMatrix = go("evaluateMatrixID")
+        self.helpMatrix = go("HelpMatrix")
 
-        self.parameters2 = self.variables, self.generate_button, self.initialValues, self.initialValues_button, self.matrixMethods, self.evalOptions, self.tolerance, self.iterations, self.lambd, self.resultMatrix, self.evaluateMatrix
+        self.parameters2 = self.variables, self.generate_button, self.initialValues, self.initialValues_button, self.matrixMethods, self.evalOptions, self.tolerance, self.iterations, self.lambd, self.resultMatrix, self.evaluateMatrix, self.helpMatrix
 
         self.builder.connect_signals(Handler(self.parameters, self.parameters2))
 
