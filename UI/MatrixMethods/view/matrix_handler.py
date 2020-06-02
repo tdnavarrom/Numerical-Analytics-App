@@ -34,7 +34,7 @@ class Matrix_Handler:
         for i in range(columns):
             column.append(str(i))
             
-        if(self.parameters[1].get_model() != None):
+        if(self.parameters[1].get_model() != None and self.parameters[1].get_column(0) != None):
             for i in range(len(self.parameters[1].get_columns())):
                 self.parameters[1].remove_column(self.parameters[1].get_column(0))
         
@@ -49,9 +49,14 @@ class Matrix_Handler:
             tuple_of_row = j
             print(tuple_of_row)
             self.store.append(list(tuple_of_row))
-            print('col', col)
-
+        
+        renderer = Gtk.CellRendererText()
+        for i, col in enumerate(column):
+            column = Gtk.TreeViewColumn(col, renderer, text=i)
+            column.set_resizable(True)
+            column.set_expand(True)
             self.parameters[1].append_column(column)
+
 
     def step_pressed(self, button):
 

@@ -30,7 +30,7 @@ class Gauss:
         for i in range(self.m,0,-1):
 	        suma = 0
 	        for j in range(i,self.m):
-		        suma = suma + self.matrix[i-1][j]*x[j]
+		        suma = suma + self.matrix[i-1][j]*self.x[j]
 	        #Obtener los valores de las variables
 	        self.x[i-1] = ((self.matrix[i-1][self.m]-suma) / self.matrix[i-1][i-1])	
         
