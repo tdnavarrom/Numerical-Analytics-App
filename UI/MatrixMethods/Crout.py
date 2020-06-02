@@ -41,7 +41,7 @@ class Crout:
                     self.U[k,j] = (self.matrix.item(k,j)-suma3)/float(self.L.item(k,k))
                 else:
                     print("Posiblemente no tiene solución")
-            print(f"L:\n{str(self.L)}\nU:\n{str(self.U)}")
+            
             self.etapas.append(f"L:\n{str(self.L)}\nU:\n{str(self.U)}")
             
 
@@ -66,18 +66,13 @@ class Crout:
 	            self.x[i]=((self.z.item(i)-suma)/self.U.item(i,i))
             
         else:
-            print("La determinante es igual a 0, por lo tanto tiene infinitas soluciones, o ninguna.")
-            return
+            raise Exception
         
-
-      
-        #print(f"L:\n {self.L}\n\nU:\n{self.U}\n")
         x_text = ""
         for each in range(self.m):
-            print(f"x{each} = {self.x[each]}")
             x_text+=f"x{each}= {self.x[each]}\n"
             
 
 
-        return x_text, self.etapas
+        return self.x, self.etapas
 

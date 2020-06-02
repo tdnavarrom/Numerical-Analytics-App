@@ -1,15 +1,13 @@
 from gi.repository import Gtk, Gdk
-# from .functions.IncrementalSearch import IncrementalSearch as ISearch
-# from .functions.BisectionSearch import Bisection as BSearch
-# from .functions.FalseRuleSearch import FalseRule as FSearch
-# from .functions.FixedPointSearch import FixedPoint as FPSearch
-# from .functions.NewtonSearch import Newton as NSearch
-# from .functions.SecantSearch import Secant as SSearch
-# from .functions.MultipleRoots import MultipleRoots as MRoots
-
-from .NonLinearEquationsHandler import NonLinearHandler
-from .EquationSystemHandler import EquationSystemHandler
+from .functions.IncrementalSearch import IncrementalSearch as ISearch
+from .functions.BisectionSearch import Bisection as BSearch
+from .functions.FalseRuleSearch import FalseRule as FSearch
+from .functions.FixedPointSearch import FixedPoint as FPSearch
+from .functions.NewtonSearch import Newton as NSearch
+from .functions.SecantSearch import Secant as SSearch
+from .functions.MultipleRoots import MultipleRoots as MRoots
 from .MatrixMethods.view.matrix_view import Matrix_View
+from .MatrixMethods.view.e1_view import Matrix_View2
 from .MatrixMethods.Gauss import Gauss
 from .MatrixMethods.Pivoteo import Pivoteo
 from .MatrixMethods.Pivoteo import Pivoteo
@@ -17,6 +15,7 @@ from .MatrixMethods.Crout import Crout
 from .MatrixMethods.Doolittle import Doolittle
 from .MatrixMethods.Cholesky import Cholesky
 from .MatrixMethods.GaussSeidel import GaussSeidel
+from .Interpolation.NewtonInterpolation import NewtonInterpolation
 from .graph import *
 from .table import *
 from .matrixTable import *
@@ -31,12 +30,10 @@ gi.require_version('Gtk', '3.0')
 
 
 class Handler:
-    def __init__(self, parameters, parameters2):
+    def __init__(self, parameters, parameters2, parameters3):
         self.parameters = parameters
         self.parameters2 = parameters2
-
-        self.nonLinearHandler = NonLinearHandler(parameters)
-        self.equationSystemHanddler = EquationSystemHandler(parameters2)
+        self.parameters3 = parameters3
         self.help = Help()
         self.errors = Errors()
 
@@ -46,19 +43,19 @@ class Handler:
     def eval_method(self, button):
         method = self.parameters[0].get_active()
         if method == 0:
-            self.nonLinearHandler.incremental_search_method()
+            self.incremental_search_method()
         elif method == 1:
-            self.nonLinearHandler.bisection_method()
+            self.bisection_method()
         elif method == 2:
-            self.nonLinearHandler.false_rule_method()
+            self.false_rule_method()
         elif method == 3:
-            self.nonLinearHandler.fixed_point_method()
+            self.fixed_point_method()
         elif method == 4:
-            self.nonLinearHandler.newton_method()
+            self.newton_method()
         elif method == 5:
-            self.nonLinearHandler.secant_method()
+            self.secant_method()
         elif method == 6:
-            self.nonLinearHandler.multiple_roots_method()
+            self.multiple_roots_method()
 
     def incremental_search_method(self):
         initial_value = self.parameters[7].get_text()
@@ -317,6 +314,7 @@ class Handler:
             
             self.errors.non_lineal_errors(list_error)
 
+
     def help_pressed(self, button):
         method = self.parameters[0].get_active()
         if method == 0:
@@ -333,7 +331,6 @@ class Handler:
             self.help.non_linear_equation_help("Secant")
         elif method == 6:
             self.help.non_linear_equation_help("Multiple Roots")
-            
 
     def table_pressed(self, button):
         tree = TreeView(self.table, self.table_names, self.type)
@@ -347,93 +344,86 @@ class Handler:
         iterations = float(self.parameters[5].get_text())
         graphic(func, initial_value, iterations)
 
-    def matrix_generate(self, button):
-        rows = int(self.parameters2[0].get_text())
-        columns = rows + 1
-        tree = TreeView2(rows ,columns)
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-        self.matrixTable = tree.returnTable()
-        print(self.matrixTable.dtypes)
-        self.matrixTable = self.matrixTable.to_numpy()
-        self.matrixTable = self.matrixTable.astype(np.float)
-        print(self.matrixTable)
 
-    def initialValues_generate(self, button):
-        columns = int(self.parameters2[2].get_text())
-        rows = 1
-        tree = TreeView2(rows ,columns)
-        tree.connect("destroy", Gtk.main_quit)
-        tree.show_all()
-        Gtk.main()
-        self.initialValuesTable = tree.returnTable()
-        print(self.initialValuesTable.dtypes)
-        self.initialValuesTable = self.initialValuesTable.to_numpy()
-        self.initialValuesTable = self.initialValuesTable.astype(np.float)
-        print(self.initialValuesTable)
+####### EQUATION SYSTEM
 
     def evaluateMatrix_pressed(self, button):
         method = self.parameters2[4].get_active()
     
         if method == 0:
-            self.evaluate_gauss()
-            matrix_gui = Matrix_View(self.x_result, self.etapas, self.matrixTable)
-            Gtk.main()
+            try:
+                self.evaluate_gauss()
+                matrix_gui = Matrix_View(self.x_result, self.etapas, self.matrixTable)
+                Gtk.main()
+            except ZeroDivisionError:
+                self.errors.div_0()
+
         elif method == 1:
-            self.evaluate_pivot_parcial()
+            try:
+                self.evaluate_pivot_parcial()
+                matrix_gui = Matrix_View(self.x_result, self.etapas, self.matrixTable)
+                Gtk.main()
+            except ZeroDivisionError:
+                self.errors.div_0()
+
         elif method == 2:
-            self.evaluate_pivot_total()
+            try:
+                self.evaluate_pivot_total()
+                matrix_gui = Matrix_View(self.x_result, self.etapas, self.matrixTable)
+                Gtk.main()
+            except ZeroDivisionError:
+                self.errors.div_0()
         elif method == 3:
-            self.evaluate_crout()
+            try:
+                self.evaluate_crout()
+                matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
+                matrix_gui = Matrix_View(self.x_result, self.etapas, self.matrixTable)
+                Gtk.main()
+            except:
+                self.errors.determinante_0()
         elif method == 4:
-            self.evaluate_doolittle()
+            try:
+                self.evaluate_doolittle()
+            except:
+                pass
         elif method == 5:
-            self.evaluate_cholesky()
+            try:
+                self.evaluate_cholesky()
+            except:
+                pass
         elif method == 6:
-            self.evaluate_jacobi()
+            try:
+                self.evaluate_jacobi()
+            except:
+                pass
         elif method == 7:
             self.evaluate_gauss_seidel()
-        
-        
-
+         
 
     def evaluate_gauss(self):
         self.etapa_index = 0
 
-        print(f"Matriz\n{self.matrixTable}")
         matrixSize = self.matrixTable.shape[0]
         gauss = Gauss(self.matrixTable, matrixSize)
-        self.x_result, self.etapas =gauss.evaluate()
-
-        #CODIGO POPUP
-        # self.etapas_text = ""
-        # for i in range(len(x)-1):
-        #     etapas_text+= f"Etapa {i}:\n {str(self.etapas[i])}\n\n"
-
-        # etapas_popover = Gtk.Popover()
-        # etapas_label = Gtk.Label(etapas_text)
-        # etapas_popover.add(etapas_label)
-
-        # etapas_popover.set_relative_to(self.Gaussbutton)
-        # etapas_popover.show_all()
-        # etapas_popover.popup()
-
-        print(self.x_result)
-        print(self.etapas)
+        self.answer = gauss.evaluate()
+        self.x_result = gauss.x
+        self.etapas = gauss.etapas
+        
 
     def evaluate_pivot_parcial(self):
         self.etapa_index = 0
         matrixSize = int(self.parameters2[0].get_text())
         pivot = Pivoteo(self.matrixTable,matrixSize)
-        self.x_text,self.etapas = pivot.evaluate_parcial()
+        self.x_result,self.etapas = pivot.evaluate_parcial()
+        print(self.x_result)
+        print(self.etapas)
 
     def evaluate_pivot_total(self):
         self.etapa_index = 0
         matrixSize = int(self.parameters2[0].get_text())
 
         pivot = Pivoteo(self.matrixTable,matrixSize)
-        self.x_text,self.etapas = pivot.evaluate_total()
+        self.x_result,self.etapas = pivot.evaluate_total()
 
     def evaluate_crout(self):
         self.etapa_index = 0
@@ -442,7 +432,10 @@ class Handler:
         indp = self.matrixTable[:,-1]
 
         crout = Crout(matrix,matrixSize,indp)
-        self.x_text,self.etapas = crout.evaluate()
+        self.x_result,self.etapas = crout.evaluate()
+        self.matrix_u = crout.U
+        self.matrix_l = crout.L
+        self.vector_z = crout.z
 
     def evaluate_doolittle(self):
         self.etapa_index = 0
@@ -492,6 +485,7 @@ class Handler:
         seidel = GaussSeidel(matrix,matrixSize,indp,initialValues)
         seidel.evaluate(tol,iter,lamb)
     
+
     def helpMatrix_pressed(self):
         method = self.parameters2[4].get_active()
 
@@ -511,3 +505,56 @@ class Handler:
             self.help.linear_equations_help("Jacobi")
         elif method == 7:
             self.help.linear_equations_help("Gauss-Seidel")
+
+    def matrix_generate(self, button):
+        rows = self.parameters2[0].get_text()
+        try:
+            rows = int(rows)
+            columns = rows + 1
+            tree = TreeView2(rows ,columns)
+            tree.connect("destroy", Gtk.main_quit)
+            tree.show_all()
+            Gtk.main()
+            self.matrixTable = tree.returnTable()
+            self.matrixTable = self.matrixTable.to_numpy()
+            self.matrixTable = self.matrixTable.astype(np.float)
+        except:
+            list_error = []
+            if rows == '':          
+                list_error[0] = 1
+            self.errors.lineal_errors(list_error)
+        
+    def initialValues_generate(self, button):
+        columns = int(self.parameters2[2].get_text())
+        rows = 1
+        tree = TreeView2(rows ,columns)
+        tree.connect("destroy", Gtk.main_quit)
+        tree.show_all()
+        Gtk.main()
+        self.initialValuesTable = tree.returnTable()
+        print(self.initialValuesTable.dtypes)
+        self.initialValuesTable = self.initialValuesTable.to_numpy()
+        self.initialValuesTable = self.initialValuesTable.astype(np.float)
+        print(self.initialValuesTable)
+
+    #Interpolation
+    def evalauteInterpolation_pressed(self, button);
+        method = self.parameters3[0].get_active()
+
+        if method == 0:
+            pass
+        elif method == 1:
+            pass
+        elif method == 2:
+            pass
+        elif method == 3:
+            pass
+        elif method == 4:
+            pass
+
+
+        pass
+
+
+    def evaluate_NewtonInterpolation(self):
+        pass

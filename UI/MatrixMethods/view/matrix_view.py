@@ -5,9 +5,11 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
 
 class Matrix_View:
+
     def __init__(self, result_matrix, etapas_matrix, original_matrix):
+
         self.builder = Gtk.Builder()
-        self.builder.add_from_file("/home/mrestrepor/Documents/2020-1/Analisis Numerico/Proyecto final/Analisis-Numerico/UI/MatrixMethods/view/matrix_view.glade")
+        self.builder.add_from_file('UI/MatrixMethods/view/matrix_view.glade')
         go = self.builder.get_object
 
         self.original_matrix = original_matrix
@@ -56,7 +58,6 @@ class Matrix_View:
             # J es la tupla donde esta el valor de x & y
             # los dos son un row del DataFrame
             tuple_of_row = j
-            print(tuple_of_row)
             self.store.append(list(tuple_of_row))
         self.original_matrix_view.set_model(self.store)
 

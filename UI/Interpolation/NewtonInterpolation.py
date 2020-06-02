@@ -1,7 +1,7 @@
 import math
 import sympy as sp
 from sympy.parsing.sympy_parser import parse_expr
-from Functions import *
+from .Functions import *
 class NewtonInterpolation:
     def __init__(self):
         self.polinomial=""

@@ -42,7 +42,21 @@ class App:
 
         self.parameters2 = self.variables, self.generate_button, self.initialValues, self.initialValues_button, self.matrixMethods, self.tolerance, self.iterations, self.lambd, self.resultMatrix, self.evaluateMatrix, self.helpMatrix
 
-        self.builder.connect_signals(Handler(self.parameters, self.parameters2))
+        self.interpolationMethods = go("interpolationMethods")
+        self.initialValuesInterpolation = go("initialaValuesInterpolation")
+        self.initailValuesIntepolation_button = go("insertInitialValues")
+        self.functionInterpolation = go("functionInterpolation")
+        self.xvalues_interpolation = go("xValues")
+        self.xvalues_button = go("insertXValues")
+        self.fx_values_interpolation = go("fxValues")
+        self.fx_values_button = go("insertFXValues")
+        self.result_interpolation = go("result_interpolation")
+        self.evaluate_interpolation = go("evaluateInterpolation")
+        self.helpInterpolation = go("helpInterpolation")
+
+        self.parameters3 = self.interpolationMethods, self.initailValuesIntepolation, self.initailValuesIntepolation_button, self.functionInterpolation, self.xvalues_interpolation, self.xvalues_button, self.fx_values_interpolation, self.fx_values_button, self.result_interpolation, self.evaluate_interpolation, self.helpMatrix
+
+        self.builder.connect_signals(Handler(self.parameters, self.parameters2, self.parameters3))
 
         self.window.connect("destroy", Gtk.main_quit)
         gtk_style()

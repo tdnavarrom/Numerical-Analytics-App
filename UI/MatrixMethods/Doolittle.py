@@ -45,9 +45,7 @@ class Doolittle:
                     self.U[fila, j] = (self.matrix.item(fila, j) - suma3)
                 else:
                     print("Posiblemente el sistema no tiene solución")
-        
-       
-
+    
         detU = 1
         detL=1
         for each in self.U.diagonal(0,0):
@@ -68,12 +66,6 @@ class Doolittle:
 	            self.x[i]=((self.z.item(i)-suma)/self.U.item(i,i))
             
         else:
-            print("La determinante es igual a 0, por lo tanto tiene infinitas soluciones, o ninguna.")
-            return
-        
+            raise Exception
 
-      
-        print(f"L:\n {self.L}\n\nU:\n{self.U}\n")
-        for each in range(self.m):
-            print(f"x{each} = {self.x[each]}")
         return self.L,self.U, self.z, self.x

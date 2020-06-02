@@ -47,4 +47,34 @@ class Errors:
         if list_error[6]  == 1 :
             text += '\n - Tolerance.'
         return text
-        
+    
+    def lineal_errors(self, list_errors):
+        """
+        list_errors[0]:      variables
+        """
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Error")
+        dialog.format_secondary_text(self.messages2(list_errors))
+        dialog.run()
+        dialog.destroy()
+    
+    def messages2(self,list_error):
+        """
+        list_error[0]:    Variables
+        """
+        text = "Ingrese:"
+        if list_error[0]  == 1 :
+            text += '\n - Number of variables.'
+        return text
+    
+    def div_0(self):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Error")
+        dialog.format_secondary_text("División por 0")
+        dialog.run()
+        dialog.destroy()
+    
+    def determinante_0(self):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Error")
+        dialog.format_secondary_text("La determinante es igual a 0, por lo tanto tiene infinitas soluciones, o ninguna.")
+        dialog.run()
+        dialog.destroy()
+

@@ -22,6 +22,8 @@ class Matrix_Handler:
         scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
         scrollTree.set_policy(Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS)
         scrollTree.add(self.parameters[1])
+        #self.parameters[1].set_model(None)
+        print("AAAAA ",self.parameters[1].get_column(0))
 
 
         df = pd.DataFrame(self.parameters[4])
@@ -33,26 +35,27 @@ class Matrix_Handler:
             column.append(str(i))
             
         if(self.parameters[1].get_model() != None):
-            for i in range(self.columns):
-                print(i)
-                self.parameters[1].remove_column(self.parameters[1].get_column(i))
+            for i in range(len(self.parameters[1].get_columns())):
+                self.parameters[1].remove_column(self.parameters[1].get_column(0))
         
         self.store = Gtk.ListStore(*([float]*columns))
         self.parameters[1].set_model(self.store)
+
         for i, j in df.iterrows():
             # i es el index del DataFrame
             # J es la tupla donde esta el valor de x & y
             # los dos son un row del DataFrame
+            
             tuple_of_row = j
             print(tuple_of_row)
             self.store.append(list(tuple_of_row))
-        self.parameters[1].set_model(self.store)
-
-        renderer = Gtk.CellRendererText()
-        for i, col in enumerate(column):
             column = Gtk.TreeViewColumn(col, renderer, text=i)
             column.set_resizable(True)
             column.set_expand(True)
+
+            print('i ', i)
+            print('col', col)
+
             self.parameters[1].append_column(column)
 
     def step_pressed(self, button):
