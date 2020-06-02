@@ -9,6 +9,8 @@ class NewtonInterpolation:
         self.rows=[]
 
     def algorithm_newtonInterpolation(self, entry, xn):
+        print(entry)
+        print(xn)
         self.matrix = []
         self.xn= xn[0]
         length= len(self.xn)

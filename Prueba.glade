@@ -549,6 +549,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="pressed" handler="x_values_interpolation_pressed" swapped="no"/>
               </object>
               <packing>
                 <property name="x">180</property>
@@ -563,6 +564,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="pressed" handler="initial_values_generate_interpolation" swapped="no"/>
               </object>
               <packing>
                 <property name="x">180</property>
@@ -577,6 +579,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="pressed" handler="fx_values_interpolation_pressed" swapped="no"/>
               </object>
               <packing>
                 <property name="x">460</property>

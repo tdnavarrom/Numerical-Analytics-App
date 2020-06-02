@@ -64,10 +64,6 @@ class Crout:
 	            for p in range(i+1,self.m):
 		            suma= suma+ self.U.item(i,p)*self.x[p]
 	            self.x[i]=((self.z.item(i)-suma)/self.U.item(i,i))
-            
-        else:
-            raise Exception
-        
         x_text = ""
         for each in range(self.m):
             x_text+=f"x{each}= {self.x[each]}\n"

@@ -49,11 +49,6 @@ class Matrix_Handler:
             tuple_of_row = j
             print(tuple_of_row)
             self.store.append(list(tuple_of_row))
-            column = Gtk.TreeViewColumn(col, renderer, text=i)
-            column.set_resizable(True)
-            column.set_expand(True)
-
-            print('i ', i)
             print('col', col)
 
             self.parameters[1].append_column(column)

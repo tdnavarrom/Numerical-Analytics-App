@@ -24,6 +24,9 @@ class Matrix_View2:
         self.vector_x_view = go("XVector")
     
         self.show_matrix_l()
+        self.show_matrix_u()
+        self.show_vector_x()
+        self.show_vector_z()
         #self.builder.connect_signals()
 
         self.window.connect("destroy", Gtk.main_quit)

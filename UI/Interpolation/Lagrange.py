@@ -1,4 +1,5 @@
 import sympy as sym
+
 class Lagrange:
     def __init__(self):
         self.xValues = []
