@@ -476,7 +476,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <signal name="pressed" handler="HelpMatrix_pressed" swapped="no"/>
+                <signal name="pressed" handler="helpMatrix_pressed" swapped="no"/>
               </object>
               <packing>
                 <property name="x">520</property>
