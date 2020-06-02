@@ -45,7 +45,6 @@ class Matrix_Handler:
             # los dos son un row del DataFrame
 
             tuple_of_row = j
-            print(tuple_of_row)
             self.store.append(list(tuple_of_row))
         
         renderer = Gtk.CellRendererText()
@@ -69,7 +68,6 @@ class Matrix_Handler:
         self.contador_etapas += 1
         df = pd.DataFrame(self.parameters[5][self.contador_etapas])
         self.columns = len(df.columns)
-
         column = []
         for i in range(self.columns):
             column.append(str(i))
@@ -86,7 +84,6 @@ class Matrix_Handler:
             # J es la tupla donde esta el valor de x & y
             # los dos son un row del DataFrame
             tuple_of_row = j
-            print(tuple_of_row)
             self.store.append(list(tuple_of_row))
         self.parameters[1].set_model(self.store)
 

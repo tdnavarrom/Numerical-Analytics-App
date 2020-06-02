@@ -8,6 +8,7 @@ from .functions.SecantSearch import Secant as SSearch
 from .functions.MultipleRoots import MultipleRoots as MRoots
 from .MatrixMethods.view.matrix_view import Matrix_View
 from .MatrixMethods.view.e1_view import Matrix_View2
+from .MatrixMethods.view.table_j_s import Tree_View_J_S
 from .MatrixMethods.Gauss import Gauss
 from .MatrixMethods.Pivoteo import Pivoteo
 from .MatrixMethods.Pivoteo import Pivoteo
@@ -387,18 +388,16 @@ class Handler:
             self.evaluate_doolittle()
             matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
             Gtk.main()
-
         elif method == 5:
             self.evaluate_cholesky()
             matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
             Gtk.main()
         elif method == 6:
-            try:
-                self.evaluate_jacobi()
-            except:
-                pass
+            self.evaluate_jacobi()
+            Tree_View_J_S(self.table_values)
         elif method == 7:
             self.evaluate_gauss_seidel()
+            Tree_View_J_S(self.table_values)
          
 
     def evaluate_gauss(self):
@@ -470,6 +469,8 @@ class Handler:
         seidel = GaussSeidel(matrix,matrixSize,indp,initialValues)
         seidel.evaluate(tol,iter,lamb)
 
+        self.table_values = seidel.tabla_values()
+
     def evaluate_gauss_seidel(self):
         matrixSize = int(self.parameters2[0].get_text())
 
@@ -486,7 +487,7 @@ class Handler:
         seidel.evaluate(tol,iter,lamb)
     
 
-    def helpMatrix_pressed(self):
+    def helpMatrix_pressed(self, button):
         method = self.parameters2[4].get_active()
 
         if method == 0:
