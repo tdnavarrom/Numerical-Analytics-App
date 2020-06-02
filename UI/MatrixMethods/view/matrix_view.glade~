@@ -20,7 +20,7 @@
           </object>
           <packing>
             <property name="x">10</property>
-            <property name="y">10</property>
+            <property name="y">50</property>
           </packing>
         </child>
         <child>
@@ -35,7 +35,7 @@
           </object>
           <packing>
             <property name="x">520</property>
-            <property name="y">10</property>
+            <property name="y">50</property>
           </packing>
         </child>
         <child>
@@ -46,10 +46,11 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <signal name="pressed" handler="step_pressed" swapped="no"/>
           </object>
           <packing>
             <property name="x">600</property>
-            <property name="y">420</property>
+            <property name="y">460</property>
           </packing>
         </child>
         <child>
@@ -64,7 +65,7 @@
           </object>
           <packing>
             <property name="x">720</property>
-            <property name="y">420</property>
+            <property name="y">460</property>
           </packing>
         </child>
       </object>

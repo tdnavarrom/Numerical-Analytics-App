@@ -21,11 +21,7 @@ class Doolittle:
             
             #self.L.[fila,fila] = 1
             self.U[fila, fila] = self.matrix.item(fila, fila) - suma1
-            
-            #self.etapas.append(self.matrix.copy())
 
-            #for s in range(self.m -1):
-            #    print(self.etapas[s])
             
             for i in range(fila+1, self.m):
                 suma2 = 0
@@ -33,8 +29,6 @@ class Doolittle:
                     suma2 += self.L.item(i, columna)*self.U.item(columna, fila)
                 if self.L.item(fila, fila)!=0:
                     self.L[i, fila] = (self.matrix.item(i, fila) - suma2)/self.U.item(fila,fila)
-                else:
-                    print("Posiblemente no tiene solución")
             
             for j in range(fila+1,self.m):
                 suma3 = 0
@@ -43,9 +37,7 @@ class Doolittle:
 
                 if self.L.item(fila, fila)!=0:  
                     self.U[fila, j] = (self.matrix.item(fila, j) - suma3)
-                else:
-                    print("Posiblemente el sistema no tiene solución")
-    
+
         detU = 1
         detL=1
         for each in self.U.diagonal(0,0):
@@ -64,8 +56,5 @@ class Doolittle:
 	            for p in range(i+1,self.m):
 		            suma=suma+(self.U.item(i,p)*self.x.item(p))
 	            self.x[i]=((self.z.item(i)-suma)/self.U.item(i,i))
-            
-        else:
-            raise Exception
 
         return self.L,self.U, self.z, self.x

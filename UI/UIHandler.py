@@ -380,23 +380,18 @@ class Handler:
             except ZeroDivisionError:
                 self.errors.div_0()
         elif method == 3:
-            try:
-                self.evaluate_crout()
-                matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
-                matrix_gui = Matrix_View(self.x_result, self.etapas, self.matrixTable)
-                Gtk.main()
-            except:
-                self.errors.determinante_0()
+            self.evaluate_crout()
+            matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
+            Gtk.main()
         elif method == 4:
-            try:
-                self.evaluate_doolittle()
-            except:
-                pass
+            self.evaluate_doolittle()
+            matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
+            Gtk.main()
+
         elif method == 5:
-            try:
-                self.evaluate_cholesky()
-            except:
-                pass
+            self.evaluate_cholesky()
+            matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
+            Gtk.main()
         elif method == 6:
             try:
                 self.evaluate_jacobi()
@@ -421,8 +416,7 @@ class Handler:
         matrixSize = int(self.parameters2[0].get_text())
         pivot = Pivoteo(self.matrixTable,matrixSize)
         self.x_result,self.etapas = pivot.evaluate_parcial()
-        print(self.x_result)
-        print(self.etapas)
+        self.etapas = pivot.etapas
 
     def evaluate_pivot_total(self):
         self.etapa_index = 0
@@ -450,7 +444,7 @@ class Handler:
         indp = self.matrixTable[:,-1]
 
         doo = Doolittle(matrix,matrixSize,indp)
-        self.L, self.U, self.Z, self.X = doo.evaluate()
+        self.matrix_l, self.matrix_u, self.vector_z, self.x_result = doo.evaluate()
 
     def evaluate_cholesky(self):
         self.etapa_index = 0
@@ -459,7 +453,7 @@ class Handler:
         indp = self.matrixTable[:,-1]
 
         chol = Cholesky(matrix,matrixSize,indp)
-        self.L, self.U, self.Z, self.X = chol.evaluate()
+        self.matrix_l, self.matrix_u, self.vector_z, self.x_result = chol.evaluate()
 
     def evaluate_jacobi(self):
         matrixSize = int(self.parameters2[0].get_text())

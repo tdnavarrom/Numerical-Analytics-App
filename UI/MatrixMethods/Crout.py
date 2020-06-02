@@ -30,8 +30,7 @@ class Crout:
                     suma2 += (self.L.item(i,p) * self.U.item(p,k))
                 if self.L.item(k, k)!=0:
                     self.L[i,k] = self.matrix.item(i,k) - suma2 #OJO
-                else:
-                    print("Posiblemente no tiene solución")
+
 
             for j in range(k+1,self.m):
                 suma3 = 0
@@ -39,8 +38,7 @@ class Crout:
                     suma3+= (self.L.item(k,p) * self.U.item(p,j))
                 if self.L.item(k, k)!=0:
                     self.U[k,j] = (self.matrix.item(k,j)-suma3)/float(self.L.item(k,k))
-                else:
-                    print("Posiblemente no tiene solución")
+ 
             
             self.etapas.append(f"L:\n{str(self.L)}\nU:\n{str(self.U)}")
             
@@ -67,8 +65,8 @@ class Crout:
         x_text = ""
         for each in range(self.m):
             x_text+=f"x{each}= {self.x[each]}\n"
-            
-
+        
+        print(self.x)
 
         return self.x, self.etapas
 

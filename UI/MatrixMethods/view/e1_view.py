@@ -15,9 +15,9 @@ class Matrix_View2:
         self.matrix_l = matrix_l
         self.matrix_u = matrix_u
         self.vector_z = vector_z
-        self.vector_x = vector_z
+        self.vector_x = vector_x
         
-        self.window = go("")
+        self.window = go("WindowCCD")
         self.matrix_l_view = go("LMatrix")
         self.matrix_u_view = go("UMatrix")
         self.vector_z_view = go("ZVector")
@@ -33,7 +33,7 @@ class Matrix_View2:
         self.window.show_all()
     
 
-    def show_matrix_l(slef):
+    def show_matrix_l(self):
         self.grid = Gtk.Grid()
         self.grid.set_column_homogeneous(True)
         self.grid.set_row_homogeneous(True)

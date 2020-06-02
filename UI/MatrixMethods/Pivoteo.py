@@ -68,7 +68,6 @@ class Pivoteo:
         for i in range(0,self.m):
             x_text+= f"x{self.x_pos[i]} = {str(x[i])}\n"
 
-
         return x, self.etapas
     
 
