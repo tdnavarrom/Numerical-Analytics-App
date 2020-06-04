@@ -281,10 +281,44 @@ class Non_Linear_Control():
         Gtk.main()
 
     def graph_view(self):
-        func = self.parameters[3].get_text()
-        initial_value = float(self.parameters[7].get_text()) - 100
-        iterations = float(self.parameters[5].get_text())
-        graphic(func, initial_value, iterations)
+        method = self.parameters[0].get_active()
+        if method == 0:
+            func = self.parameters[3].get_text()
+            initial_value = float(self.parameters[7].get_text())
+            last_value = math.fabs(initial_value + float(self.parameters[5].get_text()))
+            graph_a(func, initial_value, last_value)
+        elif method == 1:
+            func = self.parameters[3].get_text()
+            initial_value = float(self.parameters[7].get_text())
+            last_value = math.fabs(initial_value + float(self.parameters[5].get_text()))
+            graph_a(func, initial_value, last_value)
+        elif method == 2:
+            func = self.parameters[3].get_text()
+            initial_value = float(self.parameters[7].get_text())
+            last_value = math.fabs(initial_value + float(self.parameters[5].get_text()))
+            graph_a(func, initial_value, last_value)
+        elif method == 3:
+            func = self.parameters[3].get_text()
+            g_func = self.parameters[4].get_text()
+            initial_value = float(self.parameters[7].get_text())
+            last_value = math.fabs(initial_value + float(self.parameters[5].get_text()))
+            graph_b(func, initial_value, last_value)
+        elif method == 4:
+            func = self.parameters[3].get_text()
+            initial_value = float(self.parameters[7].get_text())
+            last_value = math.fabs(initial_value + float(self.parameters[5].get_text()))
+            graph_c(func, initial_value, last_value)
+        elif method == 5:
+            func = self.parameters[3].get_text()
+            initial_value = float(self.parameters[7].get_text())
+            last_value = math.fabs(initial_value + float(self.parameters[5].get_text()))
+            graph_a(func, initial_value, last_value)
+        elif method == 6:
+            func = self.parameters[3].get_text()
+            initial_value = float(self.parameters[7].get_text()) - float(self.parameters[7].get_text()) * 0.2
+            last_value = math.fabs(initial_value + float(self.parameters[5].get_text()))
+            graph_d(func, initial_value, last_value)
+
 
     def help_view(self):
         method = self.parameters[0].get_active()

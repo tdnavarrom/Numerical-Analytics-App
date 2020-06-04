@@ -227,7 +227,7 @@ class Handler:
         self.table_values = jacobi.tabla_values()
 
     def evaluate_gauss_seidel(self):
-        matrixSize = int(self.parameters2[0].get_text())
+        matrixSize = int(self.parameters200[0].get_text())
 
         tol = float(self.parameters2[5].get_text())
         itera = float(self.parameters2[6].get_text())
