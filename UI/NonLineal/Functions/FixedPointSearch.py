@@ -1,5 +1,5 @@
 import math
-from .Function import Function
+from UI.NonLineal.Functions.Function import Function
 
 class FixedPoint:
 

@@ -5,7 +5,7 @@ class Lagrange:
         self.xValues = []
         self.yValues = []
         self.LValues = []
-        self.polynomial = 0
+        self.polinom = 0
     
     def lagrange_interpol_algorithm(self,xVector,yVector):
         self.xValues = xVector
@@ -27,30 +27,17 @@ class Lagrange:
                                 raise Exception('')
                     
                     self.LValues.append(numerator/denominator)
-                    self.polynomial += self.LValues[i]*self.yValues[i]
+                    self.polinom += self.LValues[i]*self.yValues[i]
                     numerator = 1
                     denominator = 1
                 
-                self.polynomial = str(sym.expand(self.polynomial))
+                self.polinom = str(sym.expand(self.polinom))
             except ZeroDivisionError as e:
-                self.polynomial = "Error: Division by zero caused by invalid X values"
+                self.polinom = "Error: Division by zero caused by invalid X values"
             except Exception as e:
-                self.polynomial = "Error: Invalid input one x value mustn't have two y values"
+                self.polinom = "Error: Invalid input one x value mustn't have two y values"
         else:
-            self.polynomial = "Error: The size of the X vector don't match that of F(X)"
+            self.polinom = "Error: The size of the X vector don't match that of F(X)"
     
-    def getPolynomial(self):
-        return self.polynomial
-
-if __name__ == "__main__":
-    X = [-4,-2,-1]
-    Y = [-2.5962588,-0.6969583,0.9081217]
-
-    lagi = Lagrange()
-    lagi.lagrange_interpol_algorithm(X,Y)
-    print(sym.expand(lagi.polynomial))
-    #To evaluate
-    #x = sym.Symbol('x')
-    #print(lagi.polynomial.evalf(subs=dict(x=-1)))
-    print(type(lagi.polynomial))
-    pass
+    def getpolinom(self):
+        return self.polinom

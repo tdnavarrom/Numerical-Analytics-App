@@ -1,5 +1,5 @@
 import math
-from .Function import Function
+from UI.NonLineal.Functions.Function import Function
 
 class Secant:
     def __init__(self):
@@ -13,6 +13,8 @@ class Secant:
 
         if fx0 == 0:
             return f"{x0} es raiz"
+        elif niter < 1:
+            return "El valor del iterador es incorrecto"
         else:
             fx1 = fun.evaluate(x1)
             cont = 0
@@ -40,14 +42,15 @@ class Secant:
                 self.values.append(
                     [cont, str(x2), str("{:.2e}".format(fx1)), str("{:.2e}".format(error))])
 
-        if fx1 == 0:
-            return f"{x1} es raíz"
-        elif error < tol:
-            return f"{x1} es una aprox. a una raíz con una tolerancia = {tol}"
-        elif den == 0:
-            return f"Hay una posible raíz multiple"
-        else:
-            return f"Fracasó en {niter} iteraciones"
+            if fx1 == 0:
+                return f"{x1} es raíz"
+            elif error < tol:
+                return f"{x1} es una aprox. a una raíz con una tolerancia = {tol}"
+            elif den == 0:
+                return f"Hay una posible raíz multiple"
+            else:
+                return f"Fracasó en {niter} iteraciones"
+
 
     def tabla_values(self):
         return self.values
