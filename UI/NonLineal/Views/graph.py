@@ -6,6 +6,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 from UI.NonLineal.Functions.Function import Function
+from UI.derivate import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_gtk3agg import FigureCanvas
 from matplotlib.backends.backend_gtk3 import (NavigationToolbar2GTK3 as NavigationToolbar)
@@ -66,8 +67,8 @@ def graph_b(func, gfunc, initial_value, last_value):
     Gtk.main()
 
 
-def graph_c():
-    function = Function(funcion)
+def graph_c(function, initial_value, last_value):
+    function = Function(function)
 
     win = Gtk.Window()
     win.connect("destroy", lambda x: Gtk.main_quit())
@@ -77,14 +78,13 @@ def graph_c():
     vbox = Gtk.VBox()
     win.add(vbox)
 
-    increment = 0.01
-    final_value = math.fabs(initial_value+math.fabs(increment*100))
-
     fig = Figure(figsize=(5, 4), dpi=100)
     ax = fig.add_subplot(111)
-    x = np.arange(-50, 3, 0.01)
+    x = np.arange(initial_value, last_value)
     y = [function.evaluate2(i) for i in x]
     ax.plot(x, y)
+    derivada = [function.evaluate2(derivate_function(function)) for i in x ]
+    ax.plot(x, derivada)
 
     canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
     vbox.pack_start(canvas, True, True, 0)
@@ -95,7 +95,7 @@ def graph_c():
     Gtk.main()
 
 
-def graph_d(funcion, initial_value, iterations):
+def graph_d(funcion, initial_value, last_value):
     function = Function(funcion)
 
     win = Gtk.Window()
@@ -106,14 +106,15 @@ def graph_d(funcion, initial_value, iterations):
     vbox = Gtk.VBox()
     win.add(vbox)
 
-    increment = 0.01
-    final_value = math.fabs(initial_value+math.fabs(increment*100))
-
     fig = Figure(figsize=(5, 4), dpi=100)
     ax = fig.add_subplot(111)
-    x = np.arange(-50, 3, 0.01)
+    x = np.arange(initial_value, last_value)
     y = [function.evaluate2(i) for i in x]
     ax.plot(x, y)
+    derivada = [function.evaluate2(derivate_function(function)) for i in x ]
+    ax.plot(x, derivada)
+    derivada2 = [function.evaluate2(derivate_function(derivate_function(function))) for i in x ]
+    ax.plot(x, derivada2)
 
     canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
     vbox.pack_start(canvas, True, True, 0)
