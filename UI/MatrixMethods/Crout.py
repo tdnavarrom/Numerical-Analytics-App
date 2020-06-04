@@ -49,6 +49,7 @@ class Crout:
         detL= 1
         
         for each in self.L.diagonal(0,0):
+            print(f"diagonal L: {each}")
             detL*= each
         
         prod = detU * detL
@@ -57,8 +58,10 @@ class Crout:
                 suma = 0
                 for p in range(i):
                     suma+= (self.L.item(i,p)*self.z.item(p))
-                self.z[i] = (self.indp.item(i)-suma)/self.L.item(i,i)
-
+                try:
+                    self.z[i] = (self.indp.item(i)-suma)/self.L.item(i,i)
+                except:
+                    raise ZeroDivisionError
             for i in range(self.m-1,-1,-1):
 	            suma=0
 	            for p in range(i+1,self.m):

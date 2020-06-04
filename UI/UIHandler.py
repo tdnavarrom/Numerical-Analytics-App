@@ -16,6 +16,7 @@ from .MatrixMethods.Crout import Crout
 from .MatrixMethods.Doolittle import Doolittle
 from .MatrixMethods.Cholesky import Cholesky
 from .MatrixMethods.GaussSeidel import GaussSeidel
+from .MatrixMethods.Jacobi import Jacobi
 from .Interpolation.NewtonInterpolation import NewtonInterpolation
 from .Interpolation.Lagrange import Lagrange
 from .Interpolation.LinearSpline import LinearSpline
@@ -419,6 +420,8 @@ class Handler:
                 self.errors.invalidLambda
             except(InvalidIterException):
                 self.erros.invalidIter()
+            except(InvalidMatrix):
+                self.errors.invalidMatrix()
 
         elif method == 7:
             try:
@@ -431,7 +434,9 @@ class Handler:
             except(InvalidLambdaException):
                 self.errors.invalidLambda
             except(InvalidIterException):
-                self.erros.invalidIter()
+                self.errors.invalidIter()
+            except(InvalidMatrix):
+                self.errors.invalidMatrix()
          
 
     def evaluate_gauss(self):
@@ -469,8 +474,6 @@ class Handler:
         self.matrix_u = crout.U
         self.matrix_l = crout.L
         self.vector_z = crout.z
-        print("Error determinante")
-        self.errors.determinante_0()
     def evaluate_doolittle(self):
         self.etapa_index = 0
         matrixSize = int(self.parameters2[0].get_text())
@@ -493,7 +496,7 @@ class Handler:
         matrixSize = int(self.parameters2[0].get_text())
 
         tol = float(self.parameters2[5].get_text())
-        iter = int(self.parameters2[6].get_text())
+        itera = int(self.parameters2[6].get_text())
         lamb = float(self.parameters2[7].get_text())
 
         initialValues = self.initialValuesTable
@@ -501,10 +504,10 @@ class Handler:
         indp = self.matrixTable[:,-1]
 
         print(f"Indp: {indp}")
-        seidel = GaussSeidel(matrix,matrixSize,indp,initialValues)
-        seidel.evaluate(tol,iter,lamb)
+        jacobi = Jacobi(matrix,matrixSize,indp,initialValues)
+        jacobi.evaluate(tol,itera,lamb)
 
-        self.table_values = seidel.tabla_values()
+        self.table_values = jacobi.tabla_values()
 
     def evaluate_gauss_seidel(self):
         matrixSize = int(self.parameters2[0].get_text())
@@ -661,3 +664,16 @@ class Handler:
         cubic_spline.algorithm_cubic_spline(self.x_values_interpolation, self.fx_values_interpolation)
         text = CubicSpline.get_results()
         self.parameters3[8].set_text(text)
+    
+    def helpInterpolation_pressed(self, button):
+        method = self.parameters3[4].get_active()
+
+        if method == 0:
+            self.help.interpolacion_help("Newton")
+        elif method == 1:
+            self.help.interpolacion_help("Lagrange")
+        elif method == 2:
+            self.help.interpolacion_help("Neville")
+        elif method == 3:
+            self.help.interpolacion_help("Spline")
+        

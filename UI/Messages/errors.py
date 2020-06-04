@@ -101,6 +101,12 @@ class Errors:
         dialog.format_secondary_text("El valor ingresado para la relajacion es invalido. Por favor ingrese un numero mayor o igual a 0")
         dialog.run()
         dialog.destroy()
+
+    def invalidMatrix(self):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Error")
+        dialog.format_secondary_text("Has ingresado una matriz incorrecta. Por favor ingresar una matriz estrictamente dominante diagonal")
+        dialog.run()
+        dialog.destroy()
         
           
 
@@ -121,5 +127,8 @@ class InvalidLambdaException(Exception):
     pass
 
 class NegativeRoot(Exception):
-    """ Raised when attempting to calculat ethe root of a negative number, 0"""
+    """ Raised when attempting to calculate the root of a negative number, 0"""
+    pass
+class InvalidMatrix(Exception):
+    """ Raised when attempting to use an interative method without a diagonally dominant matarix."""
     pass
