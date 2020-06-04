@@ -1,4 +1,5 @@
 import numpy
+from ..Messages.errors import ZeroDeterminantException
 
 
 class Crout:
@@ -36,15 +37,16 @@ class Crout:
                 suma3 = 0
                 for p in range(k):
                     suma3+= (self.L.item(k,p) * self.U.item(p,j))
-                if self.L.item(k, k)!=0:
+                try:
                     self.U[k,j] = (self.matrix.item(k,j)-suma3)/float(self.L.item(k,k))
- 
+                except:
+                    raise ZeroDivisionError
             
             self.etapas.append(f"L:\n{str(self.L)}\nU:\n{str(self.U)}")
             
 
         detU = 1
-        detL=1
+        detL= 1
         
         for each in self.L.diagonal(0,0):
             detL*= each
@@ -62,6 +64,8 @@ class Crout:
 	            for p in range(i+1,self.m):
 		            suma= suma+ self.U.item(i,p)*self.x[p]
 	            self.x[i]=((self.z.item(i)-suma)/self.U.item(i,i))
+        else:
+            raise ZeroDeterminantException
         x_text = ""
         for each in range(self.m):
             x_text+=f"x{each}= {self.x[each]}\n"

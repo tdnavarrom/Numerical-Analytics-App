@@ -78,3 +78,48 @@ class Errors:
         dialog.run()
         dialog.destroy()
 
+    def negativeRoot(self):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Error")
+        dialog.format_secondary_text("Un elemento de la matriz es negativo, por lo que no se puede calcular la raiz")
+        dialog.run()
+        dialog.destroy()
+
+    def invalidIter(self):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Error")
+        dialog.format_secondary_text("El valor ingresado para las iteraciones es invalido. Por favor ingrese un numero entero positivo.")
+        dialog.run()
+        dialog.destroy()
+
+    def invalidTol(self):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Error")
+        dialog.format_secondary_text("El valor ingresado para la tolerancia es invalido. Por favor ingrese un numero entre 0 y 1. ")
+        dialog.run()
+        dialog.destroy()
+
+    def invalidLambda(self):
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Error")
+        dialog.format_secondary_text("El valor ingresado para la relajacion es invalido. Por favor ingrese un numero mayor o igual a 0")
+        dialog.run()
+        dialog.destroy()
+        
+          
+
+class ZeroDeterminantException(Exception):
+    """Raised when The determinant of a matrix A is zero"""
+    pass
+
+class InvalidIterException(Exception):
+    """ Raised when the value given for iterations is <1 or not a positive integer"""
+    pass
+
+class InvalidToleranceException(Exception):
+    """ Raised when the value given for a tolerance is not between 0 and 1"""
+    pass
+
+class InvalidLambdaException(Exception):
+    """Raised when the value given for Lambda is not a positive number"""
+    pass
+
+class NegativeRoot(Exception):
+    """ Raised when attempting to calculat ethe root of a negative number, 0"""
+    pass

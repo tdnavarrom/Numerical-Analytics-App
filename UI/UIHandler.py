@@ -28,7 +28,7 @@ from .table import *
 from .matrixTable import *
 from .derivate import *
 from .Messages.help import Help
-from .Messages.errors import Errors
+from .Messages.errors import *
 import gi
 import math
 import numpy as np
@@ -381,23 +381,57 @@ class Handler:
             except ZeroDivisionError:
                 self.errors.div_0()
         elif method == 3:
-            self.evaluate_crout()
-            matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
-            Gtk.main()
+            try:
+                self.evaluate_crout()
+                matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
+                Gtk.main()
+            except(ZeroDeterminantException):
+                self.errors.determinante_0()
         elif method == 4:
-            self.evaluate_doolittle()
-            matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
-            Gtk.main()
+            try:
+                self.evaluate_doolittle()
+                matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
+                Gtk.main()
+            except(ZeroDivisionError):
+                self.errors.div_0()
+            except(ZeroDeterminantException):
+                self.errors.determinante_0()
         elif method == 5:
-            self.evaluate_cholesky()
-            matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
-            Gtk.main()
+            try:
+                self.evaluate_cholesky()
+                matrix_gui2 = Matrix_View2(self.matrix_l, self.matrix_u, self.vector_z, self.x_result)
+                Gtk.main()
+            except(ZeroDivisionError):
+                self.errors.div_0()
+            except(ZeroDeterminantException):
+                self.errors.determinante_0()
+            except(NegativeRoot):
+                self.errors.negativeRoot()
         elif method == 6:
-            self.evaluate_jacobi()
-            Tree_View_J_S(self.table_values)
+            try:
+                self.evaluate_jacobi()
+                Tree_View_J_S(self.table_values)
+            except(ZeroDivisionError):
+                self.errors.div_0()
+            except(InvalidToleranceException):
+                self.errors.invalidTol()
+            except(InvalidLambdaException):
+                self.errors.invalidLambda
+            except(InvalidIterException):
+                self.erros.invalidIter()
+
         elif method == 7:
-            self.evaluate_gauss_seidel()
-            Tree_View_J_S(self.table_values)
+            try:
+                self.evaluate_gauss_seidel()
+                Tree_View_J_S(self.table_values)
+            except(ZeroDivisionError):
+                self.errors.div_0()
+            except(InvalidToleranceException):
+                self.errors.invalidTol()
+            except(InvalidLambdaException):
+                self.errors.invalidLambda
+            except(InvalidIterException):
+                self.erros.invalidIter()
          
 
     def evaluate_gauss(self):
@@ -435,7 +469,8 @@ class Handler:
         self.matrix_u = crout.U
         self.matrix_l = crout.L
         self.vector_z = crout.z
-
+        print("Error determinante")
+        self.errors.determinante_0()
     def evaluate_doolittle(self):
         self.etapa_index = 0
         matrixSize = int(self.parameters2[0].get_text())
@@ -475,7 +510,7 @@ class Handler:
         matrixSize = int(self.parameters2[0].get_text())
 
         tol = float(self.parameters2[5].get_text())
-        iter = int(self.parameters2[6].get_text())
+        itera = float(self.parameters2[6].get_text())
         lamb = float(self.parameters2[7].get_text())
 
         initialValues = self.initialValuesTable
@@ -484,7 +519,7 @@ class Handler:
 
         print(f"Indp: {indp}")
         seidel = GaussSeidel(matrix,matrixSize,indp,initialValues)
-        seidel.evaluate(tol,iter,lamb)
+        seidel.evaluate(tol,itera,lamb)
     
 
     def helpMatrix_pressed(self, button):

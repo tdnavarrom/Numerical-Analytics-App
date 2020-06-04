@@ -1,5 +1,6 @@
 import numpy
-
+from ..Messages.errors import ZeroDeterminantException
+from ..Messages.errors import NegativeRoot
 
 class Cholesky:
 
@@ -19,8 +20,11 @@ class Cholesky:
             suma1 = 0
             for columna in range(fila):
                 suma1 += (self.L.item(fila, columna)*self.U.item(columna, fila))
-
-            self.L[fila, fila] = numpy.sqrt(self.matrix.item(fila, fila) - suma1)
+            root = self.matrix.item(fila, fila) - suma1
+            if  root > 0:
+                self.L[fila, fila] = numpy.sqrt(root)
+            else: 
+                raise NegativeRoot
             self.U[fila, fila] = self.L.item(fila, fila)
 
             # self.etapas.append(self.matrix.copy())
@@ -33,7 +37,10 @@ class Cholesky:
                 for columna in range(fila):
                     suma2 += (self.L.item(i, columna) * self.U.item(columna, fila))
                 if self.L.item(fila, fila) != 0:
-                    self.L[i, fila] = (self.matrix.item(i, fila) - suma2)/self.U.item(fila, fila)
+                    try:
+                        self.L[i, fila] = (self.matrix.item(i, fila) - suma2)/self.U.item(fila, fila)
+                    except:
+                        raise ZeroDivisionError
                 else:
                     print("Posiblemente no tiene solución")
 
@@ -43,7 +50,10 @@ class Cholesky:
                     suma3 += (self.L.item(fila, columna)*self.U.item(columna, j))
 
                 if self.L.item(fila, fila) != 0:
-                    self.U[fila, j] = (self.matrix.item(fila, j) - suma3)/self.L.item(fila, fila)
+                    try:
+                        self.U[fila, j] = (self.matrix.item(fila, j) - suma3)/self.L.item(fila, fila)
+                    except:
+                        raise ZeroDivisionError
                 else:
                     print("Posiblemente el sistema no tiene solución")
 
@@ -59,19 +69,25 @@ class Cholesky:
                 suma = 0
                 for p in range(i):
                     suma += (self.L.item(i, p)*self.z.item(p))
-                self.z[i] = (self.indp.item(i)-suma)/self.L.item(i, i)
+                try:
+                    self.z[i] = (self.indp.item(i)-suma)/self.L.item(i, i)
+                except:
+                    raise ZeroDivisionError
 
             for i in range(self.m-1, -1, -1):
                 suma = 0
                 for p in range(i+1, self.m):
                     suma = suma+(self.U.item(i, p)*self.x.item(p))
-                self.x[i] = ((self.z.item(i)-suma)/self.U.item(i, i))
-
+                try:
+                    self.x[i] = ((self.z.item(i)-suma)/self.U.item(i, i))
+                except:
+                    raise ZeroDivisionError
         else:
-            print("La determinante es igual a 0, por lo tanto tiene infinitas soluciones, o ninguna.")
-            return
+            raise ZeroDeterminantException
 
         print(f"L:\n {self.L}\n\nU:\n{self.U}\n")
         for each in range(self.m):
             print(f"x{each} = {self.x[each]}")
         return self.L, self.U, self.z, self.x
+
+

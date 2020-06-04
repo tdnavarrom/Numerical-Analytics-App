@@ -1,4 +1,7 @@
 import numpy
+from ..Messages.errors import InvalidIterException
+from ..Messages.errors import InvalidLambdaException
+from ..Messages.errors import InvalidToleranceException
 
 class GaussSeidel:
 
@@ -17,47 +20,60 @@ class GaussSeidel:
 
     def evaluate(self, tol, niter, relajacion):
 
+        if niter <1 and float(niter).is_integer():
+            raise InvalidIterException
+        if ((tol <0 and tol>1) and  (not(float(tol).is_integer()))):
+            raise InvalidToleranceException
+        if relajacion <0:
+            raise InvalidLambdaException
+
         cont  = 0
         self.dispersion = float(tol + 1)
 
         self.values.append([cont, str(self.x0), self.dispersion])
 
-        while (self.dispersion > tol) and (cont < niter):
-            print("entro while")
+        if tol > 0:
+            if niter > 0:
+                while (self.dispersion > tol) and (cont < niter):
+                    #print("entro while")
 
-            print([cont, str(self.x0), self.dispersion])
+                    #print([cont, str(self.x0), self.dispersion])
 
-            for i in range(self.m):
-                self.x1[i] = self.x0.item(i)
-            for i in range(self.m):
-                suma = 0
-                for j in range(self.m):
-                    if j != i:
-                        suma += (self.matrix.item(i, j)*self.x1.item(j))
+                    for i in range(self.m):
+                        self.x1[i] = self.x0.item(i)
+                    for i in range(self.m):
+                        suma = 0
+                        for j in range(self.m):
+                            if j != i:
+                                suma += (self.matrix.item(i, j)*self.x1.item(j))
                 
-                if self.matrix.item(i, i) != 0:
-                    self.x1[i] = (self.indp.item(i) - suma)/self.matrix.item(i, i)
-                else:
-                    print("El sistema posiblemente no tiene solución")
+                
+                        try:
+                            self.x1[i] = (self.indp.item(i) - suma)/self.matrix.item(i, i)
+                        except:
+                            raise ZeroDivisionError
 
                 
-            self.aux = self.x0 - self.x1
-            self.dispersion = numpy.linalg.norm(self.aux)/numpy.linalg.norm(self.x1)
+                    self.aux = self.x0 - self.x1
+                    try:
+                        self.dispersion = numpy.linalg.norm(self.aux)/numpy.linalg.norm(self.x1)
+                    except:
+                        raise ZeroDivisionError
      
-            if relajacion != 0:
-                for i in range(self.m):
-                    self.x1[i] = (relajacion*self.x1.item(i))+((1-relajacion)*self.x0.item(i))
+                    if relajacion != 0:
+                        for i in range(self.m):
+                            self.x1[i] = (relajacion*self.x1.item(i))+((1-relajacion)*self.x0.item(i))
                 
-            self.x0 = self.x1
-            cont += 1
+                    self.x0 = self.x1.copy()
+                    cont += 1
 
-            print([cont, str(self.x0), self.dispersion])
-            self.values.append([cont, str(self.x0), self.dispersion])
+                    print([cont, str(self.x0), self.dispersion])
+                    self.values.append([cont, str(self.x0), self.dispersion])
         
-        if self.dispersion < tol:
-            print(f"{self.x1} es aproximación con una tolerancia = {tol}")
-        else:
-            print(f"Fracasó en {niter} iteraciones")
+                if self.dispersion < tol:
+                    print(f"{self.x1} es aproximación con una tolerancia = {tol}")
+                else:
+                    print(f"Fracasó en {niter} iteraciones")
     
     def tabla_values(self):
         return self.values
