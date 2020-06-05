@@ -31,7 +31,6 @@ class TreeView2(Gtk.Window):
 
         self.numpy = np.zeros(shape=(rows, columns))
         self.df = pd.DataFrame(data = self.numpy).astype(str)
-
         for i, j in self.df.iterrows():
             # i es el index del DataFrame
             # J es la tupla donde esta el valor de x & y

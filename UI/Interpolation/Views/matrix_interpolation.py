@@ -59,3 +59,10 @@ class Matrix_View_Interpolation:
             column.set_resizable(True)
             column.set_expand(True)
             self.original_matrix_view.append_column(column)
+
+def gtk_style():
+    screen = Gdk.Screen.get_default()
+    provider = Gtk.CssProvider()
+    provider.load_from_path("main.css")
+    Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+

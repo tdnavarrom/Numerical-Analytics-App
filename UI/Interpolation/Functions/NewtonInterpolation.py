@@ -1,7 +1,8 @@
 import math
 import sympy as sp
 from sympy.parsing.sympy_parser import parse_expr
-from .Functions import *
+from .Functions import Functions
+
 class NewtonInterpolation:
     def __init__(self):
         self.polinom=""
@@ -18,7 +19,7 @@ class NewtonInterpolation:
             self.matrix[i][0] = self.xn[i]
             self.matrix[i][1] = func.evaluar(self.xn[i])
 
-        self.polinom = "P(X) = "+ str(self.matrix[0][1])
+        self.polinom = "p(x) = "+ str(self.matrix[0][1])
 
         for i in range(2,(length+1)):
             for j in range(i-1,length):
@@ -32,19 +33,20 @@ class NewtonInterpolation:
         self.row_definition()
         #print(self.matrix)
 
+    def get_sol(self):
+        return self.polinom
 
     def value_table(self):
         return self.matrix
     
     def row_definition(self):
-        self.rows.append("Xn")
-        self.rows.append("F(Xn)")
+        self.rows.append("xn")
+        self.rows.append("f(xn)")
         for i in range(1,len((self.matrix[0]))-1):
             self.rows.append(i)
         return self.rows
 
-    def get_sol(self):
-        return self.polinom
+
 
 
 """

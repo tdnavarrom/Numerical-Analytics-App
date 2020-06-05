@@ -27,7 +27,9 @@ class Tree_View_J_S(Gtk.Window):
                 self.table_tree[1].remove_column(
                     self.table_tree[1].get_column(0))
 
-        df = pd.DataFrame(table)
+        df = pd.DataFrame(table[:,[1]])
+        df.insert(0,"n",table[0])
+        #df.insert(2,"Error",table[2])
         print(df)
         columns = len(df.columns)
         column = []
