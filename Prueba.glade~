@@ -67,21 +67,21 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
             </child>
             <child>
               <object class="GtkEntry" id="GFunction">
-                <property name="width_request">600</property>
-                <property name="height_request">34</property>
+                <property name="width_request">550</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">G Function</property>
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">115</property>
+                <property name="y">120</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="Function">
-                <property name="width_request">600</property>
-                <property name="height_request">34</property>
+                <property name="width_request">550</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Function</property>
@@ -89,7 +89,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">75</property>
+                <property name="y">80</property>
               </packing>
             </child>
             <child>
@@ -105,79 +105,79 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 </items>
               </object>
               <packing>
-                <property name="x">180</property>
+                <property name="x">200</property>
                 <property name="y">10</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="Iterations">
-                <property name="width_request">195</property>
-                <property name="height_request">-1</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Iterations</property>
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">155</property>
+                <property name="y">160</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="Initial">
-                <property name="width_request">195</property>
-                <property name="height_request">34</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Initial Value</property>
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">195</property>
+                <property name="y">200</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="Superior">
-                <property name="width_request">195</property>
-                <property name="height_request">34</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Superior Value</property>
               </object>
               <packing>
-                <property name="x">212</property>
-                <property name="y">195</property>
+                <property name="x">200</property>
+                <property name="y">200</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="Increment">
-                <property name="width_request">195</property>
-                <property name="height_request">34</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Increment Value</property>
               </object>
               <packing>
-                <property name="x">212</property>
-                <property name="y">155</property>
+                <property name="x">200</property>
+                <property name="y">160</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="Result">
-                <property name="width_request">600</property>
-                <property name="height_request">-1</property>
+                <property name="width_request">550</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Result</property>
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">245</property>
+                <property name="y">250</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="Graph">
                 <property name="label" translatable="yes">Graph</property>
-                <property name="width_request">134</property>
+                <property name="width_request">100</property>
                 <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -185,14 +185,14 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <signal name="pressed" handler="graph_pressed" swapped="no"/>
               </object>
               <packing>
-                <property name="x">144</property>
-                <property name="y">285</property>
+                <property name="x">240</property>
+                <property name="y">290</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="Table">
                 <property name="label" translatable="yes">Table</property>
-                <property name="width_request">134</property>
+                <property name="width_request">100</property>
                 <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -200,8 +200,8 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <signal name="pressed" handler="table_pressed" swapped="no"/>
               </object>
               <packing>
-                <property name="x">278</property>
-                <property name="y">285</property>
+                <property name="x">460</property>
+                <property name="y">290</property>
               </packing>
             </child>
             <child>
@@ -216,14 +216,14 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <signal name="pressed" handler="help_pressed" swapped="no"/>
               </object>
               <packing>
-                <property name="x">510</property>
+                <property name="x">460</property>
                 <property name="y">10</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="Evaluate">
                 <property name="label" translatable="yes">Evaluate</property>
-                <property name="width_request">134</property>
+                <property name="width_request">100</property>
                 <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -232,20 +232,20 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">285</property>
+                <property name="y">290</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="Tolerance">
-                <property name="width_request">195</property>
-                <property name="height_request">34</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Tolerance</property>
               </object>
               <packing>
-                <property name="x">412</property>
-                <property name="y">155</property>
+                <property name="x">390</property>
+                <property name="y">160</property>
               </packing>
             </child>
           </object>
@@ -266,7 +266,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
           </packing>
         </child>
         <child>
-          <object class="GtkFixed">
+          <object class="GtkFixed" id="FixedM">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
@@ -281,22 +281,22 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">75</property>
+                <property name="y">80</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="generate_button">
-                <property name="label" translatable="yes">Create Matrix</property>
-                <property name="width_request">141</property>
-                <property name="height_request">34</property>
+                <property name="label" translatable="yes">Create</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="pressed" handler="matrix_generate" swapped="no"/>
               </object>
               <packing>
-                <property name="x">190</property>
-                <property name="y">75</property>
+                <property name="x">180</property>
+                <property name="y">80</property>
               </packing>
             </child>
             <child>
@@ -313,6 +313,8 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                   <item id="3" translatable="yes">Crout</item>
                   <item id="4" translatable="yes">Doolittle</item>
                   <item id="5" translatable="yes">Cholesky</item>
+                  <item id="6" translatable="yes">Jacobi</item>
+                  <item id="7" translatable="yes">Gauss-Seidel</item>
                 </items>
               </object>
               <packing>
@@ -331,30 +333,13 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <signal name="pressed" handler="evaluateMatrix_pressed" swapped="no"/>
               </object>
               <packing>
-                <property name="x">520</property>
-                <property name="y">165</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="evalOptionsID">
-                <property name="width_request">100</property>
-                <property name="height_request">0</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="active_id">0</property>
-                <items>
-                  <item id="0" translatable="yes">Evaluate By Stages</item>
-                  <item translatable="yes">Evaluate Directly</item>
-                </items>
-              </object>
-              <packing>
-                <property name="x">170</property>
-                <property name="y">10</property>
+                <property name="x">460</property>
+                <property name="y">200</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="resultMatrixID">
-                <property name="width_request">500</property>
+                <property name="width_request">448</property>
                 <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -362,7 +347,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">165</property>
+                <property name="y">200</property>
               </packing>
             </child>
             <child>
@@ -377,13 +362,13 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="placeholder_text" translatable="yes"># of initial values</property>
               </object>
               <packing>
-                <property name="x">340</property>
-                <property name="y">75</property>
+                <property name="x">10</property>
+                <property name="y">120</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="initialValues_button">
-                <property name="label" translatable="yes">Insert Values</property>
+                <property name="label" translatable="yes">Insert</property>
                 <property name="width_request">100</property>
                 <property name="height_request">0</property>
                 <property name="visible">True</property>
@@ -392,21 +377,22 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <signal name="pressed" handler="initialValues_generate" swapped="no"/>
               </object>
               <packing>
-                <property name="x">520</property>
-                <property name="y">75</property>
+                <property name="x">180</property>
+                <property name="y">120</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="HelpMatrix">
                 <property name="label" translatable="yes">Help</property>
                 <property name="width_request">100</property>
                 <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="pressed" handler="helpMatrix_pressed" swapped="no"/>
               </object>
               <packing>
-                <property name="x">520</property>
+                <property name="x">460</property>
                 <property name="y">10</property>
               </packing>
             </child>
@@ -419,8 +405,8 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="placeholder_text" translatable="yes">Tolerance</property>
               </object>
               <packing>
-                <property name="x">10</property>
-                <property name="y">115</property>
+                <property name="x">290</property>
+                <property name="y">80</property>
               </packing>
             </child>
             <child>
@@ -432,8 +418,8 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="placeholder_text" translatable="yes">Iterations</property>
               </object>
               <packing>
-                <property name="x">190</property>
-                <property name="y">115</property>
+                <property name="x">10</property>
+                <property name="y">160</property>
               </packing>
             </child>
             <child>
@@ -445,8 +431,8 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="placeholder_text" translatable="yes">Lambda</property>
               </object>
               <packing>
-                <property name="x">370</property>
-                <property name="y">115</property>
+                <property name="x">290</property>
+                <property name="y">120</property>
               </packing>
             </child>
           </object>
@@ -455,13 +441,238 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
           </packing>
         </child>
         <child type="tab">
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="EquationsSystem">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Equations' Systems</property>
           </object>
           <packing>
             <property name="position">2</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFixed" id="FixedI">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkComboBoxText" id="interpolationMethods">
+                <property name="width_request">150</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="active_id">0</property>
+                <items>
+                  <item id="0" translatable="yes">Newton</item>
+                  <item id="1" translatable="yes">Langrange</item>
+                  <item id="2" translatable="yes">Linear Spline</item>
+                  <item id="3" translatable="yes">Quadratic Spline</item>
+                  <item translatable="yes">Cubic Spline</item>
+                </items>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="initialValuesInterpolation">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">initial values</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">80</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fxValues">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">f(x) values</property>
+              </object>
+              <packing>
+                <property name="x">290</property>
+                <property name="y">120</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="result_interpolation">
+                <property name="name">resultInterpolation</property>
+                <property name="width_request">448</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Result</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">200</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="xValues">
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">x values</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">120</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="functionInterpolation">
+                <property name="width_request">270</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">f(x) function</property>
+              </object>
+              <packing>
+                <property name="x">290</property>
+                <property name="y">80</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="insertXValues">
+                <property name="label" translatable="yes">Insert</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="pressed" handler="x_values_interpolation_pressed" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">180</property>
+                <property name="y">120</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="insertInitialValues">
+                <property name="label" translatable="yes">Insert</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="pressed" handler="initial_values_generate_interpolation" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">180</property>
+                <property name="y">80</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="insertFXValues">
+                <property name="label" translatable="yes">Insert</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="pressed" handler="fx_values_interpolation_pressed" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">460</property>
+                <property name="y">120</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="evaluateInterpolation">
+                <property name="label" translatable="yes">Evaluate</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="pressed" handler="evaluateInterpolation_pressed" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">460</property>
+                <property name="y">200</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="helpInterpolation">
+                <property name="label" translatable="yes">Help</property>
+                <property name="width_request">100</property>
+                <property name="height_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="x">460</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="Interpolation">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Interpolation</property>
+          </object>
+          <packing>
+            <property name="position">3</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFixed" id="FixedG">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="guide_text_id">
+                <property name="width_request">82</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">This is the &lt;b&gt;Guide&lt;/b&gt; for the application. 
+Please follow the syntax listed below for the equations 
+you put inside the &lt;b&gt;Non-Linear Equations&lt;/b&gt; tab. 
+
+            'e^n ==&gt; exp(n)\n'
+            'x^n ==&gt; x**n\n'
+            'ln(x) ==&gt; log(x)\n'
+            'cos(x) ==&gt; cos(x)\n'
+            'sin(x) ==&gt; sin(x)\n\n'
+
+Inside the &lt;b&gt;Interpolation&lt;/b&gt; tab, you can use the ln(x), 
+but the rest should follow the &lt;b&gt;Python&lt;/b&gt; syntax.</property>
+                <property name="use_markup">True</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="guide">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Guide</property>
+          </object>
+          <packing>
+            <property name="position">4</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
