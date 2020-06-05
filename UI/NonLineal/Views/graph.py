@@ -1,11 +1,12 @@
-import gi
 import math
 import numpy as np
-import pandas as pd
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
 
-from UI.NonLineal.Functions.Function import Function
+import pandas as pd
+from gi.repository import Gtk
+import gi
+gi.require_version('Gtk', '3.0')
+
+from UI.NonLineal.Functions.Function import Function as Fun
 from UI.derivate import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_gtk3agg import FigureCanvas
@@ -13,7 +14,8 @@ from matplotlib.backends.backend_gtk3 import (NavigationToolbar2GTK3 as Navigati
 
 
 def graph_a(funcion, initial_value, last_value):
-    function = Function(funcion)
+    func = Fun(funcion)
+    print(type(func))
 
     win = Gtk.Window()
     win.connect("destroy", lambda x: Gtk.main_quit())
@@ -26,7 +28,7 @@ def graph_a(funcion, initial_value, last_value):
     fig = Figure(figsize=(5, 4), dpi=100)
     ax = fig.add_subplot(111)
     x = np.arange(initial_value, last_value)
-    y = [function.evaluate2(i) for i in x]
+    y = [func.evaluate2(2) for i in x]
     ax.plot(x, y)
 
     canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
@@ -39,8 +41,8 @@ def graph_a(funcion, initial_value, last_value):
 
 
 def graph_b(func, gfunc, initial_value, last_value):
-    function = Function(func)
-    gfunction = Function(gfunc)
+    function = Fun(func)
+    gfunction = Fun(gfunc)
 
     win = Gtk.Window()
     win.connect("destroy", lambda x: Gtk.main_quit())
@@ -67,8 +69,8 @@ def graph_b(func, gfunc, initial_value, last_value):
     Gtk.main()
 
 
-def graph_c(function, initial_value, last_value):
-    function = Function(function)
+def graph_c(funcion, initial_value, last_value):
+    function = Fun(funcion)
 
     win = Gtk.Window()
     win.connect("destroy", lambda x: Gtk.main_quit())
@@ -83,7 +85,8 @@ def graph_c(function, initial_value, last_value):
     x = np.arange(initial_value, last_value)
     y = [function.evaluate2(i) for i in x]
     ax.plot(x, y)
-    derivada = [function.evaluate2(derivate_function(function)) for i in x ]
+    dev = Fun(derivate_function(funcion))
+    derivada = [dev.evaluate2(i) for i in x ]
     ax.plot(x, derivada)
 
     canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
@@ -96,7 +99,7 @@ def graph_c(function, initial_value, last_value):
 
 
 def graph_d(funcion, initial_value, last_value):
-    function = Function(funcion)
+    function = Fun(funcion)
 
     win = Gtk.Window()
     win.connect("destroy", lambda x: Gtk.main_quit())
@@ -111,9 +114,11 @@ def graph_d(funcion, initial_value, last_value):
     x = np.arange(initial_value, last_value)
     y = [function.evaluate2(i) for i in x]
     ax.plot(x, y)
-    derivada = [function.evaluate2(derivate_function(function)) for i in x ]
+    dev = Fun(derivate_function(funcion))
+    derivada = [dev.evaluate2(i) for i in x ]
     ax.plot(x, derivada)
-    derivada2 = [function.evaluate2(derivate_function(derivate_function(function))) for i in x ]
+    dev2 = Fun(derivate_function(derivate_function(function)))
+    derivada2 = [dev2.evaluate2(i) for i in x ]
     ax.plot(x, derivada2)
 
     canvas = FigureCanvas(fig)  # a Gtk.DrawingArea
