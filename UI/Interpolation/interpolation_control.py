@@ -15,7 +15,7 @@ class Interpolation_Control:
         self.errors = Errors()
         self.help = Help()
 
-    def initial_values_generate_interpolation(self, button):
+    def initial_values_generate_interpolation(self):
         columns = int(self.parameters3[1].get_text())
         rows = 1
         tree = TreeView2(rows ,columns)
@@ -27,7 +27,7 @@ class Interpolation_Control:
         self.initialValuesTable = self.initialValuesTable.astype(np.float)
         print(self.initialValuesTable)
 
-    def x_values_interpolation_pressed(self, button):
+    def x_values_interpolation_pressed(self):
         columns = int(self.parameters3[4].get_text())
         rows = 1
         tree = TreeView2(rows ,columns)
@@ -39,7 +39,7 @@ class Interpolation_Control:
         self.x_values_interpolation = self.x_values_interpolation.astype(np.float)
         print(self.x_values_interpolation)
 
-    def fx_values_interpolation_pressed(self, button):
+    def fx_values_interpolation_pressed(self):
         columns = int(self.parameters3[6].get_text())
         rows = 1
         tree = TreeView2(rows ,columns)
@@ -85,15 +85,15 @@ class Interpolation_Control:
         text = CubicSpline.get_results()
         self.parameters3[8].set_text(text)
     
-    def helpInterpolation_pressed(self, button):
+    def help_view(self):
         method = self.parameters3[4].get_active()
 
         if method == 0:
-            self.help.interpolacion_help("Newton")
+            self.interpolation.help.interpolacion_help("Newton")
         elif method == 1:
-            self.help.interpolacion_help("Lagrange")
+            self.interpolation.help.interpolacion_help("Lagrange")
         elif method == 2:
-            self.help.interpolacion_help("Neville")
+            self.interpolation.help.interpolacion_help("Neville")
         elif method == 3:
-            self.help.interpolacion_help("Spline")
-        
+            self.interpolation.help.interpolacion_help("Spline")
+ 

@@ -77,12 +77,10 @@ class Handler:
 
     def initialValues_generate(self, button):
         self.lineal.initial_values_view()
-'''
-    #Interpolation
+
+#######Interpolation
     def evaluateInterpolation_pressed(self, button):
         method = self.parameters3[0].get_active()
-        print(method)
-
         if method == 0:
             self.interpolation.evaluate_NewtonInterpolation()
             matrix_gui = Matrix_View_Interpolation(self.values)
@@ -90,9 +88,23 @@ class Handler:
         elif method == 1:
             self.interpolation.evaluate_LagrangeInterpolation()
         elif method == 2:
-            self.interpolation.evaluar_linear_spline
+            self.interpolation.evaluar_linear_spline   def helpInterpolation_pressed(self, button):
+        method = self.parameters3[4].get_active()
+
+        if method == 0:
+            self.help.interpolacion_help("Newton")
+        elif method == 1:
+            self.help.interpolacion_help("Lagrange")
+        elif method == 2:
+            self.help.interpolacion_help("Neville")
+        elif method == 3:
+            self.help.interpolacion_help("Spline")
+        
         elif method == 3:
             self.interpolation.evaluar_quadratic_spline
         elif method == 4:
             self.interpolation.evaluar_cubic_spline
-'''
+
+    def helpInterpolation_pressed(self, button):
+        
+        
