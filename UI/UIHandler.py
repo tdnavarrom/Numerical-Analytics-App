@@ -1,8 +1,8 @@
 from gi.repository import Gtk, Gdk
 from UI.NonLineal.non_linear_control import Non_Linear_Control
 from UI.MatrixMethods.linear_control import Linear_Control
-#from UI.Interpolation.linear_control import Interpolation_Control
-#from UI.Interpolation.Views.matrix_interpolation import Matrix_View_Interpolation
+from UI.Interpolation.interpolation_control import Interpolation_Control
+from UI.MatrixMethods.view.matrixTable import TreeView2
 
 import gi
 import math
@@ -18,7 +18,7 @@ class Handler:
         self.parameters3 = parameters3
         self.non_lineal = Non_Linear_Control(parameters)
         self.lineal = Linear_Control(parameters2)
-        #self.interpolation = Interpolation_Control(parameters3)
+        self.interpolation = Interpolation_Control(parameters3)
 
     def onDestroy(self, *args):
         Gtk.main_quit()
@@ -83,28 +83,23 @@ class Handler:
         method = self.parameters3[0].get_active()
         if method == 0:
             self.interpolation.evaluate_NewtonInterpolation()
-            matrix_gui = Matrix_View_Interpolation(self.values)
-            Gtk.main()
         elif method == 1:
             self.interpolation.evaluate_LagrangeInterpolation()
         elif method == 2:
-            self.interpolation.evaluar_linear_spline   def helpInterpolation_pressed(self, button):
-        method = self.parameters3[4].get_active()
-
-        if method == 0:
-            self.help.interpolacion_help("Newton")
-        elif method == 1:
-            self.help.interpolacion_help("Lagrange")
-        elif method == 2:
-            self.help.interpolacion_help("Neville")
+            self.interpolation.evaluar_linear_spline()
         elif method == 3:
-            self.help.interpolacion_help("Spline")
-        
-        elif method == 3:
-            self.interpolation.evaluar_quadratic_spline
+            self.interpolation.evaluar_quadratic_spline()
         elif method == 4:
-            self.interpolation.evaluar_cubic_spline
+            self.interpolation.evaluar_cubic_spline()
+
+    def initial_values_generate_interpolation(self, button):
+        self.interpolation.initial_values_interpolation()
 
     def helpInterpolation_pressed(self, button):
-        
-        
+        self.interpolation.help_view()
+
+    def x_values_interpolation_pressed(self, button):
+        self.interpolation.x_values_interpolation()
+
+    def fx_values_interpolation_pressed(self, button):
+        self.interpolation.fx_values_interpolation()

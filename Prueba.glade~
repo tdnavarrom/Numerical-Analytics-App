@@ -641,9 +641,9 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="height_request">80</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">This is the &lt;bold&gt;Guide&lt;/bold&gt; for the application. 
+                <property name="label" translatable="yes">This is the &lt;b&gt;Guide&lt;/b&gt; for the application. 
 Please follow the syntax listed below for the equations 
-you put inside the &lt;bold&gt;Non-Linear Equations&lt;/bold&gt; tab. 
+you put inside the &lt;b&gt;Non-Linear Equations&lt;/b&gt; tab. 
 
             'e^n ==&gt; exp(n)\n'
             'x^n ==&gt; x**n\n'
@@ -651,7 +651,8 @@ you put inside the &lt;bold&gt;Non-Linear Equations&lt;/bold&gt; tab.
             'cos(x) ==&gt; cos(x)\n'
             'sin(x) ==&gt; sin(x)\n\n'
 
-Inside the Newton tab, you can use the ln(x), but the rest should follow the Python syntax.</property>
+Inside the &lt;b&gt;Interpolation&lt;/b&gt; tab, you can use the ln(x), 
+but the rest should follow the &lt;b&gt;Python&lt;/b&gt; syntax.</property>
                 <property name="use_markup">True</property>
               </object>
               <packing>

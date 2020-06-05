@@ -1,43 +1,44 @@
 import sympy as sym
+import numpy as np
+
 
 class Lagrange:
     def __init__(self):
-        self.xValues = []
-        self.yValues = []
-        self.LValues = []
+        self.x_values = []
+        self.y_values = []
+        self.l_values = []
         self.polinom = 0
-    
-    def lagrange_interpol_algorithm(self,xVector,yVector):
-        self.xValues = xVector
-        self.yValues = yVector
 
-        if(len(self.xValues)!=0 and len(self.xValues)==len(self.yValues)):
+    def lagrange_interpol_algorithm(self, xVector, yVector):
+        self.x_values = xVector
+        self.y_values = yVector
+
+        if(len(self.x_values) != 0 and len(self.x_values) == len(self.y_values)):
             x = sym.Symbol('x')
-            phases = len(xVector)
-            numerator = 1
-            denominator = 1
+            etapas = len(xVector)
+            numerador = 1
+            denominador = 1
             try:
-                for i in range(phases):
-                    for j in range(phases):
-                        if(j!=i):
-                            if(self.xValues[i]!=self.xValues[j]):
-                                numerator = numerator*(x - self.xValues[j])
-                                denominator = denominator*(self.xValues[i]-self.xValues[j])
+                for i in range(etapas):
+                    for j in range(etapas):
+                        if(j != i):
+                            if(self.x_values[i] != self.x_values[j]):
+                                numerador = numerador*(x - self.x_values[j])
+                                denominador = denominador * \
+                                    (self.x_values[i]-self.x_values[j])
                             else:
                                 raise Exception('')
-                    
-                    self.LValues.append(numerator/denominator)
-                    self.polinom += self.LValues[i]*self.yValues[i]
-                    numerator = 1
-                    denominator = 1
-                
+
+                    self.l_values.append(numerador/denominador)
+                    self.polinom += self.l_values[i]*self.y_values[i]
+                    numerador = 1
+                    denominador = 1
+
                 self.polinom = str(sym.expand(self.polinom))
             except ZeroDivisionError as e:
-                self.polinom = "Error: Division by zero caused by invalid X values"
-            except Exception as e:
-                self.polinom = "Error: Invalid input one x value mustn't have two y values"
+                self.polinom = "Error: Division por 0"
         else:
-            self.polinom = "Error: The size of the X vector don't match that of F(X)"
-    
-    def getpolinom(self):
+            self.polinom = "Error: el tamaño del vector x no concuerda con el vector f(x)"
+
+    def getPolynomial(self):
         return self.polinom

@@ -8,7 +8,7 @@ class Matrix_View_Interpolation:
     def __init__(self, original_matrix):
 
         self.builder = Gtk.Builder()
-        self.builder.add_from_file('UI/Interpolation/view/MatrixInterpolation.glade')
+        self.builder.add_from_file('UI/Interpolation/Views/MatrixInterpolation.glade')
         go = self.builder.get_object
 
         self.original_matrix = original_matrix
