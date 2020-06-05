@@ -186,8 +186,8 @@ class Linear_Control:
                 temp_array = []
                 temp_array.append(cont[i])
                 for j in range(len(temp_values)):
-                    temp_array.append(temp_values[j])
-                temp_array.append(error[i])
+                    temp_array.append(str(temp_values[j]))
+                temp_array.append(str(error[i]))
                 final_result.append(temp_array)
 
             #View
@@ -231,8 +231,8 @@ class Linear_Control:
                 temp_array = []
                 temp_array.append(cont[i])
                 for j in range(len(temp_values)):
-                    temp_array.append(temp_values[j])
-                temp_array.append(error[i])
+                    temp_array.append(str(temp_values[j]))
+                temp_array.append(str(error[i]))
                 final_result.append(temp_array)
 
             #View
