@@ -176,10 +176,27 @@ class Linear_Control:
             jacobi = Jacobi(matrix, matrixSize, indp, initialValues)
             message = jacobi.evaluate(tol, itera, lamb)
             table_values = jacobi.tabla_values()
-            #self.parameters2[9].set_text(str(message))
+            self.parameters2[9].set_text(str(message))
+            cont = [int(table_values[x][0]) for x in range(len(table_values))]
+            values = [list(table_values[x][1]) for x in range(len(table_values))]
+            error = [float(table_values[x][2]) for x in range(len(table_values))]
+            final_result = []
+            for i in range(len(table_values)):
+                temp_values = values[i]
+                temp_array = []
+                temp_array.append(cont[i])
+                for j in range(len(temp_values)):
+                    temp_array.append(temp_values[j])
+                temp_array.append(error[i])
+                final_result.append(temp_array)
 
             #View
-            Tree_View_J_S(table_values)
+            tree = Tree_View_J_S(final_result)
+            tree.connect("destroy", Gtk.main_quit)
+            tree.show_all()
+            Gtk.main()
+
+
         except(ZeroDivisionError):
             self.errors.div_0()
         except(InvalidToleranceException):
@@ -205,9 +222,26 @@ class Linear_Control:
             message = seidel.evaluate(tol, itera, lamb)
             table_values = seidel.table_values()
             self.parameters2[9].set_text(str(message))
+            cont = [int(table_values[x][0]) for x in range(len(table_values))]
+            values = [list(table_values[x][1]) for x in range(len(table_values))]
+            error = [float(table_values[x][2]) for x in range(len(table_values))]
+            final_result = []
+            for i in range(len(table_values)):
+                temp_values = values[i]
+                temp_array = []
+                temp_array.append(cont[i])
+                for j in range(len(temp_values)):
+                    temp_array.append(temp_values[j])
+                temp_array.append(error[i])
+                final_result.append(temp_array)
 
-            #view
-            Tree_View_J_S(table_values)
+            #View
+            tree = Tree_View_J_S(final_result)
+            tree.connect("destroy", Gtk.main_quit)
+            tree.show_all()
+            Gtk.main()
+            
+
         except(ZeroDivisionError):
             self.errors.div_0()
         except(InvalidToleranceException):

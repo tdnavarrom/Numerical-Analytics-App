@@ -631,6 +631,51 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
             <property name="tab_fill">False</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkFixed" id="FixedG">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="guide_text_id">
+                <property name="width_request">82</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">This is the &lt;b&gt;Guide&lt;/b&gt; for the application. 
+Please follow the syntax listed below for the equations 
+you put inside the &lt;b&gt;Non-Linear Equations&lt;/b&gt; tab. 
+
+            'e^n ==&gt; exp(n)\n'
+            'x^n ==&gt; x**n\n'
+            'ln(x) ==&gt; log(x)\n'
+            'cos(x) ==&gt; cos(x)\n'
+            'sin(x) ==&gt; sin(x)\n\n'
+
+Inside the &lt;b&gt;Interpolation&lt;/b&gt; tab, you can use the ln(x), 
+but the rest should follow the &lt;b&gt;Python&lt;/b&gt; syntax.</property>
+                <property name="use_markup">True</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="guide">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Guide</property>
+          </object>
+          <packing>
+            <property name="position">4</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
       </object>
     </child>
     <child type="titlebar">

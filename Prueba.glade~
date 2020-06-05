@@ -549,6 +549,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="pressed" handler="x_values_interpolation_pressed" swapped="no"/>
               </object>
               <packing>
                 <property name="x">180</property>
@@ -578,6 +579,7 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="pressed" handler="fx_values_interpolation_pressed" swapped="no"/>
               </object>
               <packing>
                 <property name="x">460</property>
@@ -626,6 +628,50 @@ It was made with &lt;a href="https://www.gtk.org" title="GTK Web"&gt;Gtk3&lt;/a&
           </object>
           <packing>
             <property name="position">3</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFixed" id="FixedG">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="guide_text_id">
+                <property name="width_request">82</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">This is the &lt;bold&gt;Guide&lt;/bold&gt; for the application. 
+Please follow the syntax listed below for the equations 
+you put inside the &lt;bold&gt;Non-Linear Equations&lt;/bold&gt; tab. 
+
+            'e^n ==&gt; exp(n)\n'
+            'x^n ==&gt; x**n\n'
+            'ln(x) ==&gt; log(x)\n'
+            'cos(x) ==&gt; cos(x)\n'
+            'sin(x) ==&gt; sin(x)\n\n'
+
+Inside the Newton tab, you can use the ln(x), but the rest should follow the Python syntax.</property>
+                <property name="use_markup">True</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="guide">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Guide</property>
+          </object>
+          <packing>
+            <property name="position">4</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
