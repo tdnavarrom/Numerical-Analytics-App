@@ -28,14 +28,17 @@ class Tree_View_J_S(Gtk.Window):
                     self.table_tree[1].get_column(0))
 
         df = pd.DataFrame(table)
-        #df.insert(2,"Error",table[2])
-        print(df)
         columns = len(df.columns)
         column = []
         for i in range(columns):
-            column.append(str(i))
+            if i == 0:
+                column.append("n")
+            elif i == columns-1:
+                column.append("Error")
+            else:
+                column.append("x"+str(i))
         # los foat dicen de cuantas columnas va a ser la tabla
-        self.store = Gtk.ListStore(*([float]*columns))
+        self.store = Gtk.ListStore(int,*([str]*(columns-1)))
 
         for i, j in df.iterrows():
             # i es el index del DataFrame

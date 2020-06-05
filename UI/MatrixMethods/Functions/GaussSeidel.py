@@ -42,7 +42,7 @@ class GaussSeidel:
         cont  = 0
         self.dispersion = float(tol + 1)
 
-        self.values.append([cont, self.x0, self.dispersion])
+        self.values.append([int(cont), self.x0, self.dispersion])
 
         while (self.dispersion > tol) and (cont < niter):
              #print("entro while")
@@ -75,7 +75,7 @@ class GaussSeidel:
             self.x0 = self.x1.copy()
             cont += 1
 
-            self.values.append([cont, self.x0, self.dispersion])
+            self.values.append([int(cont), self.x0, self.dispersion])
 
         if self.dispersion < tol:
             print(f"{self.x1} es aproximación con una tolerancia = {tol}")

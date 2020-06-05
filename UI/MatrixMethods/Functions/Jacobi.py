@@ -47,7 +47,7 @@ class Jacobi:
         #METODO JACOBI
         cont = 0
         self.dispersion = float(tol + 1)
-        self.values.append([cont, self.x0, self.dispersion])
+        self.values.append([int(cont), self.x0, self.dispersion])
         while (self.dispersion > tol) and (cont < niter):
             for i in range(self.m):
                 suma = 0
@@ -71,7 +71,7 @@ class Jacobi:
                         ((1-relajacion)*self.x0.item(i))
             self.x0 = self.x1.copy()
             cont += 1
-            self.values.append([cont, self.x0, self.dispersion])
+            self.values.append([int(cont), self.x0, self.dispersion])
         if self.dispersion < tol:
             return (f"{self.x1} es aproximación con una tolerancia = {tol}")
         else:

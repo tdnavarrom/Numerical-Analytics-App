@@ -176,7 +176,7 @@ class Linear_Control:
             jacobi = Jacobi(matrix, matrixSize, indp, initialValues)
             message = jacobi.evaluate(tol, itera, lamb)
             table_values = jacobi.tabla_values()
-            self.parameters2[9].set_text(str(message))
+            self.parameters2[8].set_text(str(message))
             cont = [int(table_values[x][0]) for x in range(len(table_values))]
             values = [list(table_values[x][1]) for x in range(len(table_values))]
             error = [float(table_values[x][2]) for x in range(len(table_values))]
@@ -195,7 +195,6 @@ class Linear_Control:
             tree.connect("destroy", Gtk.main_quit)
             tree.show_all()
             Gtk.main()
-
 
         except(ZeroDivisionError):
             self.errors.div_0()
@@ -221,10 +220,11 @@ class Linear_Control:
             seidel = GaussSeidel(matrix, matrixSize, indp, initialValues)
             message = seidel.evaluate(tol, itera, lamb)
             table_values = seidel.table_values()
-            self.parameters2[9].set_text(str(message))
+            self.parameters2[8].set_text(str(message))
+
             cont = [int(table_values[x][0]) for x in range(len(table_values))]
-            values = [list(table_values[x][1]) for x in range(len(table_values))]
-            error = [float(table_values[x][2]) for x in range(len(table_values))]
+            values = [list(table_values[x][1])for x in range(len(table_values))]
+            error = [float(table_values[x][2])for x in range(len(table_values))]
             final_result = []
             for i in range(len(table_values)):
                 temp_values = values[i]
