@@ -1,3 +1,3 @@
-# Analisis-Numerico
+# Numerical-Analytics App
 
-Proyecto Final de Analisis Numerico, hecho en Python y GTK3 
+Made with Python and GTK3
